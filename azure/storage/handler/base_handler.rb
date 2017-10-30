@@ -1,0 +1,20 @@
+require_relative "../auto_generated/core_types"
+require_relative "../infrastructure/request_info_filter"
+
+module Azure
+  module Storage
+    module Handler
+      class BaseHandler
+        attr_accessor :request_info
+
+        def initialize(request_info = nil)
+          @request_info = request_info || Azure::Storage::Utilities::get_default_request_info
+        end
+
+        def get_request_info_filter(request_info)
+          RequestInfoFilter.new(request_info)
+        end
+      end
+    end
+  end
+end
