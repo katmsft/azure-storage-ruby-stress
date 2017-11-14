@@ -27,6 +27,13 @@ module Azure
       module Defaults
         LOGGER_LEVEL = Logger::DEBUG
       end
+
+      module Constant
+        TICKSPERSECOND = 10000000
+        TICKSPERMILLISECOND = 10000
+        UNIXEPOCHINMILLISECONDS = 62135596800000
+        MILLISECONDSPERSECOND = 1000
+      end
     end
   end
 end
