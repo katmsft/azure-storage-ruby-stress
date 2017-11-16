@@ -14,12 +14,12 @@ module Azure
       end
 
       def self.timeStampToTime(time)
-        timeStamp = (time / Azure::Storage::Constants::Constant::TICKSPERMILLISECOND - Azure::Storage::Constants::Constant::UNIXEPOCHINMILLISECONDS) / Azure::Storage::Constants::Constant::MILLISECONDSPERSECOND
+        timeStamp = (time / Azure::Storage::Constants::Constant::TICKS_PER_MILLISECOND - Azure::Storage::Constants::Constant::UNIX_EPOCH_IN_MILLISECONDS) / Azure::Storage::Constants::Constant::MILLISECONDS_PER_SECOND
         return Time.at(timeStamp)
       end
 
       def self.timeSpanToSecond(timeSpan)
-        return timeSpan / Azure::Storage::Constants::Constant::TICKSPERSECOND
+        return timeSpan / Azure::Storage::Constants::Constant::TICKS_PER_SECOND
       end
     end
   end

@@ -1,11 +1,9 @@
 require_relative "base_handler"
-require_relative "../auto_generated/core_types"
-require_relative "../auto_generated/cloud_queue_client_types"
-# require_relative "../auto_generated/cloud_queue_client_service"
+require_relative "../utils"
+require_relative "../auto_generated/cloud_table_client_service"
 require_relative "../converter/core_converter"
-require_relative "../converter/queue_converter"
+require_relative "../converter/table_converter"
 require_relative "../infrastructure/logging_aspect"
-
 
 module Azure
   module Storage
