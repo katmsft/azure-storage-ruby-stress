@@ -28,13 +28,12 @@ module Azure
         LOGGER_LEVEL = Logger::DEBUG
       end
 
-      module Constant
-        TICKS_PER_SECOND = 10000000
-        TICKS_PER_MILLISECOND = 10000
-        UNIX_EPOCH_IN_MILLISECONDS = 62135596800000
-        MILLISECONDS_PER_SECOND = 1000
-        HTTP_Methods = ["DELETE", "GET", "HEAD", "MERGE", "POST", "OPTIONS", "PUT"]
-      end
+      # Constant values
+      TICKS_PER_SECOND = 10000000
+      TICKS_PER_MILLISECOND = 10000
+      UNIX_EPOCH_IN_MILLISECONDS = 62135596800000
+      MILLISECONDS_PER_SECOND = 1000
+      HTTP_Methods = ["DELETE", "GET", "HEAD", "MERGE", "POST", "OPTIONS", "PUT"]
     end
   end
 end

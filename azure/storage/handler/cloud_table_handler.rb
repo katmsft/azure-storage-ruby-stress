@@ -14,7 +14,7 @@ module Azure
           tableClient = Azure::Storage::Converter::TableConverter.getTableService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -23,7 +23,7 @@ module Azure
           tableClient = Azure::Storage::Converter::TableConverter.getTableService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -32,7 +32,7 @@ module Azure
           tableClient = Azure::Storage::Converter::TableConverter.getTableService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -41,7 +41,7 @@ module Azure
           tableClient = Azure::Storage::Converter::TableConverter.getTableService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -50,7 +50,7 @@ module Azure
           tableClient = Azure::Storage::Converter::TableConverter.getTableService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -59,7 +59,7 @@ module Azure
           tableClient = Azure::Storage::Converter::TableConverter.getTableService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -68,7 +68,7 @@ module Azure
           tableClient = Azure::Storage::Converter::TableConverter.getTableService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -77,7 +77,7 @@ module Azure
           tableClient = Azure::Storage::Converter::TableConverter.getTableService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -86,7 +86,7 @@ module Azure
           tableClient = Azure::Storage::Converter::TableConverter.getTableService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
       end
     end

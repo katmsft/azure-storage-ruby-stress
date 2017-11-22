@@ -5,14 +5,14 @@ module Azure
   module Storage
     module Converter
       class CoreConverter
-        def CoreConverter.getStorageService(handler, accountInfo)
+        def self.getStorageService(handler, accountInfo)
           # TODO: Support other client and secondary
           # TODO: Support SAS
           Azure::Storage::Infrastructure::LoggingAspect.logger.debug(storage_account_name: accountInfo.accountName, storage_access_key: accountInfo.base64EncodedKey)
-          return Azure::Storage::Client.create(storage_account_name: accountInfo.accountName, storage_access_key: accountInfo.base64EncodedKey)
+          client = Azure::Storage::Client.create(storage_account_name: accountInfo.accountName, storage_access_key: accountInfo.base64EncodedKey)
         end
 
-        def CoreConverter.getCommonRequestOptions(thriftRequestOptions, thriftOperationContext)
+        def self.getCommonRequestOptions(thriftRequestOptions, thriftOperationContext)
           options = {}
           unless thriftRequestOptions.nil?
             options[:timeout] = thriftRequestOptions.maximumExecutionTimeSeconds unless thriftRequestOptions.maximumExecutionTimeSeconds.nil?
@@ -25,7 +25,22 @@ module Azure
           return options
         end
 
-        def CoreConverter.convertThriftStorageServicePropertiesToServiceProperties(properties)
+        def self.getAccessConditionOptions(thriftAccessCondition)
+          options = {}
+          unless thriftAccessCondition.nil?
+            options[:lease_id] = thriftAccessCondition.leaseId unless thriftAccessCondition.leaseId.nil?
+            options[:if_match] = thriftAccessCondition.ifMatchEtag unless thriftAccessCondition.ifMatchEtag.nil?
+            options[:if_none_match] = thriftAccessCondition.ifNoneMatchEtag unless thriftAccessCondition.ifNoneMatchEtag.nil?
+            options[:if_modified_since] = thriftAccessCondition.ifModifiedSinceTime unless thriftAccessCondition.ifModifiedSinceTime.nil?
+            options[:if_unmodified_since] = thriftAccessCondition.ifNotModifiedSinceTime unless thriftAccessCondition.ifNotModifiedSinceTime.nil?
+            options[:if_sequence_number_eq] = thriftAccessCondition.ifSequenceNumberEqual unless thriftAccessCondition.ifSequenceNumberEqual.nil?
+            options[:if_sequence_number_lt] = thriftAccessCondition.ifSequenceNumberLessThan unless thriftAccessCondition.ifSequenceNumberLessThan.nil?
+            options[:if_sequence_number_le] = thriftAccessCondition.ifSequenceNumberLessThanOrEqual unless thriftAccessCondition.ifSequenceNumberLessThanOrEqual.nil?
+          end
+          options
+        end
+
+        def self.convertThriftStorageServicePropertiesToServiceProperties(properties)
           storageProperties = Azure::Storage::Service::StorageServiceProperties.new
           storageProperties.cors = CoreConverter.convertCorsRuleArrayToCORSArray(properties.corsRules)
           storageProperties.default_service_version = properties.defaultServiceVersion

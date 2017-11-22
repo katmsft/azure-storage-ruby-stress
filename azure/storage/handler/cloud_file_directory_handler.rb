@@ -14,7 +14,7 @@ module Azure
           fileClient = Azure::Storage::Converter::FileConverter.getFileService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -22,7 +22,7 @@ module Azure
           fileClient = Azure::Storage::Converter::FileConverter.getFileService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -30,7 +30,7 @@ module Azure
           fileClient = Azure::Storage::Converter::FileConverter.getFileService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -39,7 +39,7 @@ module Azure
           fileClient = Azure::Storage::Converter::FileConverter.getFileService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -48,7 +48,7 @@ module Azure
           fileClient = Azure::Storage::Converter::FileConverter.getFileService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -57,7 +57,7 @@ module Azure
           fileClient = Azure::Storage::Converter::FileConverter.getFileService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -66,7 +66,7 @@ module Azure
           fileClient = Azure::Storage::Converter::FileConverter.getFileService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
       end
     end

@@ -14,7 +14,7 @@ module Azure
           blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -23,7 +23,7 @@ module Azure
           blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -32,7 +32,7 @@ module Azure
           blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -41,7 +41,7 @@ module Azure
           blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -50,7 +50,7 @@ module Azure
           blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -59,14 +59,14 @@ module Azure
           blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
         def listBlobsSegmented(listBlobsPayload, accountInfo, maxResults, continuationToken, containerName)
           blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -75,7 +75,7 @@ module Azure
           blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -84,7 +84,7 @@ module Azure
           blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -93,7 +93,7 @@ module Azure
           blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -102,7 +102,7 @@ module Azure
           blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -111,7 +111,7 @@ module Azure
           blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -119,7 +119,7 @@ module Azure
           blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
 
 
@@ -128,7 +128,7 @@ module Azure
           blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
           # ==== Construct Parameters ==== #
           # ==== Operation ==== #
-          # ==== Construct Reture Value ==== #
+          # ==== Construct Return Value ==== #
         end
       end
     end
