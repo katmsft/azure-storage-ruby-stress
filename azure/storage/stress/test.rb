@@ -23,7 +23,7 @@
 #   puts "\n" + "supported_features1".rjust(40, "-").ljust(80, "-") + "\n"
 #   # Ends debug code snippet
 #   #---------------------------------------------------------|
-  
+
 #   #---------------------------------------------------------|
 #   # Begin debug code snippet
 #   puts "\n" + "supported_features2".rjust(40, "-").ljust(80, "-") + "\n"
@@ -39,55 +39,3 @@
 # rescue Thrift::Exception => tx
 #   print 'Thrift::Exception: ', tx.message, "\n"
 # end
-
-
-require "aspector"
-require_relative "./auto_generated/core_types"
-require "logger"
-require_relative "constants"
-require_relative "utils"
-require_relative "./infrastructure/logging_aspect"
-
-# Example class to which we will apply our aspects
-class ExampleClass
-  def test(input)
-    puts input.upcase
-  end
-
-  def another_test(input)
-    input.downcase
-  end
-end
-
-requestInfo = Azure::Storage::Utilities::get_default_request_info
-
-instance = ExampleClass.new
-
-aspector(ExampleClass) do
-  around :test, name: 'advice2' do |proxy, arg, &block|
-    puts "advice2(#{arg}) 1"
-    proxy.call arg, &block
-    puts "advice2(#{arg}) 2"
-  end
-end
-
-# ExampleClass.new.test("nothing")
-
-module Abb
-  def foo
-    puts 'A'
-  end
-end
-
-class Bbb
-  include Abb
-
-  def foo
-    puts 'B'
-    super
-  end
-end
-
-Azure::Storage::Infrastructure::LoggingAspect.apply Bbb
-
-Bbb.new.foo

@@ -6,4 +6,4 @@
 
 require "rubygems"
 require "thrift"
-require "all_types"
+require_relative "all_types"

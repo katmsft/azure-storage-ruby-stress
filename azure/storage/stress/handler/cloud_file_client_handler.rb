@@ -6,43 +6,41 @@ require_relative "../converter/file_converter"
 require_relative "../infrastructure/logging_aspect"
 
 
-module Azure
-  module Storage
-    module Handler
-      class CloudFileClientHandler < BaseHandler
-        def listShares(accountInfo, prefix, detailsIncluded, fileRequestOptions, operationContext)
-          fileClient = Azure::Storage::Converter::FileConverter.getFileService(self, accountInfo)
-          # ==== Construct Parameters ==== #
-          # ==== Operation ==== #
-          # ==== Construct Return Value ==== #
-        end
+module Azure::Storage::Stress
+  module Handler
+    class CloudFileClientHandler < BaseHandler
+      def listShares(accountInfo, prefix, detailsIncluded, fileRequestOptions, operationContext)
+        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Construct Parameters ==== #
+        # ==== Operation ==== #
+        # ==== Construct Return Value ==== #
+      end
 
 
 
-        def listSharesSegmented(accountInfo, prefix, detailsIncluded, maxResults, continuationToken, fileRequestOptions, operationContext)
-          fileClient = Azure::Storage::Converter::FileConverter.getFileService(self, accountInfo)
-          # ==== Construct Parameters ==== #
-          # ==== Operation ==== #
-          # ==== Construct Return Value ==== #
-        end
+      def listSharesSegmented(accountInfo, prefix, detailsIncluded, maxResults, continuationToken, fileRequestOptions, operationContext)
+        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Construct Parameters ==== #
+        # ==== Operation ==== #
+        # ==== Construct Return Value ==== #
+      end
 
 
 
-        def setProperties(thriftRequestOptions, accountInfo, thriftOperationContext, properties)
-          fileClient = Azure::Storage::Converter::FileConverter.getFileService(self, accountInfo)
-          # ==== Construct Parameters ==== #
-          # ==== Operation ==== #
-          # ==== Construct Return Value ==== #
-        end
+      def setProperties(thriftRequestOptions, accountInfo, thriftOperationContext, properties)
+        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Construct Parameters ==== #
+        # ==== Operation ==== #
+        # ==== Construct Return Value ==== #
+      end
 
 
 
-        def getProperties(thriftRequestOptions, accountInfo, thriftOperationContext)
-          fileClient = Azure::Storage::Converter::FileConverter.getFileService(self, accountInfo)
-          # ==== Construct Parameters ==== #
-          # ==== Operation ==== #
-          # ==== Construct Return Value ==== #
-        end
+      def getProperties(thriftRequestOptions, accountInfo, thriftOperationContext)
+        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Construct Parameters ==== #
+        # ==== Operation ==== #
+        # ==== Construct Return Value ==== #
       end
     end
   end
