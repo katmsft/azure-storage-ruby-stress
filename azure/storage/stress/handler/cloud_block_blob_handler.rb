@@ -6,77 +6,147 @@ require_relative "../converter/blob_converter"
 require_relative "../infrastructure/logging_aspect"
 
 
-module Azure
-  module Storage
-    module Handler
-      class CloudBlockBlobHandler < BaseHandler
-        def putBlock(putBlockPayload, accountInfo)
-          blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
-          # ==== Construct Parameters ==== #
-          # ==== Operation ==== #
-          # ==== Construct Return Value ==== #
-        end
+module Azure::Storage::Stress
+  module Handler
+    class CloudBlockBlobHandler < CloudBlobHandler
+      def putBlock(putBlockPayload, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        # ==== Construct Parameters ==== #
+        blobName = requestInfo.blobName
+        containerName = requestInfo.containerName
+        options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        # ==== Operation ==== #
+        result = blobClient.get_blob_properties(containerName, blobName, options)
+        # ==== Construct Return Value ==== #
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+      end
 
 
 
-        def putBlockList(requestInfo, accountInfo, blockList)
-          blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
-          # ==== Construct Parameters ==== #
-          # ==== Operation ==== #
-          # ==== Construct Return Value ==== #
-        end
+      def putBlockList(requestInfo, accountInfo, blockList)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        # ==== Construct Parameters ==== #
+        blobName = requestInfo.blobName
+        containerName = requestInfo.containerName
+        options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        # ==== Operation ==== #
+        result = blobClient.get_blob_properties(containerName, blobName, options)
+        # ==== Construct Return Value ==== #
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+      end
 
 
 
-        def downloadBlockList(requestInfo, accountInfo, blockListingFilters)
-          blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
-          # ==== Construct Parameters ==== #
-          # ==== Operation ==== #
-          # ==== Construct Return Value ==== #
-        end
+      def downloadBlockList(requestInfo, accountInfo, blockListingFilters)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        # ==== Construct Parameters ==== #
+        blobName = requestInfo.blobName
+        containerName = requestInfo.containerName
+        options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        # ==== Operation ==== #
+        result = blobClient.get_blob_properties(containerName, blobName, options)
+        # ==== Construct Return Value ==== #
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+      end
 
 
-        def uploadText(requestInfo, accountInfo, content, encoding)
-          blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
-          # ==== Construct Parameters ==== #
-          # ==== Operation ==== #
-          # ==== Construct Return Value ==== #
-        end
+      def uploadText(requestInfo, accountInfo, content, encoding)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        # ==== Construct Parameters ==== #
+        blobName = requestInfo.blobName
+        containerName = requestInfo.containerName
+        options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        # ==== Operation ==== #
+        result = blobClient.get_blob_properties(containerName, blobName, options)
+        # ==== Construct Return Value ==== #
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+      end
 
 
-        def downloadText(requestInfo, accountInfo, encoding)
-          blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
-          # ==== Construct Parameters ==== #
-          # ==== Operation ==== #
-          # ==== Construct Return Value ==== #
-        end
+      def downloadText(requestInfo, accountInfo, encoding)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        # ==== Construct Parameters ==== #
+        blobName = requestInfo.blobName
+        containerName = requestInfo.containerName
+        options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        # ==== Operation ==== #
+        result = blobClient.get_blob_properties(containerName, blobName, options)
+        # ==== Construct Return Value ==== #
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+      end
 
 
 
-        def uploadFromStream(requestInfo, accountInfo, versions, segments, length)
-          blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
-          # ==== Construct Parameters ==== #
-          # ==== Operation ==== #
-          # ==== Construct Return Value ==== #
-        end
+      def uploadFromStream(requestInfo, accountInfo, versions, segments, length)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        # ==== Construct Parameters ==== #
+        blobName = requestInfo.blobName
+        containerName = requestInfo.containerName
+        options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        # ==== Operation ==== #
+        result = blobClient.get_blob_properties(containerName, blobName, options)
+        # ==== Construct Return Value ==== #
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+      end
 
 
 
-        def uploadFromFile(requestInfo, accountInfo, path, fileMode)
-          blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
-          # ==== Construct Parameters ==== #
-          # ==== Operation ==== #
-          # ==== Construct Return Value ==== #
-        end
+      def uploadFromFile(requestInfo, accountInfo, path, fileMode)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        # ==== Construct Parameters ==== #
+        blobName = requestInfo.blobName
+        containerName = requestInfo.containerName
+        options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        # ==== Operation ==== #
+        result = blobClient.get_blob_properties(containerName, blobName, options)
+        # ==== Construct Return Value ==== #
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+      end
 
 
 
-        def setStandardBlobTier(requestInfo, accountInfo, blobTier)
-          blobClient = Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo)
-          # ==== Construct Parameters ==== #
-          # ==== Operation ==== #
-          # ==== Construct Return Value ==== #
-        end
+      def setStandardBlobTier(requestInfo, accountInfo, blobTier)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        # ==== Construct Parameters ==== #
+        blobName = requestInfo.blobName
+        containerName = requestInfo.containerName
+        options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        # ==== Operation ==== #
+        result = blobClient.get_blob_properties(containerName, blobName, options)
+        # ==== Construct Return Value ==== #
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
       end
     end
   end

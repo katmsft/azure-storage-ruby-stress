@@ -6,14 +6,12 @@ require_relative "../converter/blob_converter"
 require_relative "../infrastructure/logging_aspect"
 
 
-module Azure
-  module Storage
-    module Handler
-      class CloudBlobBaseHandler < BaseHandler
-        def build_client(internalRequestInfo, accountInfo)
-          # ==== Build Client ==== #
-          Azure::Storage::Converter::BlobConverter.getBlobService(self, accountInfo, [self.get_request_info_filter(internalRequestInfo)])
-        end
+module Azure::Storage::Stress
+  module Handler
+    class CloudBlobBaseHandler < BaseHandler
+      def build_client(internalRequestInfo, accountInfo)
+        # ==== Build Client ==== #
+        XSS::Converter::BlobConverter.getBlobService(self, accountInfo, [self.get_request_info_filter(internalRequestInfo)])
       end
     end
   end
