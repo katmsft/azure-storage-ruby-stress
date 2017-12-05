@@ -8,82 +8,122 @@ require_relative "../infrastructure/logging_aspect"
 
 module Azure::Storage::Stress
   module Handler
-    class CloudFileHandler < BaseHandler
+    class CloudFileHandler < CloudFileBaseHandler
       def create(accountInfo, filePath, size, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
 
 
       def writeRange(accountInfo, filePath, version, length, startOffset, contentMd5, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
 
 
       def deleteFile(accountInfo, filePath, deleteIfExists, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
 
 
       def setMetadata(accountInfo, filePath, metadata, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
 
 
       def setProperties(accountInfo, filePath, properties, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
 
 
       def fetchAttributes(accountInfo, filePath, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
 
 
       def exists(accountInfo, filePath, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
 
 
       def clearRange(accountInfo, filePath, offset, length, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
 
 
       def resize(accountInfo, filePath, size, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
 
 
       def listRanges(accountInfo, filePath, size, length, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
@@ -91,8 +131,12 @@ module Azure::Storage::Stress
 
 
       def uploadFromStream(accountInfo, filePath, source, length, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
@@ -100,8 +144,12 @@ module Azure::Storage::Stress
 
 
       def uploadFromByteArray(accountInfo, filePath, buffer, index, count, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
@@ -109,8 +157,12 @@ module Azure::Storage::Stress
 
 
       def downloadToByteArray(accountInfo, filePath, targetSize, index, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
@@ -118,8 +170,12 @@ module Azure::Storage::Stress
 
 
       def downloadRangeToByteArray(accountInfo, filePath, targetSize, index, fileOffset, length, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
@@ -127,8 +183,12 @@ module Azure::Storage::Stress
 
 
       def startCopyFromFileOrBlob(requestInfo, accountInfo, uri)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
+        options = XSS::Converter::FileConverter::getRequestOptions(fileRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
       end
