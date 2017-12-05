@@ -9,6 +9,7 @@ module Azure::Storage::Stress
         # TODO: Support other client and secondary
         # TODO: Support SAS
         XSS::Infrastructure::LoggingAspect.logger.debug(storage_account_name: accountInfo.accountName, storage_access_key: accountInfo.base64EncodedKey)
+        # TODO: Need to set endpoint to SCTE end point
         client = Azure::Storage::Client.create(storage_account_name: accountInfo.accountName, storage_access_key: accountInfo.base64EncodedKey)
       end
 
@@ -22,14 +23,14 @@ module Azure::Storage::Stress
         options
       end
 
-      def self.getAccessConditionOptions(thriftAccessCondition)
+      def self.getAccessConditionOptions(thriftAccessCondition, prefix = "")
         options = {}
         unless thriftAccessCondition.nil?
           options[:lease_id] = thriftAccessCondition.leaseId unless thriftAccessCondition.leaseId.nil?
-          options[:if_match] = thriftAccessCondition.ifMatchEtag unless thriftAccessCondition.ifMatchEtag.nil?
-          options[:if_none_match] = thriftAccessCondition.ifNoneMatchEtag unless thriftAccessCondition.ifNoneMatchEtag.nil?
-          options[:if_modified_since] = thriftAccessCondition.ifModifiedSinceTime unless thriftAccessCondition.ifModifiedSinceTime.nil?
-          options[:if_unmodified_since] = thriftAccessCondition.ifNotModifiedSinceTime unless thriftAccessCondition.ifNotModifiedSinceTime.nil?
+          options[(prefix + :if_match.to_s).to_sym] = thriftAccessCondition.ifMatchEtag unless thriftAccessCondition.ifMatchEtag.nil?
+          options[(prefix + :if_none_match.to_s).to_sym] = thriftAccessCondition.ifNoneMatchEtag unless thriftAccessCondition.ifNoneMatchEtag.nil?
+          options[(prefix + :if_modified_since.to_s).to_sym] = thriftAccessCondition.ifModifiedSinceTime unless thriftAccessCondition.ifModifiedSinceTime.nil?
+          options[(prefix + :if_unmodified_since.to_s).to_sym] = thriftAccessCondition.ifNotModifiedSinceTime unless thriftAccessCondition.ifNotModifiedSinceTime.nil?
           options[:if_sequence_number_eq] = thriftAccessCondition.ifSequenceNumberEqual unless thriftAccessCondition.ifSequenceNumberEqual.nil?
           options[:if_sequence_number_lt] = thriftAccessCondition.ifSequenceNumberLessThan unless thriftAccessCondition.ifSequenceNumberLessThan.nil?
           options[:if_sequence_number_le] = thriftAccessCondition.ifSequenceNumberLessThanOrEqual unless thriftAccessCondition.ifSequenceNumberLessThanOrEqual.nil?
