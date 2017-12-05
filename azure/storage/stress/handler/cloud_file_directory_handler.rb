@@ -8,9 +8,11 @@ require_relative "../infrastructure/logging_aspect"
 
 module Azure::Storage::Stress
   module Handler
-    class CloudFileDirectoryHandler < BaseHandler
+    class CloudFileDirectoryHandler < CloudFileBaseHandler
       def createDirectory(accountInfo, filePath, createIfNotExists, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
@@ -18,7 +20,9 @@ module Azure::Storage::Stress
 
 
       def deleteDirectory(accountInfo, filePath, deleteIfExists, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
@@ -26,7 +30,9 @@ module Azure::Storage::Stress
 
 
       def setMetadata(accountInfo, filePath, accessCondition, fileRequestOptions, operationContext, metadata)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
@@ -35,7 +41,9 @@ module Azure::Storage::Stress
 
 
       def fetchAttributes(accountInfo, filePath, accessCondition, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
@@ -44,7 +52,9 @@ module Azure::Storage::Stress
 
 
       def exists(accountInfo, filePath, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
@@ -53,7 +63,9 @@ module Azure::Storage::Stress
 
 
       def listFilesAndDirectories(accountInfo, prefix, filePath, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
@@ -62,7 +74,9 @@ module Azure::Storage::Stress
 
 
       def listFilesAndDirectoriesSegmented(accountInfo, prefix, filePath, maxResults, continuationToken, fileRequestOptions, operationContext)
-        fileClient = XSS::Converter::FileConverter.getFileService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(internalRequestInfo, accountInfo)
         # ==== Construct Parameters ==== #
         # ==== Operation ==== #
         # ==== Construct Return Value ==== #
