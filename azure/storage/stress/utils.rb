@@ -48,10 +48,28 @@ module Azure::Storage::Stress
 
     def self.generateMT19937Payload(length, seed)
       random = ::Random.new(seed)
+      payload = Array.new(length)
+      for i in 0...length
+        payload[i] = random.rand(255)
+      end
+      payload[0] = seed
+      payload.pack("C*")
+    end
+
+    def self.generateMT19937PayloadSlow(length, seed)
+      random = ::Random.new(seed)
       payload = "#{seed.chr}"
       random.rand(255)
       for i in 1...length
         payload += random.rand(255).chr
+      end
+      payload
+    end
+
+    def self.generateMT19937PayloadFromArrays(segments, versions)
+      payload = ""
+      for idx in 0...versions.size
+        payload += generateMT19937Payload(segments[idx], versions[idx])
       end
       payload
     end

@@ -82,7 +82,7 @@ module Azure::Storage::Stress
         options[:transactional_md5] = writePagesPayload.contentMD5 if writePagesPayload.contentMD5
         length = writePagesPayload.pageData.length
         startOffset = writePagesPayload.startOffset
-        endOffset = startOffset + length
+        endOffset = startOffset + length - 1
         # ==== Operation ==== #
         LoggingAspect::logger.info("Putting pages for page blob #{containerName}\\#{blobName} with start offset #{startOffset}, endOffset #{endOffset}")
         LoggingAspect::logger.debug("'pageData' is #{writePagesPayload.pageData}") if length < 100
@@ -106,7 +106,7 @@ module Azure::Storage::Stress
         # ==== Operation ==== #
         LoggingAspect::logger.info("Clearing pages for page blob #{containerName}\\#{blobName} with start offset #{startOffset}, endOffset #{startOffset + length}")
         LoggingAspect::logger.debug("'options' is #{options.to_s}")
-        result = blobClient.clear_blob_pages(containerName, blobName, startOffset, startOffset + length, options)
+        result = blobClient.clear_blob_pages(containerName, blobName, startOffset, startOffset + length - 1, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Clearing pages for page blob #{containerName}\\#{blobName} successful")
         XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
@@ -123,10 +123,10 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         options[:start_range] = offset
-        options[:end_range] = offset + length
+        options[:end_range] = offset + length - 1
         options[:previous_snapshot] = requestInfo.snapshotTime if requestInfo.snapshotTime
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Listing pages for page blob #{containerName}\\#{blobName} with offset #{offset}, endOffset #{startOffset + length}")
+        LoggingAspect::logger.info("Listing pages for page blob #{containerName}\\#{blobName} with offset #{offset}, endOffset #{options[:end_range]}")
         LoggingAspect::logger.debug("'options' is #{options.to_s}")
         result = blobClient.list_page_blob_ranges(containerName, blobName, options)
         # ==== Construct Return Value ==== #
@@ -147,13 +147,11 @@ module Azure::Storage::Stress
         options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
         options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
-        startOffset = 0
-        endOffset = length - 1
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Uploading from stream for page blob #{containerName}\\#{blobName} with start offset #{startOffset}, endOffset #{endOffset}")
+        LoggingAspect::logger.info("Uploading from stream for page blob #{containerName}\\#{blobName} with length #{length}")
         LoggingAspect::logger.debug("'source' is #{source}") if length < 100
         LoggingAspect::logger.debug("'options' is #{options.to_s}")
-        result = blobClient.put_blob_pages(containerName, blobName, startOffset, endOffset, source, options)
+        result = blobClient.create_page_blob_with_content(containerName, blobName, length, source, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Uploading from stream for page blob #{containerName}\\#{blobName} successful")
         XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
