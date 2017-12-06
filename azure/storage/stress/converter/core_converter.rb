@@ -206,6 +206,8 @@ module Azure::Storage::Stress
       end
 
       def self.getThriftSharedAccessPoliciesFromSignedIdentifiers(signedIdentifiers, policyClass)
+        return nil if signedIdentifiers.nil?
+
         results = {}
         signedIdentifiers.each { |signedIdentifier|
           # tsp = ThriftSharedAccessPolicy
