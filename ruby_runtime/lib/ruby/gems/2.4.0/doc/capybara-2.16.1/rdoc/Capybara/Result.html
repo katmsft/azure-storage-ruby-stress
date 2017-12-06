@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Capybara::Result - capybara-2.16.1 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Object.html">Object</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><span class="include">Enumerable</span>
+  
+  
+  </ul>
+</div>
+
+    <div id="extends-section" class="nav-section">
+  <h3>Extended With Modules</h3>
+
+  <ul class="link-list">
+    
+  
+    <li><span class="extend">Forwardable</span>
+  
+  
+  </ul>
+</div>
+
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-5B-5D">#[]</a>
+    
+    <li ><a href="#method-i-at">#at</a>
+    
+    <li ><a href="#method-i-each">#each</a>
+    
+    <li ><a href="#method-i-empty-3F">#empty?</a>
+    
+    <li ><a href="#method-i-failure_message">#failure_message</a>
+    
+    <li ><a href="#method-i-full_results">#full_results</a>
+    
+    <li ><a href="#method-i-lazy_select_elements">#lazy_select_elements</a>
+    
+    <li ><a href="#method-i-matches_count-3F">#matches_count?</a>
+    
+    <li ><a href="#method-i-negative_failure_message">#negative_failure_message</a>
+    
+    <li ><a href="#method-i-rest">#rest</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Capybara::Result">
+  <h1 id="class-Capybara::Result" class="class">
+    class Capybara::Result
+  </h1>
+
+  <section class="description">
+    
+<p>A {Capybara::Result} represents a collection of {Capybara::Node::Element}
+on the page. It is possible to interact with this collection similar to an
+Array because it implements Enumerable and offers the following Array
+methods through delegation:</p>
+<ul><li><dl class="rdoc-list label-list"><dt>
+<dd></dd></dl>
+</li><li>
+<p>each()</p>
+</li><li>
+<p>at()</p>
+</li><li>
+<p>size()</p>
+</li><li>
+<p>count()</p>
+</li><li>
+<p>length()</p>
+</li><li>
+<p>first()</p>
+</li><li>
+<p>last()</p>
+</li><li>
+<p>empty?()</p>
+</li></ul>
+
+<p>@see <a href="Node/Element.html">Capybara::Node::Element</a></p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(elements, query)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/capybara/result.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">elements</span>, <span class="ruby-identifier">query</span>)
+  <span class="ruby-ivar">@elements</span> = <span class="ruby-identifier">elements</span>
+  <span class="ruby-ivar">@result_cache</span> = []
+  <span class="ruby-ivar">@results_enum</span> = <span class="ruby-identifier">lazy_select_elements</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">matches_filters?</span>(<span class="ruby-identifier">node</span>) }
+  <span class="ruby-ivar">@query</span> = <span class="ruby-identifier">query</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-5B-5D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">[]</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="5B-5D-source">
+            <pre><span class="ruby-comment"># File lib/capybara/result.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-keyword">if</span> (<span class="ruby-identifier">args</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>) <span class="ruby-operator">&amp;&amp;</span> ((<span class="ruby-identifier">idx</span> = <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Integer</span>) <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">idx</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>)
+    <span class="ruby-ivar">@result_cache</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@results_enum</span>.<span class="ruby-identifier">next</span> <span class="ruby-keyword">while</span> <span class="ruby-ivar">@result_cache</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">idx</span>
+    <span class="ruby-ivar">@result_cache</span>[<span class="ruby-identifier">idx</span>]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">full_results</span>[<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>]
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">StopIteration</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="Result.html#method-i-at">at</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-at" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">at</span><span
+            class="method-args">(*args)</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="Result.html#method-i-5B-5D">[]</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-each" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">each</span><span
+            class="method-args">(&block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="each-source">
+            <pre><span class="ruby-comment"># File lib/capybara/result.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">enum_for</span>(<span class="ruby-value">:each</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
+
+  <span class="ruby-ivar">@result_cache</span>.<span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">next_result</span> = <span class="ruby-ivar">@results_enum</span>.<span class="ruby-identifier">next</span>
+    <span class="ruby-ivar">@result_cache</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">next_result</span>
+    <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">next_result</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-empty-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">empty?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="empty-3F-source">
+            <pre><span class="ruby-comment"># File lib/capybara/result.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">empty?</span>
+  <span class="ruby-operator">!</span><span class="ruby-identifier">any?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-failure_message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">failure_message</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="failure_message-source">
+            <pre><span class="ruby-comment"># File lib/capybara/result.rb, line 105</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">failure_message</span>
+  <span class="ruby-identifier">message</span> = <span class="ruby-ivar">@query</span>.<span class="ruby-identifier">failure_message</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">message</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;, found #{count} #{Capybara::Helpers.declension(&quot;match&quot;, &quot;matches&quot;, count)}: &quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">full_results</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:text</span>).<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:inspect</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;, &quot;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">message</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; but there were no matches&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">rest</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">elements</span> = <span class="ruby-identifier">rest</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:text</span>).<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:inspect</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;, &quot;</span>)
+    <span class="ruby-identifier">message</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;. Also found &quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">elements</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;, which matched the selector but not all filters.&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">message</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-matches_count-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">matches_count?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="matches_count-3F-source">
+            <pre><span class="ruby-comment"># File lib/capybara/result.rb, line 64</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">matches_count?</span>
+  <span class="ruby-comment"># Only check filters for as many elements as necessary to determine result</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@query</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:count</span>]
+    <span class="ruby-identifier">count_opt</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-ivar">@query</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:count</span>])
+    <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@result_cache</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">count_opt</span>
+      <span class="ruby-ivar">@result_cache</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@results_enum</span>.<span class="ruby-identifier">next</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-ivar">@result_cache</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">count_opt</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@query</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:minimum</span>]
+    <span class="ruby-identifier">min_opt</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-ivar">@query</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:minimum</span>])
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-ivar">@result_cache</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@results_enum</span>.<span class="ruby-identifier">next</span> <span class="ruby-keyword">while</span> <span class="ruby-ivar">@result_cache</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">min_opt</span>
+    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">StopIteration</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@query</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:maximum</span>]
+    <span class="ruby-identifier">max_opt</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-ivar">@query</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:maximum</span>])
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-ivar">@result_cache</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@results_enum</span>.<span class="ruby-identifier">next</span> <span class="ruby-keyword">while</span> <span class="ruby-ivar">@result_cache</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">max_opt</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">StopIteration</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@query</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:between</span>]
+    <span class="ruby-identifier">max</span> =  <span class="ruby-constant">Integer</span>(<span class="ruby-ivar">@query</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:between</span>].<span class="ruby-identifier">max</span>)
+    <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@result_cache</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">max</span>
+      <span class="ruby-ivar">@result_cache</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@results_enum</span>.<span class="ruby-identifier">next</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> (<span class="ruby-ivar">@query</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:between</span>] <span class="ruby-operator">===</span> <span class="ruby-ivar">@result_cache</span>.<span class="ruby-identifier">size</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-negative_failure_message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">negative_failure_message</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="negative_failure_message-source">
+            <pre><span class="ruby-comment"># File lib/capybara/result.rb, line 119</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">negative_failure_message</span>
+  <span class="ruby-identifier">failure_message</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">/(to find)/</span>, <span class="ruby-string">&#39;not \1&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-full_results" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">full_results</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="full_results-source">
+            <pre><span class="ruby-comment"># File lib/capybara/result.rb, line 125</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">full_results</span>
+  <span class="ruby-identifier">loop</span> { <span class="ruby-ivar">@result_cache</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@results_enum</span>.<span class="ruby-identifier">next</span> }
+  <span class="ruby-ivar">@result_cache</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-lazy_select_elements" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">lazy_select_elements</span><span
+            class="method-args">(&block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="lazy_select_elements-source">
+            <pre><span class="ruby-comment"># File lib/capybara/result.rb, line 134</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">lazy_select_elements</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-comment"># JRuby has an issue with lazy enumerators which</span>
+  <span class="ruby-comment"># causes a concurrency issue with network requests here</span>
+  <span class="ruby-comment"># https://github.com/jruby/jruby/issues/4212</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">RUBY_PLATFORM</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;java&#39;</span>
+    <span class="ruby-ivar">@elements</span>.<span class="ruby-identifier">select</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>).<span class="ruby-identifier">to_enum</span>  <span class="ruby-comment"># non-lazy evaluation</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-ivar">@elements</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:lazy</span>  <span class="ruby-comment">#Ruby 2.0+</span>
+    <span class="ruby-ivar">@elements</span>.<span class="ruby-identifier">lazy</span>.<span class="ruby-identifier">select</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">Enumerator</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">yielder</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@elements</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">yielder</span>.<span class="ruby-identifier">yield</span>(<span class="ruby-identifier">val</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">val</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-rest" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rest</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="rest-source">
+            <pre><span class="ruby-comment"># File lib/capybara/result.rb, line 130</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">rest</span>
+  <span class="ruby-ivar">@rest</span> <span class="ruby-operator">||=</span> <span class="ruby-ivar">@elements</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">full_results</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

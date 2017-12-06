@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class RuboCop::Cop::Layout::IndentationWidth - rubocop-0.51.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+  var index_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Cop.html">RuboCop::Cop::Cop</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="../EndKeywordAlignment.html">RuboCop::Cop::EndKeywordAlignment</a>
+  
+  
+  
+    <li><a class="include" href="../AutocorrectAlignment.html">RuboCop::Cop::AutocorrectAlignment</a>
+  
+  
+  
+    <li><a class="include" href="../CheckAssignment.html">RuboCop::Cop::CheckAssignment</a>
+  
+  
+  
+    <li><a class="include" href="../IgnoredPattern.html">RuboCop::Cop::IgnoredPattern</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-check_assignment">#check_assignment</a>
+    
+    <li ><a href="#method-i-check_if">#check_if</a>
+    
+    <li ><a href="#method-i-check_indentation">#check_indentation</a>
+    
+    <li ><a href="#method-i-check_members">#check_members</a>
+    
+    <li ><a href="#method-i-configured_indentation_width">#configured_indentation_width</a>
+    
+    <li ><a href="#method-i-each_member">#each_member</a>
+    
+    <li ><a href="#method-i-indentation_consistency_style">#indentation_consistency_style</a>
+    
+    <li ><a href="#method-i-indentation_to_check-3F">#indentation_to_check?</a>
+    
+    <li ><a href="#method-i-offending_range">#offending_range</a>
+    
+    <li ><a href="#method-i-offense">#offense</a>
+    
+    <li ><a href="#method-i-on_block">#on_block</a>
+    
+    <li ><a href="#method-i-on_case">#on_case</a>
+    
+    <li ><a href="#method-i-on_class">#on_class</a>
+    
+    <li ><a href="#method-i-on_def">#on_def</a>
+    
+    <li ><a href="#method-i-on_defs">#on_defs</a>
+    
+    <li ><a href="#method-i-on_ensure">#on_ensure</a>
+    
+    <li ><a href="#method-i-on_for">#on_for</a>
+    
+    <li ><a href="#method-i-on_if">#on_if</a>
+    
+    <li ><a href="#method-i-on_kwbegin">#on_kwbegin</a>
+    
+    <li ><a href="#method-i-on_module">#on_module</a>
+    
+    <li ><a href="#method-i-on_resbody">#on_resbody</a>
+    
+    <li ><a href="#method-i-on_rescue">#on_rescue</a>
+    
+    <li class="calls-super" ><a href="#method-i-on_send">#on_send</a>
+    
+    <li ><a href="#method-i-on_until">#on_until</a>
+    
+    <li ><a href="#method-i-on_while">#on_while</a>
+    
+    <li ><a href="#method-i-other_offense_in_same_range-3F">#other_offense_in_same_range?</a>
+    
+    <li ><a href="#method-i-skip_check-3F">#skip_check?</a>
+    
+    <li ><a href="#method-i-special_modifier-3F">#special_modifier?</a>
+    
+    <li ><a href="#method-i-starts_with_access_modifier-3F">#starts_with_access_modifier?</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-RuboCop::Cop::Layout::IndentationWidth">
+  <h1 id="class-RuboCop::Cop::Layout::IndentationWidth" class="class">
+    class RuboCop::Cop::Layout::IndentationWidth
+  </h1>
+
+  <section class="description">
+    
+<p>This cops checks for indentation that doesn&#39;t use the specified number
+of spaces.</p>
+
+<p>See also the <a
+href="IndentationConsistency.html">IndentationConsistency</a> cop which is
+the companion to this one.</p>
+
+<p>@example</p>
+
+<pre># bad, Width: 2
+class A
+ def test
+  puts &#39;hello&#39;
+ end
+end
+
+# bad, Width: 2,
+       IgnoredPatterns:
+         - &#39;^\s*module&#39;
+module A
+class B
+  def test
+  puts &#39;hello&#39;
+  end
+end
+end
+
+# good, Width: 2
+class A
+  def test
+    puts &#39;hello&#39;
+  end
+end
+
+# good, Width: 2,
+        IgnoredPatterns:
+          - &#39;^\s*module&#39;
+module A
+class B
+  def test
+    puts &#39;hello&#39;
+  end
+end
+end</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="MSG">MSG
+        
+        <dd>
+        
+      
+        <dt id="SPECIAL_MODIFIERS">SPECIAL_MODIFIERS
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-on_block" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_block</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_block-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 76</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_block</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">end_loc</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">begins_its_line?</span>(<span class="ruby-identifier">end_loc</span>)
+
+  <span class="ruby-identifier">check_indentation</span>(<span class="ruby-identifier">end_loc</span>, <span class="ruby-identifier">node</span>.<span class="ruby-identifier">body</span>)
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">indentation_consistency_style</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;rails&#39;</span>
+
+  <span class="ruby-identifier">check_members</span>(<span class="ruby-identifier">end_loc</span>, [<span class="ruby-identifier">node</span>.<span class="ruby-identifier">body</span>])
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_case" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_case</span><span
+            class="method-args">(case_node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_case-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 129</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_case</span>(<span class="ruby-identifier">case_node</span>)
+  <span class="ruby-identifier">case_node</span>.<span class="ruby-identifier">each_when</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">when_node</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">check_indentation</span>(<span class="ruby-identifier">when_node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">keyword</span>, <span class="ruby-identifier">when_node</span>.<span class="ruby-identifier">body</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">check_indentation</span>(<span class="ruby-identifier">case_node</span>.<span class="ruby-identifier">when_branches</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">keyword</span>,
+                    <span class="ruby-identifier">case_node</span>.<span class="ruby-identifier">else_branch</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_class" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_class</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_class-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 93</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_class</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">_class_name</span>, <span class="ruby-identifier">_base_class</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">members</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">node</span>
+  <span class="ruby-identifier">check_members</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">keyword</span>, <span class="ruby-identifier">members</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_def" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_def</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_def-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_def</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">ignored_node?</span>(<span class="ruby-identifier">node</span>)
+
+  <span class="ruby-identifier">check_indentation</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">keyword</span>, <span class="ruby-identifier">node</span>.<span class="ruby-identifier">body</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="IndentationWidth.html#method-i-on_defs">on_defs</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_defs" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">on_defs</span><span
+            class="method-args">(node)</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="IndentationWidth.html#method-i-on_def">on_def</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-on_ensure" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_ensure</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_ensure-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_ensure</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">check_indentation</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">keyword</span>, <span class="ruby-identifier">node</span>.<span class="ruby-identifier">body</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="IndentationWidth.html#method-i-on_resbody">on_resbody</a>, <a href="IndentationWidth.html#method-i-on_for">on_for</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_for" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">on_for</span><span
+            class="method-args">(node)</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="IndentationWidth.html#method-i-on_ensure">on_ensure</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-on_if" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_if</span><span
+            class="method-args">(node, base = node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_if-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 138</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_if</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">base</span> = <span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">ignored_node?</span>(<span class="ruby-identifier">node</span>) <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">node</span>.<span class="ruby-identifier">body</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">ternary?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">modifier_form?</span>
+
+  <span class="ruby-identifier">check_if</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">node</span>.<span class="ruby-identifier">body</span>, <span class="ruby-identifier">node</span>.<span class="ruby-identifier">else_branch</span>, <span class="ruby-identifier">base</span>.<span class="ruby-identifier">loc</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_kwbegin" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_kwbegin</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_kwbegin-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 69</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_kwbegin</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-comment"># Check indentation against end keyword but only if it&#39;s first on its</span>
+  <span class="ruby-comment"># line.</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">begins_its_line?</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">end</span>)
+  <span class="ruby-identifier">check_indentation</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">end</span>, <span class="ruby-identifier">node</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">first</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_module" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_module</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_module-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 88</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_module</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">_module_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">members</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">node</span>
+  <span class="ruby-identifier">check_members</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">keyword</span>, <span class="ruby-identifier">members</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_resbody" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">on_resbody</span><span
+            class="method-args">(node)</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="IndentationWidth.html#method-i-on_ensure">on_ensure</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-on_rescue" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_rescue</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_rescue-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_rescue</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">_begin_node</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">_rescue_nodes</span>, <span class="ruby-identifier">else_node</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">node</span>
+  <span class="ruby-identifier">check_indentation</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">else</span>, <span class="ruby-identifier">else_node</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_send" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_send</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="../CheckAssignment.html#method-i-on_send">RuboCop::Cop::CheckAssignment#on_send</a>
+            </div>
+          
+
+          
+          <div class="method-source-code" id="on_send-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 98</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_send</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">super</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">adjacent_def_modifier?</span>
+
+  <span class="ruby-operator">*</span><span class="ruby-identifier">_</span>, <span class="ruby-identifier">body</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">node</span>.<span class="ruby-identifier">first_argument</span>
+
+  <span class="ruby-identifier">def_end_config</span> = <span class="ruby-identifier">config</span>.<span class="ruby-identifier">for_cop</span>(<span class="ruby-string">&#39;Lint/DefEndAlignment&#39;</span>)
+  <span class="ruby-identifier">style</span> = <span class="ruby-identifier">def_end_config</span>[<span class="ruby-string">&#39;EnforcedStyleAlignWith&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&#39;start_of_line&#39;</span>
+  <span class="ruby-identifier">base</span> = <span class="ruby-identifier">style</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;def&#39;</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">first_argument</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">node</span>
+
+  <span class="ruby-identifier">check_indentation</span>(<span class="ruby-identifier">base</span>.<span class="ruby-identifier">source_range</span>, <span class="ruby-identifier">body</span>)
+  <span class="ruby-identifier">ignore_node</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">first_argument</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_until" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">on_until</span><span
+            class="method-args">(node, base = node)</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="IndentationWidth.html#method-i-on_while">on_while</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-on_while" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_while</span><span
+            class="method-args">(node, base = node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_while-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 119</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_while</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">base</span> = <span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">ignored_node?</span>(<span class="ruby-identifier">node</span>)
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">single_line_condition?</span>
+
+  <span class="ruby-identifier">check_indentation</span>(<span class="ruby-identifier">base</span>.<span class="ruby-identifier">loc</span>, <span class="ruby-identifier">node</span>.<span class="ruby-identifier">body</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="IndentationWidth.html#method-i-on_until">on_until</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-check_assignment" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_assignment</span><span
+            class="method-args">(node, rhs)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_assignment-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 179</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_assignment</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">rhs</span>)
+  <span class="ruby-comment"># If there are method calls chained to the right hand side of the</span>
+  <span class="ruby-comment"># assignment, we let rhs be the receiver of those method calls before</span>
+  <span class="ruby-comment"># we check its indentation.</span>
+  <span class="ruby-identifier">rhs</span> = <span class="ruby-identifier">first_part_of_call_chain</span>(<span class="ruby-identifier">rhs</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">rhs</span>
+
+  <span class="ruby-identifier">end_config</span> = <span class="ruby-identifier">config</span>.<span class="ruby-identifier">for_cop</span>(<span class="ruby-string">&#39;Lint/EndAlignment&#39;</span>)
+  <span class="ruby-identifier">style</span> = <span class="ruby-identifier">end_config</span>[<span class="ruby-string">&#39;EnforcedStyleAlignWith&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&#39;keyword&#39;</span>
+  <span class="ruby-identifier">base</span> = <span class="ruby-identifier">variable_alignment?</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>, <span class="ruby-identifier">rhs</span>, <span class="ruby-identifier">style</span>.<span class="ruby-identifier">to_sym</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">node</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">rhs</span>
+
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">rhs</span>.<span class="ruby-identifier">type</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:if</span>            <span class="ruby-keyword">then</span> <span class="ruby-identifier">on_if</span>(<span class="ruby-identifier">rhs</span>, <span class="ruby-identifier">base</span>)
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:while</span>, <span class="ruby-value">:until</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">on_while</span>(<span class="ruby-identifier">rhs</span>, <span class="ruby-identifier">base</span>)
+  <span class="ruby-keyword">else</span>                     <span class="ruby-keyword">return</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">ignore_node</span>(<span class="ruby-identifier">rhs</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_if" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_if</span><span
+            class="method-args">(node, body, else_clause, base_loc)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_if-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 199</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_if</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">else_clause</span>, <span class="ruby-identifier">base_loc</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">ternary?</span>
+
+  <span class="ruby-identifier">check_indentation</span>(<span class="ruby-identifier">base_loc</span>, <span class="ruby-identifier">body</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">else_clause</span>
+
+  <span class="ruby-comment"># If the else clause is an elsif, it will get its own on_if call so</span>
+  <span class="ruby-comment"># we don&#39;t need to process it here.</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">else_clause</span>.<span class="ruby-identifier">if_type?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">else_clause</span>.<span class="ruby-identifier">elsif?</span>
+
+  <span class="ruby-identifier">check_indentation</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">else</span>, <span class="ruby-identifier">else_clause</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_indentation" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_indentation</span><span
+            class="method-args">(base_loc, body_node, style = 'normal')</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_indentation-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 212</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_indentation</span>(<span class="ruby-identifier">base_loc</span>, <span class="ruby-identifier">body_node</span>, <span class="ruby-identifier">style</span> = <span class="ruby-string">&#39;normal&#39;</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">indentation_to_check?</span>(<span class="ruby-identifier">base_loc</span>, <span class="ruby-identifier">body_node</span>)
+
+  <span class="ruby-identifier">indentation</span> = <span class="ruby-identifier">body_node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">column</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">effective_column</span>(<span class="ruby-identifier">base_loc</span>)
+  <span class="ruby-ivar">@column_delta</span> = <span class="ruby-identifier">configured_indentation_width</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">indentation</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@column_delta</span>.<span class="ruby-identifier">zero?</span>
+
+  <span class="ruby-identifier">offense</span>(<span class="ruby-identifier">body_node</span>, <span class="ruby-identifier">indentation</span>, <span class="ruby-identifier">style</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_members" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_members</span><span
+            class="method-args">(base, members)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_members-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 147</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_members</span>(<span class="ruby-identifier">base</span>, <span class="ruby-identifier">members</span>)
+  <span class="ruby-identifier">check_indentation</span>(<span class="ruby-identifier">base</span>, <span class="ruby-identifier">members</span>.<span class="ruby-identifier">first</span>)
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">members</span>.<span class="ruby-identifier">any?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">members</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">begin_type?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">indentation_consistency_style</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;rails&#39;</span>
+
+  <span class="ruby-identifier">each_member</span>(<span class="ruby-identifier">members</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">member</span>, <span class="ruby-identifier">previous_modifier</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">check_indentation</span>(<span class="ruby-identifier">previous_modifier</span>, <span class="ruby-identifier">member</span>,
+                      <span class="ruby-identifier">indentation_consistency_style</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-configured_indentation_width" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">configured_indentation_width</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="configured_indentation_width-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 300</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">configured_indentation_width</span>
+  <span class="ruby-identifier">cop_config</span>[<span class="ruby-string">&#39;Width&#39;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-each_member" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">each_member</span><span
+            class="method-args">(members) { |member, source_range| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="each_member-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 159</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">each_member</span>(<span class="ruby-identifier">members</span>)
+  <span class="ruby-identifier">previous_modifier</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">members</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">member</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">member</span>.<span class="ruby-identifier">send_type?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">special_modifier?</span>(<span class="ruby-identifier">member</span>)
+      <span class="ruby-identifier">previous_modifier</span> = <span class="ruby-identifier">member</span>
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">previous_modifier</span>
+      <span class="ruby-keyword">yield</span> <span class="ruby-identifier">member</span>, <span class="ruby-identifier">previous_modifier</span>.<span class="ruby-identifier">source_range</span>
+      <span class="ruby-identifier">previous_modifier</span> = <span class="ruby-keyword">nil</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-indentation_consistency_style" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">indentation_consistency_style</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="indentation_consistency_style-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 175</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">indentation_consistency_style</span>
+  <span class="ruby-identifier">config</span>.<span class="ruby-identifier">for_cop</span>(<span class="ruby-string">&#39;Layout/IndentationConsistency&#39;</span>)[<span class="ruby-string">&#39;EnforcedStyle&#39;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-indentation_to_check-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">indentation_to_check?</span><span
+            class="method-args">(base_loc, body_node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="indentation_to_check-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 259</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">indentation_to_check?</span>(<span class="ruby-identifier">base_loc</span>, <span class="ruby-identifier">body_node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">skip_check?</span>(<span class="ruby-identifier">base_loc</span>, <span class="ruby-identifier">body_node</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">%</span>[<span class="ruby-keyword">rescue</span> <span class="ruby-keyword">ensure</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">body_node</span>.<span class="ruby-identifier">type</span>)
+    <span class="ruby-identifier">block_body</span>, = <span class="ruby-operator">*</span><span class="ruby-identifier">body_node</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_body</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-offending_range" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">offending_range</span><span
+            class="method-args">(body_node, indentation)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="offending_range-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 285</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">offending_range</span>(<span class="ruby-identifier">body_node</span>, <span class="ruby-identifier">indentation</span>)
+  <span class="ruby-identifier">expr</span> = <span class="ruby-identifier">body_node</span>.<span class="ruby-identifier">source_range</span>
+  <span class="ruby-identifier">begin_pos</span> = <span class="ruby-identifier">expr</span>.<span class="ruby-identifier">begin_pos</span>
+  <span class="ruby-identifier">ind</span> = <span class="ruby-identifier">expr</span>.<span class="ruby-identifier">begin_pos</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">indentation</span>
+  <span class="ruby-identifier">pos</span> = <span class="ruby-identifier">indentation</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">ind</span><span class="ruby-operator">..</span><span class="ruby-identifier">begin_pos</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">begin_pos</span><span class="ruby-operator">..</span><span class="ruby-identifier">ind</span>
+  <span class="ruby-identifier">range_between</span>(<span class="ruby-identifier">pos</span>.<span class="ruby-identifier">begin</span>, <span class="ruby-identifier">pos</span>.<span class="ruby-identifier">end</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-offense" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">offense</span><span
+            class="method-args">(body_node, indentation, style)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="offense-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 222</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">offense</span>(<span class="ruby-identifier">body_node</span>, <span class="ruby-identifier">indentation</span>, <span class="ruby-identifier">style</span>)
+  <span class="ruby-comment"># This cop only auto-corrects the first statement in a def body, for</span>
+  <span class="ruby-comment"># example.</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">body_node</span>.<span class="ruby-identifier">begin_type?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">parentheses?</span>(<span class="ruby-identifier">body_node</span>)
+    <span class="ruby-identifier">body_node</span> = <span class="ruby-identifier">body_node</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">first</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Since autocorrect changes a number of lines, and not only the line</span>
+  <span class="ruby-comment"># where the reported offending range is, we avoid auto-correction if</span>
+  <span class="ruby-comment"># this cop has already found other offenses is the same</span>
+  <span class="ruby-comment"># range. Otherwise, two corrections can interfere with each other,</span>
+  <span class="ruby-comment"># resulting in corrupted code.</span>
+  <span class="ruby-identifier">node</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">autocorrect?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">other_offense_in_same_range?</span>(<span class="ruby-identifier">body_node</span>)
+           <span class="ruby-keyword">nil</span>
+         <span class="ruby-keyword">else</span>
+           <span class="ruby-identifier">body_node</span>
+         <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">name</span> = <span class="ruby-identifier">style</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;normal&#39;</span> <span class="ruby-operator">?</span> <span class="ruby-string">&#39;&#39;</span> <span class="ruby-operator">:</span> <span class="ruby-node">&quot; #{style}&quot;</span>
+  <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">format</span>(<span class="ruby-constant">MSG</span>, <span class="ruby-identifier">configured_indentation_width</span>, <span class="ruby-identifier">indentation</span>, <span class="ruby-identifier">name</span>)
+
+  <span class="ruby-identifier">add_offense</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-identifier">offending_range</span>(<span class="ruby-identifier">body_node</span>, <span class="ruby-identifier">indentation</span>),
+                    <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-identifier">msg</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-other_offense_in_same_range-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">other_offense_in_same_range?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns true if the given node is within another node that has already been
+marked for auto-correction by this cop.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="other_offense_in_same_range-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 249</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">other_offense_in_same_range?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">expr</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source_range</span>
+  <span class="ruby-ivar">@offense_ranges</span> <span class="ruby-operator">||=</span> []
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@offense_ranges</span>.<span class="ruby-identifier">any?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">within?</span>(<span class="ruby-identifier">expr</span>, <span class="ruby-identifier">r</span>) }
+
+  <span class="ruby-ivar">@offense_ranges</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">expr</span>
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-skip_check-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">skip_check?</span><span
+            class="method-args">(base_loc, body_node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="skip_check-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 270</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">skip_check?</span>(<span class="ruby-identifier">base_loc</span>, <span class="ruby-identifier">body_node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">ignored_line?</span>(<span class="ruby-identifier">base_loc</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">body_node</span>
+
+  <span class="ruby-comment"># Don&#39;t check if expression is on same line as &quot;then&quot; keyword, etc.</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">body_node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">line</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">base_loc</span>.<span class="ruby-identifier">line</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">starts_with_access_modifier?</span>(<span class="ruby-identifier">body_node</span>)
+
+  <span class="ruby-comment"># Don&#39;t check indentation if the line doesn&#39;t start with the body.</span>
+  <span class="ruby-comment"># For example, lines like &quot;else do_something&quot;.</span>
+  <span class="ruby-identifier">first_char_pos_on_line</span> = <span class="ruby-identifier">body_node</span>.<span class="ruby-identifier">source_range</span>.<span class="ruby-identifier">source_line</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/\S/</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">body_node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">column</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">first_char_pos_on_line</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-special_modifier-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">special_modifier?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="special_modifier-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 171</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">special_modifier?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">node</span>.<span class="ruby-identifier">access_modifier?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">SPECIAL_MODIFIERS</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">source</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-starts_with_access_modifier-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">starts_with_access_modifier?</span><span
+            class="method-args">(body_node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="starts_with_access_modifier-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indentation_width.rb, line 293</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">starts_with_access_modifier?</span>(<span class="ruby-identifier">body_node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">body_node</span>.<span class="ruby-identifier">begin_type?</span>
+
+  <span class="ruby-identifier">starting_node</span> = <span class="ruby-identifier">body_node</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">first</span>
+  <span class="ruby-identifier">starting_node</span>.<span class="ruby-identifier">send_type?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">starting_node</span>.<span class="ruby-identifier">access_modifier?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

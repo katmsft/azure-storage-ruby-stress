@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class RuboCop::Cop::Style::UnneededPercentQ - rubocop-0.51.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+  var index_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Cop.html">RuboCop::Cop::Cop</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-acceptable_capital_q-3F">#acceptable_capital_q?</a>
+    
+    <li ><a href="#method-i-acceptable_q-3F">#acceptable_q?</a>
+    
+    <li ><a href="#method-i-allowed_percent_q-3F">#allowed_percent_q?</a>
+    
+    <li ><a href="#method-i-autocorrect">#autocorrect</a>
+    
+    <li ><a href="#method-i-check">#check</a>
+    
+    <li ><a href="#method-i-interpolated_quotes-3F">#interpolated_quotes?</a>
+    
+    <li ><a href="#method-i-message">#message</a>
+    
+    <li ><a href="#method-i-on_dstr">#on_dstr</a>
+    
+    <li ><a href="#method-i-on_str">#on_str</a>
+    
+    <li ><a href="#method-i-start_with_percent_q_variant-3F">#start_with_percent_q_variant?</a>
+    
+    <li ><a href="#method-i-string_literal-3F">#string_literal?</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-RuboCop::Cop::Style::UnneededPercentQ">
+  <h1 id="class-RuboCop::Cop::Style::UnneededPercentQ" class="class">
+    class RuboCop::Cop::Style::UnneededPercentQ
+  </h1>
+
+  <section class="description">
+    
+<p>This cop checks for usage of the %q/%Q syntax when &#39;&#39; or “” would
+do.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="DYNAMIC_MSG">DYNAMIC_MSG
+        
+        <dd>
+        
+      
+        <dt id="EMPTY">EMPTY
+        
+        <dd>
+        
+      
+        <dt id="ESCAPED_NON_BACKSLASH">ESCAPED_NON_BACKSLASH
+        
+        <dd>
+        
+      
+        <dt id="MSG">MSG
+        
+        <dd>
+        
+      
+        <dt id="PERCENT_CAPITAL_Q">PERCENT_CAPITAL_Q
+        
+        <dd>
+        
+      
+        <dt id="PERCENT_Q">PERCENT_Q
+        
+        <dd>
+        
+      
+        <dt id="QUOTE">QUOTE
+        
+        <dd>
+        
+      
+        <dt id="SINGLE_QUOTE">SINGLE_QUOTE
+        
+        <dd>
+        
+      
+        <dt id="STRING_INTERPOLATION_REGEXP">STRING_INTERPOLATION_REGEXP
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-on_dstr" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_dstr</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_dstr-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/unneeded_percent_q.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_dstr</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">check</span>(<span class="ruby-identifier">node</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_str" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_str</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_str-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/unneeded_percent_q.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_str</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-comment"># Interpolated strings that contain more than just interpolation</span>
+  <span class="ruby-comment"># will call `on_dstr` for the entire string and `on_str` for the</span>
+  <span class="ruby-comment"># non interpolated portion of the string</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">string_literal?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">check</span>(<span class="ruby-identifier">node</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-acceptable_capital_q-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">acceptable_capital_q?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="acceptable_capital_q-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/unneeded_percent_q.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">acceptable_capital_q?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">src</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source</span>
+  <span class="ruby-identifier">src</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-constant">QUOTE</span>) <span class="ruby-operator">&amp;&amp;</span>
+    (<span class="ruby-identifier">src</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">STRING_INTERPOLATION_REGEXP</span> <span class="ruby-operator">||</span>
+    (<span class="ruby-identifier">node</span>.<span class="ruby-identifier">str_type?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">double_quotes_required?</span>(<span class="ruby-identifier">src</span>)))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-acceptable_q-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">acceptable_q?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="acceptable_q-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/unneeded_percent_q.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">acceptable_q?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">src</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">src</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">STRING_INTERPOLATION_REGEXP</span>
+
+  <span class="ruby-identifier">src</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/\./</span>).<span class="ruby-identifier">any?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">ESCAPED_NON_BACKSLASH</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-allowed_percent_q-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">allowed_percent_q?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="allowed_percent_q-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/unneeded_percent_q.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">allowed_percent_q?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source</span>.<span class="ruby-identifier">start_with?</span>(<span class="ruby-constant">PERCENT_Q</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">acceptable_q?</span>(<span class="ruby-identifier">node</span>) <span class="ruby-operator">||</span>
+    <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source</span>.<span class="ruby-identifier">start_with?</span>(<span class="ruby-constant">PERCENT_CAPITAL_Q</span>) <span class="ruby-operator">&amp;&amp;</span>
+      <span class="ruby-identifier">acceptable_capital_q?</span>(<span class="ruby-identifier">node</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-autocorrect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">autocorrect</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="autocorrect-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/unneeded_percent_q.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">autocorrect</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">delimiter</span> =
+    <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^%Q[^&quot;]+$|&#39;/</span> <span class="ruby-operator">?</span> <span class="ruby-constant">QUOTE</span> <span class="ruby-operator">:</span> <span class="ruby-constant">SINGLE_QUOTE</span>
+  <span class="ruby-identifier">lambda</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">corrector</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">corrector</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">begin</span>, <span class="ruby-identifier">delimiter</span>)
+    <span class="ruby-identifier">corrector</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">end</span>, <span class="ruby-identifier">delimiter</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/unneeded_percent_q.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">start_with_percent_q_variant?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">interpolated_quotes?</span>(<span class="ruby-identifier">node</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">allowed_percent_q?</span>(<span class="ruby-identifier">node</span>)
+
+  <span class="ruby-identifier">add_offense</span>(<span class="ruby-identifier">node</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-interpolated_quotes-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">interpolated_quotes?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="interpolated_quotes-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/unneeded_percent_q.rb, line 40</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">interpolated_quotes?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-constant">SINGLE_QUOTE</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-constant">QUOTE</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">message</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="message-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/unneeded_percent_q.rb, line 50</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">message</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">src</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source</span>
+  <span class="ruby-identifier">extra</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">start_with?</span>(<span class="ruby-constant">PERCENT_CAPITAL_Q</span>)
+            <span class="ruby-constant">DYNAMIC_MSG</span>
+          <span class="ruby-keyword">else</span>
+            <span class="ruby-constant">EMPTY</span>
+          <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">format</span>(<span class="ruby-constant">MSG</span>, <span class="ruby-identifier">src</span>[<span class="ruby-value">0</span>, <span class="ruby-value">2</span>], <span class="ruby-identifier">extra</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-start_with_percent_q_variant-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">start_with_percent_q_variant?</span><span
+            class="method-args">(string)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="start_with_percent_q_variant-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/unneeded_percent_q.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">start_with_percent_q_variant?</span>(<span class="ruby-identifier">string</span>)
+  <span class="ruby-identifier">string</span>.<span class="ruby-identifier">source</span>.<span class="ruby-identifier">start_with?</span>(<span class="ruby-constant">PERCENT_Q</span>, <span class="ruby-constant">PERCENT_CAPITAL_Q</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-string_literal-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">string_literal?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="string_literal-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/unneeded_percent_q.rb, line 69</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">string_literal?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:begin</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:end</span>) <span class="ruby-operator">&amp;&amp;</span>
+    <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">begin</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

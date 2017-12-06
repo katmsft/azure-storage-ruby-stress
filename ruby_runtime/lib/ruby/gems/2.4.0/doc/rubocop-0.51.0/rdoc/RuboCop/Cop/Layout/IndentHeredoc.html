@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class RuboCop::Cop::Layout::IndentHeredoc - rubocop-0.51.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+  var index_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Cop.html">RuboCop::Cop::Cop</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="../../../Heredoc.html">Heredoc</a>
+  
+  
+  
+    <li><a class="include" href="../ConfigurableEnforcedStyle.html">RuboCop::Cop::ConfigurableEnforcedStyle</a>
+  
+  
+  
+    <li><a class="include" href="../SafeMode.html">RuboCop::Cop::SafeMode</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-autocorrect">#autocorrect</a>
+    
+    <li ><a href="#method-i-base_indent_level">#base_indent_level</a>
+    
+    <li ><a href="#method-i-check_style-21">#check_style!</a>
+    
+    <li ><a href="#method-i-correct_by_library">#correct_by_library</a>
+    
+    <li ><a href="#method-i-correct_by_squiggly">#correct_by_squiggly</a>
+    
+    <li ><a href="#method-i-heredoc_body">#heredoc_body</a>
+    
+    <li ><a href="#method-i-heredoc_indent_type">#heredoc_indent_type</a>
+    
+    <li ><a href="#method-i-indent_level">#indent_level</a>
+    
+    <li ><a href="#method-i-indentation_width">#indentation_width</a>
+    
+    <li ><a href="#method-i-indented_body">#indented_body</a>
+    
+    <li ><a href="#method-i-message">#message</a>
+    
+    <li ><a href="#method-i-on_heredoc">#on_heredoc</a>
+    
+    <li class="calls-super" ><a href="#method-i-style">#style</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-RuboCop::Cop::Layout::IndentHeredoc">
+  <h1 id="class-RuboCop::Cop::Layout::IndentHeredoc" class="class">
+    class RuboCop::Cop::Layout::IndentHeredoc
+  </h1>
+
+  <section class="description">
+    
+<p>This cops checks the indentation of the here document bodies. The bodies
+are indented one step. In Ruby 2.3 or newer, squiggly heredocs
+(`&lt;&lt;~`) should be used. If you use the older rubies, you should
+introduce some library to your project (e.g. ActiveSupport, Powerpack or
+Unindent).</p>
+
+<p>@example</p>
+
+<pre class="ruby"><span class="ruby-comment"># bad</span>
+<span class="ruby-value">&lt;&lt;-RUBY
+something
+RUBY</span>
+
+<span class="ruby-comment"># good</span>
+<span class="ruby-comment"># When EnforcedStyle is squiggly, bad code is auto-corrected to the</span>
+<span class="ruby-comment"># following code.</span>
+<span class="ruby-operator">&lt;&lt;</span><span class="ruby-operator">~</span><span class="ruby-constant">RUBY</span>
+  <span class="ruby-identifier">something</span>
+<span class="ruby-constant">RUBY</span>
+
+<span class="ruby-comment"># good</span>
+<span class="ruby-comment"># When EnforcedStyle is active_support, bad code is auto-corrected to</span>
+<span class="ruby-comment"># the following code.</span>
+<span class="ruby-string">&quot;  something
+&quot;</span>.<span class="ruby-identifier">strip_heredoc</span>
+</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="LIBRARY_MSG">LIBRARY_MSG
+        
+        <dd>
+        
+      
+        <dt id="RUBY23_MSG">RUBY23_MSG
+        
+        <dd>
+        
+      
+        <dt id="StripMethods">StripMethods
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-autocorrect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">autocorrect</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="autocorrect-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_heredoc.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">autocorrect</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">check_style!</span>
+
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">style</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:squiggly</span>
+    <span class="ruby-identifier">correct_by_squiggly</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">correct_by_library</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_heredoc" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_heredoc</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_heredoc-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_heredoc.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_heredoc</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">body</span> = <span class="ruby-identifier">heredoc_body</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">body</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/\A\s*\z/</span>
+
+  <span class="ruby-identifier">body_indent_level</span> = <span class="ruby-identifier">indent_level</span>(<span class="ruby-identifier">body</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">heredoc_indent_type</span>(<span class="ruby-identifier">node</span>) <span class="ruby-operator">==</span> <span class="ruby-string">&#39;~&#39;</span>
+    <span class="ruby-identifier">expected_indent_level</span> = <span class="ruby-identifier">base_indent_level</span>(<span class="ruby-identifier">node</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">indentation_width</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">expected_indent_level</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">body_indent_level</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">body_indent_level</span>.<span class="ruby-identifier">zero?</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">add_offense</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-value">:heredoc_body</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-base_indent_level" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">base_indent_level</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="base_indent_level-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_heredoc.rb, line 141</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">base_indent_level</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">base_line_num</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">expression</span>.<span class="ruby-identifier">line</span>
+  <span class="ruby-identifier">base_line</span> = <span class="ruby-identifier">processed_source</span>.<span class="ruby-identifier">lines</span>[<span class="ruby-identifier">base_line_num</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>]
+  <span class="ruby-identifier">indent_level</span>(<span class="ruby-identifier">base_line</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_style-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_style!</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_style-21-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_heredoc.rb, line 121</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_style!</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">style</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-keyword">nil</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Warning</span>, <span class="ruby-node">&quot;Auto-correction does not work for #{cop_name}. &quot;</span>                             <span class="ruby-string">&#39;Please configure EnforcedStyle.&#39;</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:squiggly</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">target_ruby_version</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">2.3</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">Warning</span>, <span class="ruby-string">&#39;`squiggly` style is selectable only on Ruby &#39;</span>                               <span class="ruby-node">&quot;2.3 or higher for #{cop_name}.&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-correct_by_library" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">correct_by_library</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="correct_by_library-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_heredoc.rb, line 113</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">correct_by_library</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">lambda</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">corrector</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">corrector</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">heredoc_body</span>, <span class="ruby-identifier">indented_body</span>(<span class="ruby-identifier">node</span>))
+    <span class="ruby-identifier">corrected</span> = <span class="ruby-node">&quot;.#{StripMethods[style]}&quot;</span>
+    <span class="ruby-identifier">corrector</span>.<span class="ruby-identifier">insert_after</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">expression</span>, <span class="ruby-identifier">corrected</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-correct_by_squiggly" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">correct_by_squiggly</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="correct_by_squiggly-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_heredoc.rb, line 100</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">correct_by_squiggly</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">target_ruby_version</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">2.3</span>
+  <span class="ruby-identifier">lambda</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">corrector</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">heredoc_indent_type</span>(<span class="ruby-identifier">node</span>) <span class="ruby-operator">==</span> <span class="ruby-string">&#39;~&#39;</span>
+      <span class="ruby-identifier">corrector</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">heredoc_body</span>, <span class="ruby-identifier">indented_body</span>(<span class="ruby-identifier">node</span>))
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">heredoc_beginning</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">expression</span>.<span class="ruby-identifier">source</span>
+      <span class="ruby-identifier">corrected</span> = <span class="ruby-identifier">heredoc_beginning</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">/&lt;&lt;-?/</span>, <span class="ruby-string">&#39;&lt;&lt;~&#39;</span>)
+      <span class="ruby-identifier">corrector</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">expression</span>, <span class="ruby-identifier">corrected</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-heredoc_body" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">heredoc_body</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="heredoc_body-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_heredoc.rb, line 161</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">heredoc_body</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">heredoc_body</span>.<span class="ruby-identifier">source</span>.<span class="ruby-identifier">scrub</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-heredoc_indent_type" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">heredoc_indent_type</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns &#39;~&#39;, &#39;-&#39; or nil</p>
+          
+          
+
+          
+          <div class="method-source-code" id="heredoc_indent_type-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_heredoc.rb, line 153</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">heredoc_indent_type</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source</span>[<span class="ruby-regexp">/^&lt;&lt;([~-])/</span>, <span class="ruby-value">1</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-indent_level" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">indent_level</span><span
+            class="method-args">(str)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="indent_level-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_heredoc.rb, line 147</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">indent_level</span>(<span class="ruby-identifier">str</span>)
+  <span class="ruby-identifier">indentations</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/^\s*/</span>).<span class="ruby-identifier">reject</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span> <span class="ruby-identifier">line</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;\n&quot;</span> }
+  <span class="ruby-identifier">indentations</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">?</span> <span class="ruby-value">0</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">indentations</span>.<span class="ruby-identifier">min_by</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:size</span>).<span class="ruby-identifier">size</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-indentation_width" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">indentation_width</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="indentation_width-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_heredoc.rb, line 157</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">indentation_width</span>
+  <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">for_cop</span>(<span class="ruby-string">&#39;IndentationWidth&#39;</span>)[<span class="ruby-string">&#39;Width&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-value">2</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-indented_body" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">indented_body</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="indented_body-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_heredoc.rb, line 134</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">indented_body</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">body</span> = <span class="ruby-identifier">heredoc_body</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">body_indent_level</span> = <span class="ruby-identifier">indent_level</span>(<span class="ruby-identifier">body</span>)
+  <span class="ruby-identifier">correct_indent_level</span> = <span class="ruby-identifier">base_indent_level</span>(<span class="ruby-identifier">node</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">indentation_width</span>
+  <span class="ruby-identifier">body</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-node">/^\s{#{body_indent_level}}/</span>, <span class="ruby-string">&#39; &#39;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">correct_indent_level</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">message</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="message-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_heredoc.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">message</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">style</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:squiggly</span>
+    <span class="ruby-identifier">current_indent_type</span> = <span class="ruby-node">&quot;&lt;&lt;#{heredoc_indent_type(node)}&quot;</span>
+    <span class="ruby-identifier">format</span>(<span class="ruby-constant">RUBY23_MSG</span>, <span class="ruby-identifier">indentation_width</span>, <span class="ruby-identifier">current_indent_type</span>)
+  <span class="ruby-keyword">when</span> <span class="ruby-keyword">nil</span>
+    <span class="ruby-identifier">method</span> = <span class="ruby-node">&quot;some library(e.g. ActiveSupport&#39;s `String#strip_heredoc`)&quot;</span>
+    <span class="ruby-identifier">format</span>(<span class="ruby-constant">LIBRARY_MSG</span>, <span class="ruby-identifier">indentation_width</span>, <span class="ruby-identifier">method</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">method</span> = <span class="ruby-node">&quot;`String##{StripMethods[style]}`&quot;</span>
+    <span class="ruby-identifier">format</span>(<span class="ruby-constant">LIBRARY_MSG</span>, <span class="ruby-identifier">indentation_width</span>, <span class="ruby-identifier">method</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-style" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">style</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="../ConfigurableEnforcedStyle.html#method-i-style">RuboCop::Cop::ConfigurableEnforcedStyle#style</a>
+            </div>
+          
+
+          
+          <div class="method-source-code" id="style-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_heredoc.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">style</span>
+  <span class="ruby-identifier">style</span> = <span class="ruby-keyword">super</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">style</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">style</span> <span class="ruby-operator">==</span> <span class="ruby-value">:auto_detection</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">target_ruby_version</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">2.3</span>
+    <span class="ruby-value">:squiggly</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">rails?</span>
+    <span class="ruby-value">:active_support</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"command_name:ETI"#SimpleCov::Result#command_name;TI"W;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"oExplicitly set the command name that was used for this coverage result. Defaults to SimpleCov.command_name;T:
+@fileI"lib/simplecov/result.rb;T:0@omit_headings_from_table_of_contents_below0F@I"SimpleCov::Result;TcRDoc::NormalClass0

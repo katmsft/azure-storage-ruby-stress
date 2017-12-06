@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>module Mocha::ParameterMatchers - mocha-1.3.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-Not">#Not</a>
+    
+    <li ><a href="#method-i-all_of">#all_of</a>
+    
+    <li ><a href="#method-i-any_of">#any_of</a>
+    
+    <li ><a href="#method-i-any_parameters">#any_parameters</a>
+    
+    <li ><a href="#method-i-anything">#anything</a>
+    
+    <li ><a href="#method-i-equals">#equals</a>
+    
+    <li ><a href="#method-i-equivalent_uri">#equivalent_uri</a>
+    
+    <li ><a href="#method-i-has_entries">#has_entries</a>
+    
+    <li ><a href="#method-i-has_entry">#has_entry</a>
+    
+    <li ><a href="#method-i-has_equivalent_query_string">#has_equivalent_query_string</a>
+    
+    <li ><a href="#method-i-has_key">#has_key</a>
+    
+    <li ><a href="#method-i-has_value">#has_value</a>
+    
+    <li ><a href="#method-i-includes">#includes</a>
+    
+    <li ><a href="#method-i-instance_of">#instance_of</a>
+    
+    <li ><a href="#method-i-is_a">#is_a</a>
+    
+    <li ><a href="#method-i-kind_of">#kind_of</a>
+    
+    <li ><a href="#method-i-optionally">#optionally</a>
+    
+    <li ><a href="#method-i-regexp_matches">#regexp_matches</a>
+    
+    <li ><a href="#method-i-responds_with">#responds_with</a>
+    
+    <li ><a href="#method-i-yaml_equivalent">#yaml_equivalent</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-Mocha::ParameterMatchers">
+  <h1 id="module-Mocha::ParameterMatchers" class="module">
+    module Mocha::ParameterMatchers
+  </h1>
+
+  <section class="description">
+    
+<p>Used as parameters for {Expectation#with} to restrict the parameter values
+which will match the expectation. Can be nested.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-Not" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">Not</span><span
+            class="method-args">(matcher)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches if <code>matcher</code> does <strong>not</strong> match.</p>
+
+<p>@param [Base] matcher matcher whose logic to invert. @return [Not]
+parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example Actual parameter does not include the value <code>1</code>.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-constant">Not</span>(<span class="ruby-identifier">includes</span>(<span class="ruby-value">1</span>)))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>([<span class="ruby-value">0</span>, <span class="ruby-value">2</span>, <span class="ruby-value">3</span>])
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter does include the value <code>1</code>.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-constant">Not</span>(<span class="ruby-identifier">includes</span>(<span class="ruby-value">1</span>)))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>([<span class="ruby-value">0</span>, <span class="ruby-value">1</span>, <span class="ruby-value">2</span>, <span class="ruby-value">3</span>])
+<span class="ruby-comment"># error raised, because method_1 was not called with object not including 1</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="Not-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/not.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Not</span>(<span class="ruby-identifier">matcher</span>)
+  <span class="ruby-constant">Not</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">matcher</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-all_of" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">all_of</span><span
+            class="method-args">(*matchers)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches if all <code>matchers</code> match.</p>
+
+<p>@param [*Array&lt;Base&gt;] parameter_matchers parameter matchers. @return
+[AllOf] parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example All parameter matchers match.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">all_of</span>(<span class="ruby-identifier">includes</span>(<span class="ruby-value">1</span>), <span class="ruby-identifier">includes</span>(<span class="ruby-value">3</span>)))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>([<span class="ruby-value">1</span>, <span class="ruby-value">3</span>])
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example One of the parameter matchers does not match.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">all_of</span>(<span class="ruby-identifier">includes</span>(<span class="ruby-value">1</span>), <span class="ruby-identifier">includes</span>(<span class="ruby-value">3</span>)))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>([<span class="ruby-value">1</span>, <span class="ruby-value">2</span>])
+<span class="ruby-comment"># error raised, because method_1 was not called with object including 1 and 3</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="all_of-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/all_of.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">all_of</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">matchers</span>)
+  <span class="ruby-constant">AllOf</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">matchers</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-any_of" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">any_of</span><span
+            class="method-args">(*matchers)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches if any <code>matchers</code> match.</p>
+
+<p>@param [*Array&lt;Base&gt;] parameter_matchers parameter matchers. @return
+[AnyOf] parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example One parameter matcher matches.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">any_of</span>(<span class="ruby-value">1</span>, <span class="ruby-value">3</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">1</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example The other parameter matcher matches.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">any_of</span>(<span class="ruby-value">1</span>, <span class="ruby-value">3</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">3</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Neither parameter matcher matches.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">any_of</span>(<span class="ruby-value">1</span>, <span class="ruby-value">3</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">2</span>)
+<span class="ruby-comment"># error raised, because method_1 was not called with 1 or 3</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="any_of-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/any_of.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">any_of</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">matchers</span>)
+  <span class="ruby-constant">AnyOf</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">matchers</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-any_parameters" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">any_parameters</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches any parameters. This is used as the default for a newly built
+expectation.</p>
+
+<p>@return [AnyParameters] parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example Any parameters will match.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">any_parameters</span>)
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">1</span>, <span class="ruby-value">2</span>, <span class="ruby-value">3</span>, <span class="ruby-value">4</span>)
+<span class="ruby-comment"># no error raised</span>
+
+<span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">any_parameters</span>)
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">5</span>, <span class="ruby-value">6</span>, <span class="ruby-value">7</span>, <span class="ruby-value">8</span>, <span class="ruby-value">9</span>, <span class="ruby-value">0</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="any_parameters-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/any_parameters.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">any_parameters</span>
+  <span class="ruby-constant">AnyParameters</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-anything" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">anything</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches any object.</p>
+
+<p>@return [Anything] parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example Any object will match.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">anything</span>)
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;foo&#39;</span>)
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">789</span>)
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(:<span class="ruby-identifier">bar</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="anything-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/anything.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">anything</span>
+  <span class="ruby-constant">Anything</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-equals" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">equals</span><span
+            class="method-args">(value)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches any <code>Object</code> equalling <code>value</code>.</p>
+
+<p>@param [Object] value expected value. @return [Equals] parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a>
+@see Object#==</p>
+
+<p>@example Actual parameter equals expected parameter.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">equals</span>(<span class="ruby-value">2</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">2</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter does not equal expected parameter.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">equals</span>(<span class="ruby-value">2</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">3</span>)
+<span class="ruby-comment"># error raised, because method_1 was not called with an +Object+ that equals 2</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="equals-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/equals.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">equals</span>(<span class="ruby-identifier">value</span>)
+  <span class="ruby-constant">Equals</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">value</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-equivalent_uri" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">equivalent_uri</span><span
+            class="method-args">(uri)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches a URI without regard to the ordering of parameters in the query
+string.</p>
+
+<p>@param [String] uri URI to match. @return [EquivalentUri] parameter
+matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example Actual URI is equivalent.</p>
+
+<pre>object = mock()
+object.expects(:method_1).with(equivalent_uri(&#39;http://example.com/foo?a=1&amp;b=2))
+object.method_1(&#39;http://example.com/foo?b=2&amp;a=1&#39;)
+# no error raised</pre>
+
+<p>@example Actual URI is not equivalent.</p>
+
+<pre>object = mock()
+object.expects(:method_1).with(equivalent_uri(&#39;http://example.com/foo?a=1&amp;b=2))
+object.method_1(&#39;http://example.com/foo?a=1&amp;b=3&#39;)
+# error raised, because the query parameters were different</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="equivalent_uri-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/equivalent_uri.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">equivalent_uri</span>(<span class="ruby-identifier">uri</span>)
+  <span class="ruby-constant">EquivalentUri</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-has_entries" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_entries</span><span
+            class="method-args">(entries)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches <code>Hash</code> containing all <code>entries</code>.</p>
+
+<p>@param [Hash] entries expected <code>Hash</code> entries. @return
+[HasEntries] parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example Actual parameter contains all expected entries.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">has_entries</span>(<span class="ruby-string">&#39;key_1&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-string">&#39;key_2&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;key_1&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-string">&#39;key_2&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>, <span class="ruby-string">&#39;key_3&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">3</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter does not contain all expected entries.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">has_entries</span>(<span class="ruby-string">&#39;key_1&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-string">&#39;key_2&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;key_1&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-string">&#39;key_2&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">99</span>)
+<span class="ruby-comment"># error raised, because method_1 was not called with Hash containing entries: &#39;key_1&#39; =&gt; 1, &#39;key_2&#39; =&gt; 2</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="has_entries-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/has_entries.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">has_entries</span>(<span class="ruby-identifier">entries</span>)
+  <span class="ruby-constant">HasEntries</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">entries</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-has_entry" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_entry</span><span
+            class="method-args">(*options)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches <code>Hash</code> containing entry with <code>key</code> and
+<code>value</code>.</p>
+
+<p>@overload def <a
+href="ParameterMatchers.html#method-i-has_entry">#has_entry</a>(key, value)</p>
+
+<pre>@param [Object] key key for entry.
+@param [Object] value value for entry.</pre>
+
+<p>@overload def <a
+href="ParameterMatchers.html#method-i-has_entry">#has_entry</a>(single_entry_hash)</p>
+
+<pre>@param [Hash] single_entry_hash +Hash+ with single entry.
+@raise [ArgumentError] if +single_entry_hash+ does not contain exactly one entry.</pre>
+
+<p>@return [HasEntry] parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example Actual parameter contains expected entry supplied as key and
+value.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">has_entry</span>(<span class="ruby-string">&#39;key_1&#39;</span>, <span class="ruby-value">1</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;key_1&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-string">&#39;key_2&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter contains expected entry supplied as
+<code>Hash</code> entry.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">has_entry</span>(<span class="ruby-string">&#39;key_1&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;key_1&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-string">&#39;key_2&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter does not contain expected entry supplied as key
+and value.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">has_entry</span>(<span class="ruby-string">&#39;key_1&#39;</span>, <span class="ruby-value">1</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;key_1&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>, <span class="ruby-string">&#39;key_2&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>)
+<span class="ruby-comment"># error raised, because method_1 was not called with Hash containing entry: &#39;key_1&#39; =&gt; 1</span>
+</pre>
+
+<p>@example Actual parameter does not contain expected entry supplied as
+<code>Hash</code> entry.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">has_entry</span>(<span class="ruby-string">&#39;key_1&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;key_1&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>, <span class="ruby-string">&#39;key_2&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>)
+<span class="ruby-comment"># error raised, because method_1 was not called with Hash containing entry: &#39;key_1&#39; =&gt; 1</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="has_entry-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/has_entry.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">has_entry</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">options</span>)
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">length</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">case</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">0</span>]
+    <span class="ruby-keyword">when</span> <span class="ruby-constant">Hash</span>
+      <span class="ruby-keyword">case</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">length</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-value">0</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;Argument has no entries.&quot;</span>)
+      <span class="ruby-keyword">when</span> <span class="ruby-value">1</span>
+        <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">first</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Argument has multiple entries. Use Mocha::ParameterMatchers#has_entries instead.&quot;</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;Argument is not a Hash.&quot;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">2</span>
+    <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span> = <span class="ruby-identifier">options</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;Too many arguments; use either a single argument (must be a Hash) or two arguments (a key and a value).&quot;</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-constant">HasEntry</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-has_equivalent_query_string" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_equivalent_query_string</span><span
+            class="method-args">(uri)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@deprecated Use {#equivalent_uri} instead.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="has_equivalent_query_string-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/equivalent_uri.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">has_equivalent_query_string</span>(<span class="ruby-identifier">uri</span>)
+  <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warning</span>(<span class="ruby-string">&quot;`has_equivalent_query_string` is deprecated. Please use `equivalent_uri` instead.&quot;</span>)
+
+  <span class="ruby-identifier">equivalent_uri</span>(<span class="ruby-identifier">uri</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-has_key" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_key</span><span
+            class="method-args">(key)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches <code>Hash</code> containing <code>key</code>.</p>
+
+<p>@param [Object] key expected key. @return [HasKey] parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example Actual parameter contains entry with expected key.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">has_key</span>(<span class="ruby-string">&#39;key_1&#39;</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;key_1&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-string">&#39;key_2&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter does not contain entry with expected key.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">has_key</span>(<span class="ruby-string">&#39;key_1&#39;</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;key_2&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>)
+<span class="ruby-comment"># error raised, because method_1 was not called with Hash containing key: &#39;key_1&#39;</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="has_key-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/has_key.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">has_key</span>(<span class="ruby-identifier">key</span>)
+  <span class="ruby-constant">HasKey</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">key</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-has_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_value</span><span
+            class="method-args">(value)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches <code>Hash</code> containing <code>value</code>.</p>
+
+<p>@param [Object] value expected value. @return [HasValue] parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example Actual parameter contains entry with expected value.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">has_value</span>(<span class="ruby-value">1</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;key_1&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-string">&#39;key_2&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter does not contain entry with expected value.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">has_value</span>(<span class="ruby-value">1</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;key_2&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>)
+<span class="ruby-comment"># error raised, because method_1 was not called with Hash containing value: 1</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="has_value-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/has_value.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">has_value</span>(<span class="ruby-identifier">value</span>)
+  <span class="ruby-constant">HasValue</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">value</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-includes" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">includes</span><span
+            class="method-args">(*items)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches any object that responds with <code>true</code> to +include?(item)+
+for all items.</p>
+
+<p>@param [*Array] items expected items. @return [Includes] parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example Actual parameter includes all items.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">includes</span>(<span class="ruby-string">&#39;foo&#39;</span>, <span class="ruby-string">&#39;bar&#39;</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>([<span class="ruby-string">&#39;foo&#39;</span>, <span class="ruby-string">&#39;bar&#39;</span>, <span class="ruby-string">&#39;baz&#39;</span>])
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter does not include all items.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>([<span class="ruby-string">&#39;foo&#39;</span>, <span class="ruby-string">&#39;baz&#39;</span>])
+<span class="ruby-comment"># error raised, because [&#39;foo&#39;, &#39;baz&#39;] does not include &#39;bar&#39;.</span>
+</pre>
+
+<p>@example Actual parameter includes item which matches nested matcher.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">includes</span>(<span class="ruby-identifier">has_key</span>(:<span class="ruby-identifier">key</span>)))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>([<span class="ruby-string">&#39;foo&#39;</span>, <span class="ruby-string">&#39;bar&#39;</span>, {:<span class="ruby-identifier">key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;baz&#39;</span>}])
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter does not include item matching nested matcher.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>([<span class="ruby-string">&#39;foo&#39;</span>, <span class="ruby-string">&#39;bar&#39;</span>, {:<span class="ruby-identifier">other_key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;baz&#39;</span>}])
+<span class="ruby-comment"># error raised, because no element matches `has_key(:key)` matcher</span>
+</pre>
+
+<p>@example Actual parameter is a String including substring.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">includes</span>(<span class="ruby-string">&#39;bar&#39;</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;foobarbaz&#39;</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter is a String not including substring.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;foobaz&#39;</span>)
+<span class="ruby-comment"># error raised, because &#39;foobaz&#39; does not include &#39;bar&#39;</span>
+</pre>
+
+<p>@example Actual parameter is a <a href="../Hash.html">Hash</a> including
+the given key.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">includes</span>(:<span class="ruby-identifier">bar</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>({:<span class="ruby-identifier">foo</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, :<span class="ruby-identifier">bar</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>})
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter is a <a href="../Hash.html">Hash</a> without the
+given key.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>({:<span class="ruby-identifier">foo</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, :<span class="ruby-identifier">baz</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>})
+<span class="ruby-comment"># error raised, because hash does not include key &#39;bar&#39;</span>
+</pre>
+
+<p>@example Actual parameter is a <a href="../Hash.html">Hash</a> with a key
+matching the given matcher.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">includes</span>(<span class="ruby-identifier">regexp_matches</span>(<span class="ruby-regexp">/ar/</span>)))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>({<span class="ruby-string">&#39;foo&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-string">&#39;bar&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>})
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter is a <a href="../Hash.html">Hash</a> no key
+matching the given matcher.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>({<span class="ruby-string">&#39;foo&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-string">&#39;baz&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">3</span>})
+<span class="ruby-comment"># error raised, because hash does not include a key matching /ar/</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="includes-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/includes.rb, line 65</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">includes</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">items</span>)
+  <span class="ruby-constant">Includes</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">items</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-instance_of" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">instance_of</span><span
+            class="method-args">(klass)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches any object that is an instance of <code>klass</code></p>
+
+<p>@param [Class] klass expected class. @return [InstanceOf] parameter
+matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a>
+@see Kernel#instance_of?</p>
+
+<p>@example Actual parameter is an instance of <code>String</code>.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">instance_of</span>(<span class="ruby-constant">String</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;string&#39;</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter is not an instance of <code>String</code>.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">instance_of</span>(<span class="ruby-constant">String</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">99</span>)
+<span class="ruby-comment"># error raised, because method_1 was not called with an instance of String</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="instance_of-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/instance_of.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">instance_of</span>(<span class="ruby-identifier">klass</span>)
+  <span class="ruby-constant">InstanceOf</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">klass</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-is_a" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">is_a</span><span
+            class="method-args">(klass)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches any object that is a <code>klass</code>.</p>
+
+<p>@param [Class] klass expected class. @return [IsA] parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a>
+@see Kernel#is_a?</p>
+
+<p>@example Actual parameter is a <code>Integer</code>.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">is_a</span>(<span class="ruby-constant">Integer</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">99</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter is not a <code>Integer</code>.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">is_a</span>(<span class="ruby-constant">Integer</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;string&#39;</span>)
+<span class="ruby-comment"># error raised, because method_1 was not called with an Integer</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="is_a-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/is_a.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_a</span>(<span class="ruby-identifier">klass</span>)
+  <span class="ruby-constant">IsA</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">klass</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-kind_of" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">kind_of</span><span
+            class="method-args">(klass)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches any <code>Object</code> that is a kind of <code>klass</code>.</p>
+
+<p>@param [Class] klass expected class. @return [KindOf] parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a>
+@see Kernel#kind_of?</p>
+
+<p>@example Actual parameter is a kind of <code>Integer</code>.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">kind_of</span>(<span class="ruby-constant">Integer</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">99</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter is not a kind of <code>Integer</code>.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">kind_of</span>(<span class="ruby-constant">Integer</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;string&#39;</span>)
+<span class="ruby-comment"># error raised, because method_1 was not called with a kind of Integer</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="kind_of-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/kind_of.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">kind_of</span>(<span class="ruby-identifier">klass</span>)
+  <span class="ruby-constant">KindOf</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">klass</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-optionally" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">optionally</span><span
+            class="method-args">(*matchers)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches optional parameters if available.</p>
+
+<p>@param [*Array&lt;Base&gt;] matchers matchers for optional parameters.
+@return [Optionally] parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example Only the two required parameters are supplied and they both match
+their expected value.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-value">1</span>, <span class="ruby-value">2</span>, <span class="ruby-identifier">optionally</span>(<span class="ruby-value">3</span>, <span class="ruby-value">4</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">1</span>, <span class="ruby-value">2</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Both required parameters and one of the optional parameters are
+supplied and they all match their expected value.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-value">1</span>, <span class="ruby-value">2</span>, <span class="ruby-identifier">optionally</span>(<span class="ruby-value">3</span>, <span class="ruby-value">4</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">1</span>, <span class="ruby-value">2</span>, <span class="ruby-value">3</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Both required parameters and both of the optional parameters are
+supplied and they all match their expected value.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-value">1</span>, <span class="ruby-value">2</span>, <span class="ruby-identifier">optionally</span>(<span class="ruby-value">3</span>, <span class="ruby-value">4</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">1</span>, <span class="ruby-value">2</span>, <span class="ruby-value">3</span>, <span class="ruby-value">4</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example One of the actual optional parameters does not match the expected
+value.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-value">1</span>, <span class="ruby-value">2</span>, <span class="ruby-identifier">optionally</span>(<span class="ruby-value">3</span>, <span class="ruby-value">4</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-value">1</span>, <span class="ruby-value">2</span>, <span class="ruby-value">3</span>, <span class="ruby-value">5</span>)
+<span class="ruby-comment"># error raised, because optional parameters did not match</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="optionally-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/optionally.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">optionally</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">matchers</span>)
+  <span class="ruby-constant">Optionally</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">matchers</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-regexp_matches" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">regexp_matches</span><span
+            class="method-args">(regexp)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches any object that matches <code>regexp</code>.</p>
+
+<p>@param [Regexp] regexp regular expression to match. @return [RegexpMatches]
+parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example Actual parameter is matched by specified regular expression.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">regexp_matches</span>(<span class="ruby-regexp">/e/</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;hello&#39;</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter is not matched by specified regular expression.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">regexp_matches</span>(<span class="ruby-regexp">/a/</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&#39;hello&#39;</span>)
+<span class="ruby-comment"># error raised, because method_1 was not called with a parameter that matched the</span>
+<span class="ruby-comment"># regular expression</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="regexp_matches-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/regexp_matches.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">regexp_matches</span>(<span class="ruby-identifier">regexp</span>)
+  <span class="ruby-constant">RegexpMatches</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">regexp</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-responds_with" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">responds_with</span><span
+            class="method-args">(message, result)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches any object that responds to <code>message</code> with
+<code>result</code>. To put it another way, it tests the quack, not the
+duck.</p>
+
+<p>@param [Symbol] message method to invoke. @param [Object] result expected
+result of sending <code>message</code>. @return [RespondsWith] parameter
+matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example Actual parameter responds with “FOO” when :upcase is invoked.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">responds_with</span>(:<span class="ruby-identifier">upcase</span>, <span class="ruby-string">&quot;FOO&quot;</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&quot;foo&quot;</span>)
+<span class="ruby-comment"># no error raised, because &quot;foo&quot;.upcase == &quot;FOO&quot;</span>
+</pre>
+
+<p>@example Actual parameter does not respond with “FOO” when :upcase is
+invoked.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">responds_with</span>(:<span class="ruby-identifier">upcase</span>, <span class="ruby-string">&quot;BAR&quot;</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&quot;foo&quot;</span>)
+<span class="ruby-comment"># error raised, because &quot;foo&quot;.upcase != &quot;BAR&quot;</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="responds_with-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/responds_with.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">responds_with</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">result</span>)
+  <span class="ruby-constant">RespondsWith</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">result</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-yaml_equivalent" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">yaml_equivalent</span><span
+            class="method-args">(object)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches any YAML that represents the specified <code>object</code></p>
+
+<p>@param [Object] object object whose YAML to compare. @return
+[YamlEquivalent] parameter matcher.</p>
+
+<p>@see <a href="Expectation.html#method-i-with">Mocha::Expectation#with</a></p>
+
+<p>@example Actual parameter is YAML equivalent of specified
+<code>object</code>.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">yaml_equivalent</span>(<span class="ruby-value">1</span>, <span class="ruby-value">2</span>, <span class="ruby-value">3</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&quot;--- \n- 1\n- 2\n- 3\n&quot;</span>)
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Actual parameter is not YAML equivalent of specified
+<code>object</code>.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">method_1</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">yaml_equivalent</span>(<span class="ruby-value">1</span>, <span class="ruby-value">2</span>, <span class="ruby-value">3</span>))
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_1</span>(<span class="ruby-string">&quot;--- \n- 1\n- 2\n&quot;</span>)
+<span class="ruby-comment"># error raised, because method_1 was not called with YAML representing the specified Array</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="yaml_equivalent-source">
+            <pre><span class="ruby-comment"># File lib/mocha/parameter_matchers/yaml_equivalent.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">yaml_equivalent</span>(<span class="ruby-identifier">object</span>)
+  <span class="ruby-constant">YamlEquivalent</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">object</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

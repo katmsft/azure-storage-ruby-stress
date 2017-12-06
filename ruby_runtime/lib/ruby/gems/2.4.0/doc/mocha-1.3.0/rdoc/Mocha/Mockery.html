@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Mocha::Mockery - mocha-1.3.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Object.html">Object</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-instance">::instance</a>
+    
+    <li ><a href="#method-c-reset_instance">::reset_instance</a>
+    
+    <li ><a href="#method-c-teardown">::teardown</a>
+    
+    <li ><a href="#method-c-verify">::verify</a>
+    
+    <li ><a href="#method-i-add_mock">#add_mock</a>
+    
+    <li ><a href="#method-i-add_state_machine">#add_state_machine</a>
+    
+    <li ><a href="#method-i-expectations">#expectations</a>
+    
+    <li ><a href="#method-i-logger">#logger</a>
+    
+    <li ><a href="#method-i-mocha_inspect">#mocha_inspect</a>
+    
+    <li ><a href="#method-i-mock_impersonating">#mock_impersonating</a>
+    
+    <li ><a href="#method-i-mock_impersonating_any_instance_of">#mock_impersonating_any_instance_of</a>
+    
+    <li ><a href="#method-i-mocks">#mocks</a>
+    
+    <li ><a href="#method-i-named_mock">#named_mock</a>
+    
+    <li ><a href="#method-i-new_state_machine">#new_state_machine</a>
+    
+    <li ><a href="#method-i-on_stubbing">#on_stubbing</a>
+    
+    <li ><a href="#method-i-on_stubbing_method_on_nil">#on_stubbing_method_on_nil</a>
+    
+    <li ><a href="#method-i-on_stubbing_method_on_non_mock_object">#on_stubbing_method_on_non_mock_object</a>
+    
+    <li ><a href="#method-i-on_stubbing_method_unnecessarily">#on_stubbing_method_unnecessarily</a>
+    
+    <li ><a href="#method-i-on_stubbing_non_existent_method">#on_stubbing_non_existent_method</a>
+    
+    <li ><a href="#method-i-on_stubbing_non_public_method">#on_stubbing_non_public_method</a>
+    
+    <li ><a href="#method-i-reset">#reset</a>
+    
+    <li ><a href="#method-i-satisfied_expectations">#satisfied_expectations</a>
+    
+    <li ><a href="#method-i-state_machines">#state_machines</a>
+    
+    <li ><a href="#method-i-stubba">#stubba</a>
+    
+    <li ><a href="#method-i-teardown">#teardown</a>
+    
+    <li ><a href="#method-i-unnamed_mock">#unnamed_mock</a>
+    
+    <li ><a href="#method-i-unsatisfied_expectations">#unsatisfied_expectations</a>
+    
+    <li ><a href="#method-i-verify">#verify</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Mocha::Mockery">
+  <h1 id="class-Mocha::Mockery" class="class">
+    class Mocha::Mockery
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-logger" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">logger</span><span
+            class="attribute-access-type">[W]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-instance" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">instance</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="instance-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">instance</span>
+  <span class="ruby-ivar">@instance</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-reset_instance" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reset_instance</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="reset_instance-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reset_instance</span>
+  <span class="ruby-ivar">@instance</span> = <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-teardown" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">teardown</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="teardown-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">teardown</span>
+  <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">teardown</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-verify" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">verify</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="verify-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">verify</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">verify</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-logger" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">logger</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="logger-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 169</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">logger</span>
+  <span class="ruby-ivar">@logger</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Logger</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">$stderr</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-mocha_inspect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">mocha_inspect</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="mocha_inspect-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 92</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">mocha_inspect</span>
+  <span class="ruby-identifier">message</span> = <span class="ruby-string">&quot;&quot;</span>
+  <span class="ruby-identifier">message</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;unsatisfied expectations:\n- #{unsatisfied_expectations.map { |e| e.mocha_inspect }.join(&quot;\n- &quot;)}\n&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">unsatisfied_expectations</span>.<span class="ruby-identifier">empty?</span>
+  <span class="ruby-identifier">message</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;satisfied expectations:\n- #{satisfied_expectations.map { |e| e.mocha_inspect }.join(&quot;\n- &quot;)}\n&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">satisfied_expectations</span>.<span class="ruby-identifier">empty?</span>
+  <span class="ruby-identifier">message</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;states:\n- #{state_machines.map { |sm| sm.mocha_inspect }.join(&quot;\n- &quot;)}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">state_machines</span>.<span class="ruby-identifier">empty?</span>
+  <span class="ruby-identifier">message</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-mock_impersonating" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">mock_impersonating</span><span
+            class="method-args">(object, &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="mock_impersonating-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">mock_impersonating</span>(<span class="ruby-identifier">object</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">add_mock</span>(<span class="ruby-constant">Mock</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-constant">ImpersonatingName</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">object</span>), <span class="ruby-constant">ObjectReceiver</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">object</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-mock_impersonating_any_instance_of" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">mock_impersonating_any_instance_of</span><span
+            class="method-args">(klass, &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="mock_impersonating_any_instance_of-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">mock_impersonating_any_instance_of</span>(<span class="ruby-identifier">klass</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">add_mock</span>(<span class="ruby-constant">Mock</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-constant">ImpersonatingAnyInstanceName</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">klass</span>), <span class="ruby-constant">AnyInstanceReceiver</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">klass</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-mocks" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">mocks</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="mocks-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 84</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">mocks</span>
+  <span class="ruby-ivar">@mocks</span> <span class="ruby-operator">||=</span> []
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-named_mock" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">named_mock</span><span
+            class="method-args">(name, &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="named_mock-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">named_mock</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">add_mock</span>(<span class="ruby-constant">Mock</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-constant">Name</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-new_state_machine" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new_state_machine</span><span
+            class="method-args">(name)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new_state_machine-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">new_state_machine</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-identifier">add_state_machine</span>(<span class="ruby-constant">StateMachine</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_stubbing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_stubbing</span><span
+            class="method-args">(object, method)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_stubbing-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 100</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_stubbing</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>)
+  <span class="ruby-identifier">method</span> = <span class="ruby-constant">PRE_RUBY_V19</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_sym</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">allow?</span>(<span class="ruby-value">:stubbing_non_existent_method</span>)
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_exists?</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">include_public_methods</span> = <span class="ruby-keyword">true</span>)
+      <span class="ruby-identifier">on_stubbing_non_existent_method</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">allow?</span>(<span class="ruby-value">:stubbing_non_public_method</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">method_exists?</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">include_public_methods</span> = <span class="ruby-keyword">false</span>)
+      <span class="ruby-identifier">on_stubbing_non_public_method</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">allow?</span>(<span class="ruby-value">:stubbing_method_on_nil</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">on_stubbing_method_on_nil</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">allow?</span>(<span class="ruby-value">:stubbing_method_on_non_mock_object</span>)
+    <span class="ruby-identifier">on_stubbing_method_on_non_mock_object</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_stubbing_method_on_nil" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_stubbing_method_on_nil</span><span
+            class="method-args">(object, method)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_stubbing_method_on_nil-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 140</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_stubbing_method_on_nil</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">prevent?</span>(<span class="ruby-value">:stubbing_method_on_nil</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">StubbingError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;stubbing method on nil: #{object.mocha_inspect}.#{method}&quot;</span>, <span class="ruby-identifier">caller</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">warn_when?</span>(<span class="ruby-value">:stubbing_method_on_nil</span>)
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;stubbing method on nil: #{object.mocha_inspect}.#{method}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_stubbing_method_on_non_mock_object" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_stubbing_method_on_non_mock_object</span><span
+            class="method-args">(object, method)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_stubbing_method_on_non_mock_object-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 149</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_stubbing_method_on_non_mock_object</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">prevent?</span>(<span class="ruby-value">:stubbing_method_on_non_mock_object</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">StubbingError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;stubbing method on non-mock object: #{object.mocha_inspect}.#{method}&quot;</span>, <span class="ruby-identifier">caller</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">warn_when?</span>(<span class="ruby-value">:stubbing_method_on_non_mock_object</span>)
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;stubbing method on non-mock object: #{object.mocha_inspect}.#{method}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_stubbing_method_unnecessarily" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_stubbing_method_unnecessarily</span><span
+            class="method-args">(expectation)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_stubbing_method_unnecessarily-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 158</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_stubbing_method_unnecessarily</span>(<span class="ruby-identifier">expectation</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">prevent?</span>(<span class="ruby-value">:stubbing_method_unnecessarily</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">StubbingError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;stubbing method unnecessarily: #{expectation.method_signature}&quot;</span>, <span class="ruby-identifier">expectation</span>.<span class="ruby-identifier">backtrace</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">warn_when?</span>(<span class="ruby-value">:stubbing_method_unnecessarily</span>)
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;stubbing method unnecessarily: #{expectation.method_signature}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_stubbing_non_existent_method" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_stubbing_non_existent_method</span><span
+            class="method-args">(object, method)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_stubbing_non_existent_method-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 122</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_stubbing_non_existent_method</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">prevent?</span>(<span class="ruby-value">:stubbing_non_existent_method</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">StubbingError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;stubbing non-existent method: #{object.mocha_inspect}.#{method}&quot;</span>, <span class="ruby-identifier">caller</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">warn_when?</span>(<span class="ruby-value">:stubbing_non_existent_method</span>)
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;stubbing non-existent method: #{object.mocha_inspect}.#{method}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_stubbing_non_public_method" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_stubbing_non_public_method</span><span
+            class="method-args">(object, method)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_stubbing_non_public_method-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 131</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_stubbing_non_public_method</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">prevent?</span>(<span class="ruby-value">:stubbing_non_public_method</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">StubbingError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;stubbing non-public method: #{object.mocha_inspect}.#{method}&quot;</span>, <span class="ruby-identifier">caller</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">warn_when?</span>(<span class="ruby-value">:stubbing_non_public_method</span>)
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;stubbing non-public method: #{object.mocha_inspect}.#{method}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-state_machines" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">state_machines</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="state_machines-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 88</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">state_machines</span>
+  <span class="ruby-ivar">@state_machines</span> <span class="ruby-operator">||=</span> []
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-stubba" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stubba</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stubba-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 80</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stubba</span>
+  <span class="ruby-ivar">@stubba</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Central</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-teardown" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">teardown</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="teardown-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">teardown</span>
+  <span class="ruby-identifier">stubba</span>.<span class="ruby-identifier">unstub_all</span>
+  <span class="ruby-identifier">reset</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-unnamed_mock" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unnamed_mock</span><span
+            class="method-args">(&block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="unnamed_mock-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 40</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unnamed_mock</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">add_mock</span>(<span class="ruby-constant">Mock</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-verify" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">verify</span><span
+            class="method-args">(assertion_counter = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="verify-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">verify</span>(<span class="ruby-identifier">assertion_counter</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">mocks</span>.<span class="ruby-identifier">all?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">mock</span><span class="ruby-operator">|</span> <span class="ruby-identifier">mock</span>.<span class="ruby-identifier">__verified__?</span>(<span class="ruby-identifier">assertion_counter</span>) }
+    <span class="ruby-identifier">message</span> = <span class="ruby-node">&quot;not all expectations were satisfied\n#{mocha_inspect}&quot;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">unsatisfied_expectations</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">backtrace</span> = <span class="ruby-identifier">caller</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">backtrace</span> = <span class="ruby-identifier">unsatisfied_expectations</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">backtrace</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ExpectationErrorFactory</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">backtrace</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">expectations</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-constant">Mocha</span><span class="ruby-operator">::</span><span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">allow?</span>(<span class="ruby-value">:stubbing_method_unnecessarily</span>)
+      <span class="ruby-keyword">unless</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">used?</span>
+        <span class="ruby-identifier">on_stubbing_method_unnecessarily</span>(<span class="ruby-identifier">e</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-add_mock" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_mock</span><span
+            class="method-args">(mock)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_mock-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 188</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_mock</span>(<span class="ruby-identifier">mock</span>)
+  <span class="ruby-identifier">mocks</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mock</span>
+  <span class="ruby-identifier">mock</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-add_state_machine" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_state_machine</span><span
+            class="method-args">(state_machine)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_state_machine-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 193</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_state_machine</span>(<span class="ruby-identifier">state_machine</span>)
+  <span class="ruby-identifier">state_machines</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">state_machine</span>
+  <span class="ruby-identifier">state_machine</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-expectations" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">expectations</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="expectations-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 176</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">expectations</span>
+  <span class="ruby-identifier">mocks</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">mock</span><span class="ruby-operator">|</span> <span class="ruby-identifier">mock</span>.<span class="ruby-identifier">__expectations__</span>.<span class="ruby-identifier">to_a</span> }.<span class="ruby-identifier">flatten</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-reset" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reset</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="reset-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 198</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reset</span>
+  <span class="ruby-ivar">@stubba</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@mocks</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@state_machines</span> = <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-satisfied_expectations" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">satisfied_expectations</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="satisfied_expectations-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 184</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">satisfied_expectations</span>
+  <span class="ruby-identifier">expectations</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">verified?</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-unsatisfied_expectations" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unsatisfied_expectations</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="unsatisfied_expectations-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mockery.rb, line 180</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unsatisfied_expectations</span>
+  <span class="ruby-identifier">expectations</span>.<span class="ruby-identifier">reject</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">verified?</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

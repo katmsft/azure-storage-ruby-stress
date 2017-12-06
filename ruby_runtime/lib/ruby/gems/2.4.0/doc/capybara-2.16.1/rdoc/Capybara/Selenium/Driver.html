@@ -1,0 +1,2202 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Capybara::Selenium::Driver - capybara-2.16.1 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Driver/Base.html">Capybara::Driver::Base</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-accept_modal">#accept_modal</a>
+    
+    <li ><a href="#method-i-browser">#browser</a>
+    
+    <li class="calls-super" ><a href="#method-i-browser_initialized-3F">#browser_initialized?</a>
+    
+    <li ><a href="#method-i-browser_name">#browser_name</a>
+    
+    <li ><a href="#method-i-chrome-3F">#chrome?</a>
+    
+    <li ><a href="#method-i-close_window">#close_window</a>
+    
+    <li ><a href="#method-i-current_url">#current_url</a>
+    
+    <li ><a href="#method-i-current_window_handle">#current_window_handle</a>
+    
+    <li ><a href="#method-i-dismiss_modal">#dismiss_modal</a>
+    
+    <li ><a href="#method-i-evaluate_async_script">#evaluate_async_script</a>
+    
+    <li ><a href="#method-i-evaluate_script">#evaluate_script</a>
+    
+    <li ><a href="#method-i-execute_script">#execute_script</a>
+    
+    <li ><a href="#method-i-find_css">#find_css</a>
+    
+    <li ><a href="#method-i-find_headless_modal">#find_headless_modal</a>
+    
+    <li ><a href="#method-i-find_modal">#find_modal</a>
+    
+    <li ><a href="#method-i-find_window">#find_window</a>
+    
+    <li ><a href="#method-i-find_xpath">#find_xpath</a>
+    
+    <li ><a href="#method-i-firefox-3F">#firefox?</a>
+    
+    <li ><a href="#method-i-go_back">#go_back</a>
+    
+    <li ><a href="#method-i-go_forward">#go_forward</a>
+    
+    <li ><a href="#method-i-headless_chrome-3F">#headless_chrome?</a>
+    
+    <li ><a href="#method-i-html">#html</a>
+    
+    <li ><a href="#method-i-insert_modal_handlers">#insert_modal_handlers</a>
+    
+    <li ><a href="#method-i-invalid_element_errors">#invalid_element_errors</a>
+    
+    <li ><a href="#method-i-load_selenium">#load_selenium</a>
+    
+    <li ><a href="#method-i-marionette-3F">#marionette?</a>
+    
+    <li ><a href="#method-i-maximize_window">#maximize_window</a>
+    
+    <li ><a href="#method-i-modal_error">#modal_error</a>
+    
+    <li ><a href="#method-i-needs_server-3F">#needs_server?</a>
+    
+    <li ><a href="#method-i-no_such_window_error">#no_such_window_error</a>
+    
+    <li ><a href="#method-i-open_new_window">#open_new_window</a>
+    
+    <li ><a href="#method-i-quit">#quit</a>
+    
+    <li ><a href="#method-i-refresh">#refresh</a>
+    
+    <li ><a href="#method-i-reset-21">#reset!</a>
+    
+    <li ><a href="#method-i-resize_window_to">#resize_window_to</a>
+    
+    <li ><a href="#method-i-save_screenshot">#save_screenshot</a>
+    
+    <li ><a href="#method-i-silenced_unknown_error_message-3F">#silenced_unknown_error_message?</a>
+    
+    <li ><a href="#method-i-silenced_unknown_error_messages">#silenced_unknown_error_messages</a>
+    
+    <li ><a href="#method-i-switch_to_frame">#switch_to_frame</a>
+    
+    <li ><a href="#method-i-switch_to_window">#switch_to_window</a>
+    
+    <li ><a href="#method-i-title">#title</a>
+    
+    <li ><a href="#method-i-unwrap_script_result">#unwrap_script_result</a>
+    
+    <li ><a href="#method-i-visit">#visit</a>
+    
+    <li ><a href="#method-i-wait-3F">#wait?</a>
+    
+    <li ><a href="#method-i-window_handles">#window_handles</a>
+    
+    <li ><a href="#method-i-window_size">#window_size</a>
+    
+    <li ><a href="#method-i-within_given_window">#within_given_window</a>
+    
+    <li ><a href="#method-i-within_window">#within_window</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Capybara::Selenium::Driver">
+  <h1 id="class-Capybara::Selenium::Driver" class="class">
+    class Capybara::Selenium::Driver
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="DEFAULT_OPTIONS">DEFAULT_OPTIONS
+        
+        <dd>
+        
+      
+        <dt id="SPECIAL_OPTIONS">SPECIAL_OPTIONS
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-app" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">app</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-options" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">options</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(app, options={})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">app</span>, <span class="ruby-identifier">options</span>={})
+  <span class="ruby-identifier">load_selenium</span>
+  <span class="ruby-ivar">@session</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@app</span> = <span class="ruby-identifier">app</span>
+  <span class="ruby-ivar">@browser</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@exit_status</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@frame_handles</span> = {}
+  <span class="ruby-ivar">@options</span> = <span class="ruby-constant">DEFAULT_OPTIONS</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-accept_modal" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">accept_modal</span><span
+            class="method-args">(_type, options={}) { || ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="accept_modal-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 233</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">accept_modal</span>(<span class="ruby-identifier">_type</span>, <span class="ruby-identifier">options</span>={})
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">headless_chrome?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Block that triggers the system modal is missing&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-identifier">insert_modal_handlers</span>(<span class="ruby-keyword">true</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:with</span>])
+    <span class="ruby-keyword">yield</span>
+    <span class="ruby-identifier">find_headless_modal</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">yield</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-identifier">modal</span> = <span class="ruby-identifier">find_modal</span>(<span class="ruby-identifier">options</span>)
+
+    <span class="ruby-identifier">modal</span>.<span class="ruby-identifier">send_keys</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:with</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:with</span>]
+
+    <span class="ruby-identifier">message</span> = <span class="ruby-identifier">modal</span>.<span class="ruby-identifier">text</span>
+    <span class="ruby-identifier">modal</span>.<span class="ruby-identifier">accept</span>
+    <span class="ruby-identifier">message</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-browser" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">browser</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="browser-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">browser</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@browser</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">firefox?</span>
+      <span class="ruby-identifier">options</span>[<span class="ruby-value">:desired_capabilities</span>] <span class="ruby-operator">||=</span> {}
+      <span class="ruby-identifier">options</span>[<span class="ruby-value">:desired_capabilities</span>].<span class="ruby-identifier">merge!</span>({ <span class="ruby-identifier">unexpectedAlertBehaviour</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;ignore&quot;</span> })
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-ivar">@processed_options</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">reject</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>,<span class="ruby-identifier">_val</span><span class="ruby-operator">|</span> <span class="ruby-constant">SPECIAL_OPTIONS</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>) }
+    <span class="ruby-ivar">@browser</span> = <span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span>.<span class="ruby-identifier">for</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:browser</span>], <span class="ruby-ivar">@processed_options</span>)
+
+    <span class="ruby-ivar">@w3c</span> = ((<span class="ruby-keyword">defined?</span>(<span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Remote</span><span class="ruby-operator">::</span><span class="ruby-constant">W3CCapabilities</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">capabilities</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Remote</span><span class="ruby-operator">::</span><span class="ruby-constant">W3CCapabilities</span>)) <span class="ruby-operator">||</span>
+            (<span class="ruby-keyword">defined?</span>(<span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Remote</span><span class="ruby-operator">::</span><span class="ruby-constant">W3C</span><span class="ruby-operator">::</span><span class="ruby-constant">Capabilities</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">capabilities</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Remote</span><span class="ruby-operator">::</span><span class="ruby-constant">W3C</span><span class="ruby-operator">::</span><span class="ruby-constant">Capabilities</span>)))
+    <span class="ruby-identifier">main</span> = <span class="ruby-constant">Process</span>.<span class="ruby-identifier">pid</span>
+    <span class="ruby-identifier">at_exit</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-comment"># Store the exit status of the test run since it goes away after calling the at_exit proc...</span>
+      <span class="ruby-ivar">@exit_status</span> = <span class="ruby-identifier">$!</span>.<span class="ruby-identifier">status</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$!</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">SystemExit</span>)
+      <span class="ruby-identifier">quit</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Process</span>.<span class="ruby-identifier">pid</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">main</span>
+      <span class="ruby-identifier">exit</span> <span class="ruby-ivar">@exit_status</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@exit_status</span> <span class="ruby-comment"># Force exit with stored status</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@browser</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-browser_initialized-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">browser_initialized?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@deprecated This method is being removed</p>
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="../Driver/Base.html#method-i-browser_initialized-3F">Capybara::Driver::Base#browser_initialized?</a>
+            </div>
+          
+
+          
+          <div class="method-source-code" id="browser_initialized-3F-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 323</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">browser_initialized?</span>
+  <span class="ruby-keyword">super</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">nil?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-chrome-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">chrome?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@api private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="chrome-3F-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 306</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">chrome?</span>
+  <span class="ruby-identifier">browser_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;chrome&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-close_window" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">close_window</span><span
+            class="method-args">(handle)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="close_window-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 210</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">close_window</span>(<span class="ruby-identifier">handle</span>)
+  <span class="ruby-identifier">within_given_window</span>(<span class="ruby-identifier">handle</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">close</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-current_url" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">current_url</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="current_url-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">current_url</span>
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">current_url</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-current_window_handle" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">current_window_handle</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="current_window_handle-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 181</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">current_window_handle</span>
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">window_handle</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-dismiss_modal" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dismiss_modal</span><span
+            class="method-args">(_type, options={}) { || ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="dismiss_modal-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 251</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dismiss_modal</span>(<span class="ruby-identifier">_type</span>, <span class="ruby-identifier">options</span>={})
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">headless_chrome?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Block that triggers the system modal is missing&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-identifier">insert_modal_handlers</span>(<span class="ruby-keyword">false</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:with</span>])
+    <span class="ruby-keyword">yield</span>
+    <span class="ruby-identifier">find_headless_modal</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">yield</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-identifier">modal</span> = <span class="ruby-identifier">find_modal</span>(<span class="ruby-identifier">options</span>)
+    <span class="ruby-identifier">message</span> = <span class="ruby-identifier">modal</span>.<span class="ruby-identifier">text</span>
+    <span class="ruby-identifier">modal</span>.<span class="ruby-identifier">dismiss</span>
+    <span class="ruby-identifier">message</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-evaluate_async_script" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">evaluate_async_script</span><span
+            class="method-args">(script, *args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="evaluate_async_script-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 98</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">evaluate_async_script</span>(<span class="ruby-identifier">script</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">manage</span>.<span class="ruby-identifier">timeouts</span>.<span class="ruby-identifier">script_timeout</span> = <span class="ruby-constant">Capybara</span>.<span class="ruby-identifier">default_max_wait_time</span>
+  <span class="ruby-identifier">result</span> = <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">execute_async_script</span>(<span class="ruby-identifier">script</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Capybara</span><span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">Node</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">native</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">arg</span>} )
+  <span class="ruby-identifier">unwrap_script_result</span>(<span class="ruby-identifier">result</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-evaluate_script" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">evaluate_script</span><span
+            class="method-args">(script, *args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="evaluate_script-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 93</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">evaluate_script</span>(<span class="ruby-identifier">script</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-identifier">result</span> = <span class="ruby-identifier">execute_script</span>(<span class="ruby-node">&quot;return #{script}&quot;</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-identifier">unwrap_script_result</span>(<span class="ruby-identifier">result</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-execute_script" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">execute_script</span><span
+            class="method-args">(script, *args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="execute_script-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 89</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">execute_script</span>(<span class="ruby-identifier">script</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">execute_script</span>(<span class="ruby-identifier">script</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Capybara</span><span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">Node</span>) <span class="ruby-operator">?</span>  <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">native</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">arg</span>} )
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-find_css" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_css</span><span
+            class="method-args">(selector)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_css-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 82</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">find_css</span>(<span class="ruby-identifier">selector</span>)
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">find_elements</span>(<span class="ruby-value">:css</span>, <span class="ruby-identifier">selector</span>).<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span> <span class="ruby-constant">Capybara</span><span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">node</span>) }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-find_xpath" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_xpath</span><span
+            class="method-args">(selector)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_xpath-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">find_xpath</span>(<span class="ruby-identifier">selector</span>)
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">find_elements</span>(<span class="ruby-value">:xpath</span>, <span class="ruby-identifier">selector</span>).<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span> <span class="ruby-constant">Capybara</span><span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">node</span>) }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-firefox-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">firefox?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@api private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="firefox-3F-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 301</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">firefox?</span>
+  <span class="ruby-identifier">browser_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;firefox&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-go_back" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">go_back</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="go_back-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">go_back</span>
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">navigate</span>.<span class="ruby-identifier">back</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-go_forward" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">go_forward</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="go_forward-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">go_forward</span>
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">navigate</span>.<span class="ruby-identifier">forward</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-headless_chrome-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">headless_chrome?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@api private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="headless_chrome-3F-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 311</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">headless_chrome?</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">chrome?</span>
+    <span class="ruby-identifier">caps</span> = <span class="ruby-ivar">@processed_options</span>[<span class="ruby-value">:desired_capabilities</span>]
+    <span class="ruby-identifier">chrome_options</span> = <span class="ruby-identifier">caps</span>[<span class="ruby-value">:chrome_options</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">caps</span>[<span class="ruby-value">:chromeOptions</span>] <span class="ruby-operator">||</span> {}
+    <span class="ruby-identifier">args</span> = <span class="ruby-identifier">chrome_options</span>[<span class="ruby-string">&#39;args&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">chrome_options</span>[<span class="ruby-value">:args</span>] <span class="ruby-operator">||</span> []
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;--headless&quot;</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;headless&quot;</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-html" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">html</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="html-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">html</span>
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">page_source</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-invalid_element_errors" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">invalid_element_errors</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="invalid_element_errors-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 279</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">invalid_element_errors</span>
+  [<span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">StaleElementReferenceError</span>,
+   <span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">UnhandledError</span>,
+   <span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">ElementNotVisibleError</span>,
+   <span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">InvalidSelectorError</span>, <span class="ruby-comment"># Work around a race condition that can occur with chromedriver and #go_back/#go_forward</span>
+   <span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">ElementNotInteractableError</span>,
+   <span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">ElementClickInterceptedError</span>,
+   <span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">InvalidElementStateError</span>,
+   <span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">ElementNotSelectableError</span>,
+  ]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-marionette-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">marionette?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@api private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="marionette-3F-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 296</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">marionette?</span>
+  <span class="ruby-identifier">firefox?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">browser</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@w3c</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-maximize_window" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">maximize_window</span><span
+            class="method-args">(handle)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="maximize_window-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 203</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">maximize_window</span>(<span class="ruby-identifier">handle</span>)
+  <span class="ruby-identifier">within_given_window</span>(<span class="ruby-identifier">handle</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">manage</span>.<span class="ruby-identifier">window</span>.<span class="ruby-identifier">maximize</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">sleep</span> <span class="ruby-value">0.1</span> <span class="ruby-comment"># work around for https://code.google.com/p/selenium/issues/detail?id=7405</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-needs_server-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">needs_server?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="needs_server-3F-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 87</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">needs_server?</span>; <span class="ruby-keyword">true</span>; <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-no_such_window_error" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">no_such_window_error</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="no_such_window_error-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 291</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">no_such_window_error</span>
+  <span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">NoSuchWindowError</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-open_new_window" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">open_new_window</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="open_new_window-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 220</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">open_new_window</span>
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">execute_script</span>(<span class="ruby-string">&#39;window.open();&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-quit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">quit</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="quit-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 266</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">quit</span>
+  <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">quit</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@browser</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ECONNREFUSED</span>
+  <span class="ruby-comment"># Browser must have already gone</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">UnknownError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">silenced_unknown_error_message?</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span>) <span class="ruby-comment"># Most likely already gone</span>
+    <span class="ruby-comment"># probably already gone but not sure - so warn</span>
+    <span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;Ignoring Selenium UnknownError during driver quit: #{e.message}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">ensure</span>
+  <span class="ruby-ivar">@browser</span> = <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-refresh" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">refresh</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="refresh-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">refresh</span>
+  <span class="ruby-identifier">accept_modal</span>(<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">wait</span><span class="ruby-operator">:</span> <span class="ruby-value">0.1</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">navigate</span>.<span class="ruby-identifier">refresh</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Capybara</span><span class="ruby-operator">::</span><span class="ruby-constant">ModalNotFound</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-reset-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reset!</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="reset-21-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 108</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reset!</span>
+  <span class="ruby-comment"># Use instance variable directly so we avoid starting the browser just to reset the session</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@browser</span>
+    <span class="ruby-identifier">navigated</span> = <span class="ruby-keyword">false</span>
+    <span class="ruby-identifier">start_time</span> = <span class="ruby-constant">Capybara</span><span class="ruby-operator">::</span><span class="ruby-constant">Helpers</span>.<span class="ruby-identifier">monotonic_time</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">navigated</span>
+        <span class="ruby-comment"># Only trigger a navigation if we haven&#39;t done it already, otherwise it</span>
+        <span class="ruby-comment"># can trigger an endless series of unload modals</span>
+        <span class="ruby-keyword">begin</span>
+          <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">manage</span>.<span class="ruby-identifier">delete_all_cookies</span>
+          <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:clear_session_storage</span>]
+            <span class="ruby-keyword">if</span> <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:session_storage</span>
+              <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">session_storage</span>.<span class="ruby-identifier">clear</span>
+            <span class="ruby-keyword">else</span>
+              <span class="ruby-identifier">warn</span> <span class="ruby-string">&quot;sessionStorage clear requested but is not available for this driver&quot;</span>
+            <span class="ruby-keyword">end</span>
+          <span class="ruby-keyword">end</span>
+          <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:clear_local_storage</span>]
+            <span class="ruby-keyword">if</span> <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:local_storage</span>
+              <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">local_storage</span>.<span class="ruby-identifier">clear</span>
+            <span class="ruby-keyword">else</span>
+              <span class="ruby-identifier">warn</span> <span class="ruby-string">&quot;localStorage clear requested but is not available for this driver&quot;</span>
+            <span class="ruby-keyword">end</span>
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">UnhandledError</span>
+          <span class="ruby-comment"># delete_all_cookies fails when we&#39;ve previously gone</span>
+          <span class="ruby-comment"># to about:blank, so we rescue this error and do nothing</span>
+          <span class="ruby-comment"># instead.</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">navigate</span>.<span class="ruby-identifier">to</span>(<span class="ruby-string">&quot;about:blank&quot;</span>)
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">navigated</span> = <span class="ruby-keyword">true</span>
+
+      <span class="ruby-comment">#Ensure the page is empty and trigger an UnhandledAlertError for any modals that appear during unload</span>
+      <span class="ruby-keyword">until</span> <span class="ruby-identifier">find_xpath</span>(<span class="ruby-string">&quot;/html/body/*&quot;</span>).<span class="ruby-identifier">empty?</span> <span class="ruby-keyword">do</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">Capybara</span><span class="ruby-operator">::</span><span class="ruby-constant">ExpectationNotMet</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&#39;Timed out waiting for Selenium session reset&#39;</span>) <span class="ruby-keyword">if</span> (<span class="ruby-constant">Capybara</span><span class="ruby-operator">::</span><span class="ruby-constant">Helpers</span>.<span class="ruby-identifier">monotonic_time</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">start_time</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-value">10</span>
+        <span class="ruby-identifier">sleep</span> <span class="ruby-value">0.05</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">UnhandledAlertError</span>, <span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">UnexpectedAlertOpenError</span>
+      <span class="ruby-comment"># This error is thrown if an unhandled alert is on the page</span>
+      <span class="ruby-comment"># Firefox appears to automatically dismiss this alert, chrome does not</span>
+      <span class="ruby-comment"># We&#39;ll try to accept it</span>
+      <span class="ruby-keyword">begin</span>
+        <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">switch_to</span>.<span class="ruby-identifier">alert</span>.<span class="ruby-identifier">accept</span>
+        <span class="ruby-identifier">sleep</span> <span class="ruby-value">0.25</span> <span class="ruby-comment"># allow time for the modal to be handled</span>
+      <span class="ruby-keyword">rescue</span> <span class="ruby-identifier">modal_error</span>
+        <span class="ruby-comment"># The alert is now gone - nothing to do</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-comment"># try cleaning up the browser again</span>
+      <span class="ruby-keyword">retry</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-resize_window_to" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">resize_window_to</span><span
+            class="method-args">(handle, width, height)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="resize_window_to-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 192</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">resize_window_to</span>(<span class="ruby-identifier">handle</span>, <span class="ruby-identifier">width</span>, <span class="ruby-identifier">height</span>)
+  <span class="ruby-identifier">within_given_window</span>(<span class="ruby-identifier">handle</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-comment"># Don&#39;t set the size if already set - See https://github.com/mozilla/geckodriver/issues/643</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">marionette?</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">window_size</span>(<span class="ruby-identifier">handle</span>) <span class="ruby-operator">==</span> [<span class="ruby-identifier">width</span>, <span class="ruby-identifier">height</span>])
+      {}
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">manage</span>.<span class="ruby-identifier">window</span>.<span class="ruby-identifier">resize_to</span>(<span class="ruby-identifier">width</span>, <span class="ruby-identifier">height</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-save_screenshot" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">save_screenshot</span><span
+            class="method-args">(path, _options={})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="save_screenshot-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 104</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">save_screenshot</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">_options</span>={})
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">save_screenshot</span>(<span class="ruby-identifier">path</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-switch_to_frame" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">switch_to_frame</span><span
+            class="method-args">(frame)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="switch_to_frame-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 163</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">switch_to_frame</span>(<span class="ruby-identifier">frame</span>)
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">frame</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:top</span>
+    <span class="ruby-ivar">@frame_handles</span>[<span class="ruby-identifier">browser</span>.<span class="ruby-identifier">window_handle</span>] = []
+    <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">switch_to</span>.<span class="ruby-identifier">default_content</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:parent</span>
+    <span class="ruby-comment"># would love to use browser.switch_to.parent_frame here</span>
+    <span class="ruby-comment"># but it has an issue if the current frame is removed from within it</span>
+    <span class="ruby-ivar">@frame_handles</span>[<span class="ruby-identifier">browser</span>.<span class="ruby-identifier">window_handle</span>].<span class="ruby-identifier">pop</span>
+    <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">switch_to</span>.<span class="ruby-identifier">default_content</span>
+    <span class="ruby-ivar">@frame_handles</span>[<span class="ruby-identifier">browser</span>.<span class="ruby-identifier">window_handle</span>].<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">fh</span><span class="ruby-operator">|</span> <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">switch_to</span>.<span class="ruby-identifier">frame</span>(<span class="ruby-identifier">fh</span>) }
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@frame_handles</span>[<span class="ruby-identifier">browser</span>.<span class="ruby-identifier">window_handle</span>] <span class="ruby-operator">||=</span> []
+    <span class="ruby-ivar">@frame_handles</span>[<span class="ruby-identifier">browser</span>.<span class="ruby-identifier">window_handle</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">frame</span>.<span class="ruby-identifier">native</span>
+    <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">switch_to</span>.<span class="ruby-identifier">frame</span>(<span class="ruby-identifier">frame</span>.<span class="ruby-identifier">native</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-switch_to_window" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">switch_to_window</span><span
+            class="method-args">(handle)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="switch_to_window-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 224</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">switch_to_window</span>(<span class="ruby-identifier">handle</span>)
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">switch_to</span>.<span class="ruby-identifier">window</span> <span class="ruby-identifier">handle</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-title" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">title</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="title-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 70</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">title</span>
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">title</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-visit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">visit</span><span
+            class="method-args">(path)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="visit-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">visit</span>(<span class="ruby-identifier">path</span>)
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">navigate</span>.<span class="ruby-identifier">to</span>(<span class="ruby-identifier">path</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-wait-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">wait?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="wait-3F-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">wait?</span>; <span class="ruby-keyword">true</span>; <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-window_handles" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">window_handles</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="window_handles-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 216</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">window_handles</span>
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">window_handles</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-window_size" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">window_size</span><span
+            class="method-args">(handle)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="window_size-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 185</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">window_size</span>(<span class="ruby-identifier">handle</span>)
+  <span class="ruby-identifier">within_given_window</span>(<span class="ruby-identifier">handle</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">size</span> = <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">manage</span>.<span class="ruby-identifier">window</span>.<span class="ruby-identifier">size</span>
+    [<span class="ruby-identifier">size</span>.<span class="ruby-identifier">width</span>, <span class="ruby-identifier">size</span>.<span class="ruby-identifier">height</span>]
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-within_window" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">within_window</span><span
+            class="method-args">(locator) { || ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="within_window-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 228</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">within_window</span>(<span class="ruby-identifier">locator</span>)
+  <span class="ruby-identifier">handle</span> = <span class="ruby-identifier">find_window</span>(<span class="ruby-identifier">locator</span>)
+  <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">switch_to</span>.<span class="ruby-identifier">window</span>(<span class="ruby-identifier">handle</span>) { <span class="ruby-keyword">yield</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-browser_name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">browser_name</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@api private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="browser_name-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 330</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">browser_name</span>
+  <span class="ruby-identifier">options</span>[<span class="ruby-value">:browser</span>].<span class="ruby-identifier">to_s</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-find_headless_modal" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_headless_modal</span><span
+            class="method-args">(options={})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_headless_modal-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 442</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">find_headless_modal</span>(<span class="ruby-identifier">options</span>={})
+  <span class="ruby-comment"># Selenium has its own built in wait (2 seconds)for a modal to show up, so this wait is really the minimum time</span>
+  <span class="ruby-comment"># Actual wait time may be longer than specified</span>
+  <span class="ruby-identifier">wait</span> = <span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Wait</span>.<span class="ruby-identifier">new</span>(
+    <span class="ruby-identifier">timeout</span><span class="ruby-operator">:</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:wait</span>, <span class="ruby-identifier">session_options</span>.<span class="ruby-identifier">default_max_wait_time</span>) <span class="ruby-operator">||</span> <span class="ruby-value">0</span> ,
+    <span class="ruby-identifier">ignore</span><span class="ruby-operator">:</span> <span class="ruby-identifier">modal_error</span>)
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">wait</span>.<span class="ruby-identifier">until</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">called</span>, <span class="ruby-identifier">alert_text</span> = <span class="ruby-identifier">evaluate_script</span>(<span class="ruby-string">&#39;window.capybara &amp;&amp; window.capybara.current_modal_status()&#39;</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">called</span>
+        <span class="ruby-identifier">execute_script</span>(<span class="ruby-string">&#39;window.capybara &amp;&amp; window.capybara.modal_handlers.shift()&#39;</span>)
+        <span class="ruby-identifier">regexp</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:text</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Regexp</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:text</span>] <span class="ruby-operator">:</span> <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:text</span>].<span class="ruby-identifier">to_s</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">alert_text</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">regexp</span>)
+          <span class="ruby-identifier">alert_text</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">Capybara</span><span class="ruby-operator">::</span><span class="ruby-constant">ModalNotFound</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Unable to find modal dialog#{&quot; with #{options[:text]}&quot; if options[:text]}&quot;</span>)
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">called</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-comment"># page changed so modal_handler data has gone away</span>
+        <span class="ruby-identifier">warn</span> <span class="ruby-string">&quot;Can&#39;t verify modal text when page change occurs - ignoring&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:text</span>]
+        <span class="ruby-string">&quot;&quot;</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-keyword">nil</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">TimeOutError</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Capybara</span><span class="ruby-operator">::</span><span class="ruby-constant">ModalNotFound</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Unable to find modal dialog#{&quot; with #{options[:text]}&quot; if options[:text]}&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-find_modal" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_modal</span><span
+            class="method-args">(options={})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_modal-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 425</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">find_modal</span>(<span class="ruby-identifier">options</span>={})
+  <span class="ruby-comment"># Selenium has its own built in wait (2 seconds)for a modal to show up, so this wait is really the minimum time</span>
+  <span class="ruby-comment"># Actual wait time may be longer than specified</span>
+  <span class="ruby-identifier">wait</span> = <span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Wait</span>.<span class="ruby-identifier">new</span>(
+    <span class="ruby-identifier">timeout</span><span class="ruby-operator">:</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:wait</span>, <span class="ruby-identifier">session_options</span>.<span class="ruby-identifier">default_max_wait_time</span>) <span class="ruby-operator">||</span> <span class="ruby-value">0</span> ,
+    <span class="ruby-identifier">ignore</span><span class="ruby-operator">:</span> <span class="ruby-identifier">modal_error</span>)
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">wait</span>.<span class="ruby-identifier">until</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">alert</span> = <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">switch_to</span>.<span class="ruby-identifier">alert</span>
+      <span class="ruby-identifier">regexp</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:text</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Regexp</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:text</span>] <span class="ruby-operator">:</span> <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:text</span>].<span class="ruby-identifier">to_s</span>)
+      <span class="ruby-identifier">alert</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">regexp</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">alert</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">TimeOutError</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Capybara</span><span class="ruby-operator">::</span><span class="ruby-constant">ModalNotFound</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Unable to find modal dialog#{&quot; with #{options[:text]}&quot; if options[:text]}&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-find_window" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_window</span><span
+            class="method-args">(locator)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_window-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 342</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">find_window</span>(<span class="ruby-identifier">locator</span>)
+  <span class="ruby-identifier">handles</span> = <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">window_handles</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">locator</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">handles</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">locator</span>
+
+  <span class="ruby-identifier">original_handle</span> = <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">window_handle</span>
+  <span class="ruby-identifier">handles</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">handle</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">switch_to_window</span>(<span class="ruby-identifier">handle</span>)
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">locator</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">execute_script</span>(<span class="ruby-string">&quot;return window.name&quot;</span>) <span class="ruby-operator">||</span>
+        <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">locator</span>) <span class="ruby-operator">||</span>
+        <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">current_url</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">locator</span>))
+      <span class="ruby-identifier">switch_to_window</span>(<span class="ruby-identifier">original_handle</span>)
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">handle</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">Capybara</span><span class="ruby-operator">::</span><span class="ruby-constant">ElementNotFound</span>, <span class="ruby-node">&quot;Could not find a window identified by #{locator}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-insert_modal_handlers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">insert_modal_handlers</span><span
+            class="method-args">(accept, response_text)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="insert_modal_handlers-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 359</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">insert_modal_handlers</span>(<span class="ruby-identifier">accept</span>, <span class="ruby-identifier">response_text</span>)
+  <span class="ruby-identifier">prompt_response</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">accept</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">response_text</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-string">&quot;default_text&quot;</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-node">&quot;&#39;#{response_text.gsub(&quot;\\&quot;, &quot;\\\\\\&quot;).gsub(&quot;&#39;&quot;, &quot;\\\\&#39;&quot;)}&#39;&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-string">&#39;null&#39;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">script</span> = <span class="ruby-value">&lt;&lt;-JS
+    if (typeof window.capybara  === &#39;undefined&#39;) {
+      window.capybara = {
+        modal_handlers: [],
+        current_modal_status: function() {
+          return [this.modal_handlers[0].called, this.modal_handlers[0].modal_text];
+        },
+        add_handler: function(handler) {
+          this.modal_handlers.unshift(handler);
+        },
+        remove_handler: function(handler) {
+          window.alert = handler.alert;
+          window.confirm = handler.confirm;
+          window.prompt = handler.prompt;
+        },
+        handler_called: function(handler, str) {
+          handler.called = true;
+          handler.modal_text = str;
+          this.remove_handler(handler);
+        }
+      };
+    };
+
+    var modal_handler = {
+      prompt: window.prompt,
+      confirm: window.confirm,
+      alert: window.alert,
+      called: false
+    }
+    window.capybara.add_handler(modal_handler);
+
+    window.alert = window.confirm = function(str = &quot;&quot;) {
+      window.capybara.handler_called(modal_handler, str.toString());
+      return #{accept ? &#39;true&#39; : &#39;false&#39;};
+    }
+    window.prompt = function(str = &quot;&quot;, default_text = &quot;&quot;) {
+      window.capybara.handler_called(modal_handler, str.toString());
+      return #{prompt_response};
+    }
+  JS</span>
+  <span class="ruby-identifier">execute_script</span> <span class="ruby-identifier">script</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-load_selenium" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">load_selenium</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="load_selenium-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 493</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">load_selenium</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;selenium-webdriver&#39;</span>
+    <span class="ruby-comment"># Fix for selenium-webdriver 3.4.0 which misnamed these</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword">defined?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">ElementNotInteractableError</span>)
+      <span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span>.<span class="ruby-identifier">const_set</span>(<span class="ruby-string">&#39;ElementNotInteractableError&#39;</span>, <span class="ruby-constant">Class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriverError</span>))
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-keyword">defined?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">ElementClickInterceptedError</span>)
+      <span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span>.<span class="ruby-identifier">const_set</span>(<span class="ruby-string">&#39;ElementClickInterceptedError&#39;</span>, <span class="ruby-constant">Class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriverError</span>))
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">LoadError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/selenium-webdriver/</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">LoadError</span>, <span class="ruby-string">&quot;Capybara&#39;s selenium driver is unable to load `selenium-webdriver`, please install the gem and add `gem &#39;selenium-webdriver&#39;` to your Gemfile if you are using bundler.&quot;</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-modal_error" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">modal_error</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="modal_error-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 334</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">modal_error</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">defined?</span>(<span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">NoSuchAlertError</span>)
+    <span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">NoSuchAlertError</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">NoAlertPresentError</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-silenced_unknown_error_message-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">silenced_unknown_error_message?</span><span
+            class="method-args">(msg)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="silenced_unknown_error_message-3F-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 472</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">silenced_unknown_error_message?</span>(<span class="ruby-identifier">msg</span>)
+  <span class="ruby-identifier">silenced_unknown_error_messages</span>.<span class="ruby-identifier">any?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">msg</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">r</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-silenced_unknown_error_messages" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">silenced_unknown_error_messages</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="silenced_unknown_error_messages-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 476</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">silenced_unknown_error_messages</span>
+  [ <span class="ruby-regexp">/Error communicating with the remote browser/</span> ]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-unwrap_script_result" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unwrap_script_result</span><span
+            class="method-args">(arg)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="unwrap_script_result-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 480</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unwrap_script_result</span>(<span class="ruby-identifier">arg</span>)
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">arg</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Array</span>
+    <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">unwrap_script_result</span>(<span class="ruby-identifier">e</span>) }
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Hash</span>
+    <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">arg</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">unwrap_script_result</span>(<span class="ruby-identifier">v</span>) }
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">WebDriver</span><span class="ruby-operator">::</span><span class="ruby-constant">Element</span>
+    <span class="ruby-constant">Capybara</span><span class="ruby-operator">::</span><span class="ruby-constant">Selenium</span><span class="ruby-operator">::</span><span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">arg</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">arg</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-within_given_window" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">within_given_window</span><span
+            class="method-args">(handle) { || ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="within_given_window-source">
+            <pre><span class="ruby-comment"># File lib/capybara/selenium/driver.rb, line 413</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">within_given_window</span>(<span class="ruby-identifier">handle</span>)
+  <span class="ruby-identifier">original_handle</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">current_window_handle</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">handle</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">original_handle</span>
+    <span class="ruby-keyword">yield</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">switch_to_window</span>(<span class="ruby-identifier">handle</span>)
+    <span class="ruby-identifier">result</span> = <span class="ruby-keyword">yield</span>
+    <span class="ruby-identifier">switch_to_window</span>(<span class="ruby-identifier">original_handle</span>)
+    <span class="ruby-identifier">result</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

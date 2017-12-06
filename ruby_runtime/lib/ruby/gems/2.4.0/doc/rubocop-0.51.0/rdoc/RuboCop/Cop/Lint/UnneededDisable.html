@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class RuboCop::Cop::Lint::UnneededDisable - rubocop-0.51.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+  var index_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Cop.html">RuboCop::Cop::Cop</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="../../NameSimilarity.html">RuboCop::NameSimilarity</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-add_offense_for_entire_comment">#add_offense_for_entire_comment</a>
+    
+    <li ><a href="#method-i-add_offense_for_some_cops">#add_offense_for_some_cops</a>
+    
+    <li ><a href="#method-i-add_offenses">#add_offenses</a>
+    
+    <li ><a href="#method-i-all_cop_names">#all_cop_names</a>
+    
+    <li ><a href="#method-i-all_disabled-3F">#all_disabled?</a>
+    
+    <li ><a href="#method-i-autocorrect">#autocorrect</a>
+    
+    <li ><a href="#method-i-check">#check</a>
+    
+    <li ><a href="#method-i-collect_variable_like_names">#collect_variable_like_names</a>
+    
+    <li ><a href="#method-i-comment_range_with_surrounding_space">#comment_range_with_surrounding_space</a>
+    
+    <li ><a href="#method-i-cop_range">#cop_range</a>
+    
+    <li ><a href="#method-i-describe">#describe</a>
+    
+    <li ><a href="#method-i-directive_count">#directive_count</a>
+    
+    <li ><a href="#method-i-directive_range_in_list">#directive_range_in_list</a>
+    
+    <li ><a href="#method-i-each_already_disabled">#each_already_disabled</a>
+    
+    <li ><a href="#method-i-each_line_range">#each_line_range</a>
+    
+    <li ><a href="#method-i-each_unneeded_disable">#each_unneeded_disable</a>
+    
+    <li ><a href="#method-i-find_unneeded">#find_unneeded</a>
+    
+    <li ><a href="#method-i-ignore_offense-3F">#ignore_offense?</a>
+    
+    <li ><a href="#method-i-matching_range">#matching_range</a>
+    
+    <li ><a href="#method-i-trailing_range-3F">#trailing_range?</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-RuboCop::Cop::Lint::UnneededDisable">
+  <h1 id="class-RuboCop::Cop::Lint::UnneededDisable" class="class">
+    class RuboCop::Cop::Lint::UnneededDisable
+  </h1>
+
+  <section class="description">
+    
+<p>This cop detects instances of rubocop:disable comments that can be removed
+without causing any offenses to be reported. It&#39;s implemented as a cop
+in that it inherits from the <a href="../Cop.html">Cop</a> base class and
+calls add_offense. The unusual part of its implementation is that it
+doesn&#39;t have any on_* methods or an investigate method. This means that
+it doesn&#39;t take part in the investigation phase when the other cops do
+their work. Instead, it waits until it&#39;s called in a later stage of the
+execution. The reason it can&#39;t be implemented as a normal cop is that
+it depends on the results of all other cops to do its work.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="COP_NAME">COP_NAME
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-autocorrect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">autocorrect</span><span
+            class="method-args">(args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="autocorrect-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">autocorrect</span>(<span class="ruby-identifier">args</span>)
+  <span class="ruby-identifier">lambda</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">corrector</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">ranges</span>, <span class="ruby-identifier">range</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">args</span> <span class="ruby-comment"># Ranges are sorted by position.</span>
+
+    <span class="ruby-identifier">range</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">range</span>.<span class="ruby-identifier">source</span>.<span class="ruby-identifier">start_with?</span>(<span class="ruby-string">&#39;#&#39;</span>)
+              <span class="ruby-identifier">comment_range_with_surrounding_space</span>(<span class="ruby-identifier">range</span>)
+            <span class="ruby-keyword">else</span>
+              <span class="ruby-identifier">directive_range_in_list</span>(<span class="ruby-identifier">range</span>, <span class="ruby-identifier">ranges</span>)
+            <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">corrector</span>.<span class="ruby-identifier">remove</span>(<span class="ruby-identifier">range</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check</span><span
+            class="method-args">(offenses, cop_disabled_line_ranges, comments)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check</span>(<span class="ruby-identifier">offenses</span>, <span class="ruby-identifier">cop_disabled_line_ranges</span>, <span class="ruby-identifier">comments</span>)
+  <span class="ruby-identifier">unneeded_cops</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">h</span>, <span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">h</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-constant">Set</span>.<span class="ruby-identifier">new</span> }
+
+  <span class="ruby-identifier">each_unneeded_disable</span>(<span class="ruby-identifier">cop_disabled_line_ranges</span>,
+                        <span class="ruby-identifier">offenses</span>, <span class="ruby-identifier">comments</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">comment</span>, <span class="ruby-identifier">unneeded_cop</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">unneeded_cops</span>[<span class="ruby-identifier">comment</span>].<span class="ruby-identifier">add</span>(<span class="ruby-identifier">unneeded_cop</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">add_offenses</span>(<span class="ruby-identifier">unneeded_cops</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-add_offense_for_entire_comment" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_offense_for_entire_comment</span><span
+            class="method-args">(comment, cops)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_offense_for_entire_comment-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 165</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_offense_for_entire_comment</span>(<span class="ruby-identifier">comment</span>, <span class="ruby-identifier">cops</span>)
+  <span class="ruby-identifier">location</span> = <span class="ruby-identifier">comment</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">expression</span>
+  <span class="ruby-identifier">cop_list</span> = <span class="ruby-identifier">cops</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">describe</span>(<span class="ruby-identifier">c</span>) }
+
+  <span class="ruby-identifier">add_offense</span>(
+    [[<span class="ruby-identifier">location</span>], <span class="ruby-identifier">location</span>],
+    <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-identifier">location</span>,
+    <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;Unnecessary disabling of #{cop_list.join(&#39;, &#39;)}.&quot;</span>
+  )
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-add_offense_for_some_cops" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_offense_for_some_cops</span><span
+            class="method-args">(comment, cops)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_offense_for_some_cops-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 176</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_offense_for_some_cops</span>(<span class="ruby-identifier">comment</span>, <span class="ruby-identifier">cops</span>)
+  <span class="ruby-identifier">cop_ranges</span> = <span class="ruby-identifier">cops</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">c</span>, <span class="ruby-identifier">cop_range</span>(<span class="ruby-identifier">comment</span>, <span class="ruby-identifier">c</span>)] }
+  <span class="ruby-identifier">cop_ranges</span>.<span class="ruby-identifier">sort_by!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">_</span>, <span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">begin_pos</span> }
+  <span class="ruby-identifier">ranges</span> = <span class="ruby-identifier">cop_ranges</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">_</span>, <span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span> }
+
+  <span class="ruby-identifier">cop_ranges</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cop</span>, <span class="ruby-identifier">range</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">add_offense</span>(
+      [<span class="ruby-identifier">ranges</span>, <span class="ruby-identifier">range</span>],
+      <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-identifier">range</span>,
+      <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;Unnecessary disabling of #{describe(cop)}.&quot;</span>
+    )
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-add_offenses" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_offenses</span><span
+            class="method-args">(unneeded_cops)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_offenses-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 154</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_offenses</span>(<span class="ruby-identifier">unneeded_cops</span>)
+  <span class="ruby-identifier">unneeded_cops</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">comment</span>, <span class="ruby-identifier">cops</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">all_disabled?</span>(<span class="ruby-identifier">comment</span>) <span class="ruby-operator">||</span>
+       <span class="ruby-identifier">directive_count</span>(<span class="ruby-identifier">comment</span>) <span class="ruby-operator">==</span> <span class="ruby-identifier">cops</span>.<span class="ruby-identifier">size</span>
+      <span class="ruby-identifier">add_offense_for_entire_comment</span>(<span class="ruby-identifier">comment</span>, <span class="ruby-identifier">cops</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">add_offense_for_some_cops</span>(<span class="ruby-identifier">comment</span>, <span class="ruby-identifier">cops</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-all_cop_names" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">all_cop_names</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="all_cop_names-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 231</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">all_cop_names</span>
+  <span class="ruby-ivar">@all_cop_names</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Cop</span>.<span class="ruby-identifier">registry</span>.<span class="ruby-identifier">names</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-all_disabled-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">all_disabled?</span><span
+            class="method-args">(comment)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="all_disabled-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 138</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">all_disabled?</span>(<span class="ruby-identifier">comment</span>)
+  <span class="ruby-identifier">comment</span>.<span class="ruby-identifier">text</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/rubocop\s*:\s*disable\s+all\b/</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-collect_variable_like_names" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">collect_variable_like_names</span><span
+            class="method-args">(scope)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="collect_variable_like_names-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 227</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">collect_variable_like_names</span>(<span class="ruby-identifier">scope</span>)
+  <span class="ruby-identifier">all_cop_names</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span> <span class="ruby-identifier">scope</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">name</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-comment_range_with_surrounding_space" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">comment_range_with_surrounding_space</span><span
+            class="method-args">(range)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="comment_range_with_surrounding_space-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">comment_range_with_surrounding_space</span>(<span class="ruby-identifier">range</span>)
+  <span class="ruby-comment"># Eat the entire comment, the preceding space, and the preceding</span>
+  <span class="ruby-comment"># newline if there is one.</span>
+  <span class="ruby-identifier">original_begin</span> = <span class="ruby-identifier">range</span>.<span class="ruby-identifier">begin_pos</span>
+  <span class="ruby-identifier">range</span> = <span class="ruby-identifier">range_with_surrounding_space</span>(<span class="ruby-identifier">range</span>, <span class="ruby-value">:left</span>, <span class="ruby-keyword">true</span>)
+  <span class="ruby-identifier">range_with_surrounding_space</span>(<span class="ruby-identifier">range</span>, <span class="ruby-value">:right</span>,
+                               <span class="ruby-comment"># Special for a comment that</span>
+                               <span class="ruby-comment"># begins the file: remove</span>
+                               <span class="ruby-comment"># the newline at the end.</span>
+                               <span class="ruby-identifier">original_begin</span>.<span class="ruby-identifier">zero?</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-cop_range" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">cop_range</span><span
+            class="method-args">(comment, cop)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="cop_range-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 190</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">cop_range</span>(<span class="ruby-identifier">comment</span>, <span class="ruby-identifier">cop</span>)
+  <span class="ruby-identifier">matching_range</span>(<span class="ruby-identifier">comment</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">expression</span>, <span class="ruby-identifier">cop</span>) <span class="ruby-operator">||</span>
+    <span class="ruby-identifier">matching_range</span>(<span class="ruby-identifier">comment</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">expression</span>, <span class="ruby-constant">Badge</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">cop</span>).<span class="ruby-identifier">cop_name</span>) <span class="ruby-operator">||</span>
+    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Couldn&#39;t find #{cop} in comment: #{comment.text}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-describe" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">describe</span><span
+            class="method-args">(cop)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="describe-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 212</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">describe</span>(<span class="ruby-identifier">cop</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">cop</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;all&#39;</span>
+    <span class="ruby-string">&#39;all cops&#39;</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">all_cop_names</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cop</span>)
+    <span class="ruby-node">&quot;`#{cop}`&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">similar</span> = <span class="ruby-identifier">find_similar_name</span>(<span class="ruby-identifier">cop</span>, [])
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">similar</span>
+      <span class="ruby-node">&quot;`#{cop}` (did you mean `#{similar}`?)&quot;</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-node">&quot;`#{cop}` (unknown cop)&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-directive_count" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">directive_count</span><span
+            class="method-args">(comment)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="directive_count-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 148</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">directive_count</span>(<span class="ruby-identifier">comment</span>)
+  <span class="ruby-identifier">match</span> = <span class="ruby-identifier">comment</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">match</span>(<span class="ruby-constant">CommentConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">COMMENT_DIRECTIVE_REGEXP</span>)
+  <span class="ruby-identifier">_</span>, <span class="ruby-identifier">cops_string</span> = <span class="ruby-identifier">match</span>.<span class="ruby-identifier">captures</span>
+  <span class="ruby-identifier">cops_string</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp">/,\s*/</span>).<span class="ruby-identifier">size</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-directive_range_in_list" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">directive_range_in_list</span><span
+            class="method-args">(range, ranges)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="directive_range_in_list-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">directive_range_in_list</span>(<span class="ruby-identifier">range</span>, <span class="ruby-identifier">ranges</span>)
+  <span class="ruby-comment"># Is there any cop between this one and the end of the line, which</span>
+  <span class="ruby-comment"># is NOT being removed?</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ends_its_line?</span>(<span class="ruby-identifier">ranges</span>.<span class="ruby-identifier">last</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">trailing_range?</span>(<span class="ruby-identifier">ranges</span>, <span class="ruby-identifier">range</span>)
+    <span class="ruby-comment"># Eat the comma on the left.</span>
+    <span class="ruby-identifier">range</span> = <span class="ruby-identifier">range_with_surrounding_space</span>(<span class="ruby-identifier">range</span>, <span class="ruby-value">:left</span>)
+    <span class="ruby-identifier">range</span> = <span class="ruby-identifier">range_with_surrounding_comma</span>(<span class="ruby-identifier">range</span>, <span class="ruby-value">:left</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">range</span> = <span class="ruby-identifier">range_with_surrounding_comma</span>(<span class="ruby-identifier">range</span>, <span class="ruby-value">:right</span>)
+  <span class="ruby-comment"># Eat following spaces up to EOL, but not the newline itself.</span>
+  <span class="ruby-identifier">range_with_surrounding_space</span>(<span class="ruby-identifier">range</span>, <span class="ruby-value">:right</span>, <span class="ruby-keyword">false</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-each_already_disabled" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">each_already_disabled</span><span
+            class="method-args">(line_ranges, comments) { |unneeded_comment| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="each_already_disabled-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 101</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">each_already_disabled</span>(<span class="ruby-identifier">line_ranges</span>, <span class="ruby-identifier">comments</span>)
+  <span class="ruby-identifier">line_ranges</span>.<span class="ruby-identifier">each_cons</span>(<span class="ruby-value">2</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">previous_range</span>, <span class="ruby-identifier">range</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">previous_range</span>.<span class="ruby-identifier">end</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">range</span>.<span class="ruby-identifier">begin</span>
+
+    <span class="ruby-comment"># If a cop is disabled in a range that begins on the same line as</span>
+    <span class="ruby-comment"># the end of the previous range, it means that the cop was</span>
+    <span class="ruby-comment"># already disabled by an earlier comment. So it&#39;s unneeded</span>
+    <span class="ruby-comment"># whether there are offenses or not.</span>
+    <span class="ruby-identifier">unneeded_comment</span> = <span class="ruby-identifier">comments</span>.<span class="ruby-identifier">find</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">c</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">line</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">range</span>.<span class="ruby-identifier">begin</span> <span class="ruby-operator">&amp;&amp;</span>
+        <span class="ruby-comment"># Comments disabling all cops don&#39;t count since it&#39;s reasonable</span>
+        <span class="ruby-comment"># to disable a few select cops first and then all cops further</span>
+        <span class="ruby-comment"># down in the code.</span>
+        <span class="ruby-operator">!</span><span class="ruby-identifier">all_disabled?</span>(<span class="ruby-identifier">c</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">yield</span> <span class="ruby-identifier">unneeded_comment</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">unneeded_comment</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-each_line_range" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">each_line_range</span><span
+            class="method-args">(line_ranges, disabled_ranges, offenses, comments, cop) { |comment, unneeded_cop| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="each_line_range-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">each_line_range</span>(<span class="ruby-identifier">line_ranges</span>, <span class="ruby-identifier">disabled_ranges</span>, <span class="ruby-identifier">offenses</span>, <span class="ruby-identifier">comments</span>,
+                    <span class="ruby-identifier">cop</span>)
+  <span class="ruby-identifier">line_ranges</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line_range</span>, <span class="ruby-identifier">ix</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">comment</span> = <span class="ruby-identifier">comments</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">line</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">line_range</span>.<span class="ruby-identifier">begin</span> }
+
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">all_disabled?</span>(<span class="ruby-identifier">comment</span>)
+      <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">ignore_offense?</span>(<span class="ruby-identifier">disabled_ranges</span>, <span class="ruby-identifier">line_range</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">unneeded_cop</span> = <span class="ruby-identifier">find_unneeded</span>(<span class="ruby-identifier">comment</span>, <span class="ruby-identifier">offenses</span>, <span class="ruby-identifier">cop</span>, <span class="ruby-identifier">line_range</span>,
+                                 <span class="ruby-identifier">line_ranges</span>[<span class="ruby-identifier">ix</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>])
+    <span class="ruby-keyword">yield</span> <span class="ruby-identifier">comment</span>, <span class="ruby-identifier">unneeded_cop</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">unneeded_cop</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-each_unneeded_disable" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">each_unneeded_disable</span><span
+            class="method-args">(cop_disabled_line_ranges, offenses, comments) { |comment, cop| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="each_unneeded_disable-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 72</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">each_unneeded_disable</span>(<span class="ruby-identifier">cop_disabled_line_ranges</span>, <span class="ruby-identifier">offenses</span>, <span class="ruby-identifier">comments</span>,
+                          <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">disabled_ranges</span> = <span class="ruby-identifier">cop_disabled_line_ranges</span>[<span class="ruby-constant">COP_NAME</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">0</span>]
+
+  <span class="ruby-identifier">cop_disabled_line_ranges</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cop</span>, <span class="ruby-identifier">line_ranges</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">each_already_disabled</span>(<span class="ruby-identifier">line_ranges</span>, <span class="ruby-identifier">comments</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">comment</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">yield</span> <span class="ruby-identifier">comment</span>, <span class="ruby-identifier">cop</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">each_line_range</span>(<span class="ruby-identifier">line_ranges</span>, <span class="ruby-identifier">disabled_ranges</span>, <span class="ruby-identifier">offenses</span>, <span class="ruby-identifier">comments</span>,
+                    <span class="ruby-identifier">cop</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-find_unneeded" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_unneeded</span><span
+            class="method-args">(comment, offenses, cop, line_range, next_line_range)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_unneeded-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 120</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">find_unneeded</span>(<span class="ruby-identifier">comment</span>, <span class="ruby-identifier">offenses</span>, <span class="ruby-identifier">cop</span>, <span class="ruby-identifier">line_range</span>, <span class="ruby-identifier">next_line_range</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">all_disabled?</span>(<span class="ruby-identifier">comment</span>)
+    <span class="ruby-comment"># If there&#39;s a disable all comment followed by a comment</span>
+    <span class="ruby-comment"># specifically disabling `cop`, we don&#39;t report the `all`</span>
+    <span class="ruby-comment"># comment. If the disable all comment is truly unneeded, we will</span>
+    <span class="ruby-comment"># detect that when examining the comments of another cop, and we</span>
+    <span class="ruby-comment"># get the full line range for the disable all.</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">next_line_range</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span>
+        <span class="ruby-identifier">line_range</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">next_line_range</span>.<span class="ruby-identifier">first</span>) <span class="ruby-operator">&amp;&amp;</span>
+       <span class="ruby-identifier">offenses</span>.<span class="ruby-identifier">none?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span> <span class="ruby-identifier">line_range</span>.<span class="ruby-identifier">cover?</span>(<span class="ruby-identifier">o</span>.<span class="ruby-identifier">line</span>) }
+      <span class="ruby-string">&#39;all&#39;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">cop_offenses</span> = <span class="ruby-identifier">offenses</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">cop_name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">cop</span> }
+    <span class="ruby-identifier">cop</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">cop_offenses</span>.<span class="ruby-identifier">none?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span> <span class="ruby-identifier">line_range</span>.<span class="ruby-identifier">cover?</span>(<span class="ruby-identifier">o</span>.<span class="ruby-identifier">line</span>) }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-ignore_offense-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">ignore_offense?</span><span
+            class="method-args">(disabled_ranges, line_range)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="ignore_offense-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 142</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">ignore_offense?</span>(<span class="ruby-identifier">disabled_ranges</span>, <span class="ruby-identifier">line_range</span>)
+  <span class="ruby-identifier">disabled_ranges</span>.<span class="ruby-identifier">any?</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">range</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">range</span>.<span class="ruby-identifier">cover?</span>(<span class="ruby-identifier">line_range</span>.<span class="ruby-identifier">min</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">range</span>.<span class="ruby-identifier">cover?</span>(<span class="ruby-identifier">line_range</span>.<span class="ruby-identifier">max</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-matching_range" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">matching_range</span><span
+            class="method-args">(haystack, needle)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="matching_range-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 196</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">matching_range</span>(<span class="ruby-identifier">haystack</span>, <span class="ruby-identifier">needle</span>)
+  <span class="ruby-identifier">offset</span> = (<span class="ruby-identifier">haystack</span>.<span class="ruby-identifier">source</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-identifier">needle</span>)))
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">offset</span>
+  <span class="ruby-identifier">offset</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">haystack</span>.<span class="ruby-identifier">begin_pos</span>
+  <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Source</span><span class="ruby-operator">::</span><span class="ruby-constant">Range</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">haystack</span>.<span class="ruby-identifier">source_buffer</span>, <span class="ruby-identifier">offset</span>,
+                            <span class="ruby-identifier">offset</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">needle</span>.<span class="ruby-identifier">size</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-trailing_range-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">trailing_range?</span><span
+            class="method-args">(ranges, range)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="trailing_range-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/lint/unneeded_disable.rb, line 204</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">trailing_range?</span>(<span class="ruby-identifier">ranges</span>, <span class="ruby-identifier">range</span>)
+  <span class="ruby-identifier">ranges</span>
+    .<span class="ruby-identifier">drop_while</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">r</span>.<span class="ruby-identifier">equal?</span>(<span class="ruby-identifier">range</span>) }
+    .<span class="ruby-identifier">each_cons</span>(<span class="ruby-value">2</span>)
+    .<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r1</span>, <span class="ruby-identifier">r2</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r1</span>.<span class="ruby-identifier">end</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">r2</span>.<span class="ruby-identifier">begin</span>).<span class="ruby-identifier">source</span> }
+    .<span class="ruby-identifier">all?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">intervening</span><span class="ruby-operator">|</span> <span class="ruby-identifier">intervening</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/\A\s*,\s*\Z/</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

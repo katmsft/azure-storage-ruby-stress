@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Azure::Core::Http::HTTPError - azure-core-0.1.13 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+  var index_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Error.html">Azure::Core::Error</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-inspect">#inspect</a>
+    
+    <li ><a href="#method-i-parse_json_response">#parse_json_response</a>
+    
+    <li ><a href="#method-i-parse_response">#parse_response</a>
+    
+    <li ><a href="#method-i-parse_unknown_response">#parse_unknown_response</a>
+    
+    <li ><a href="#method-i-parse_xml_response">#parse_xml_response</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Azure::Core::Http::HTTPError">
+  <h1 id="class-Azure::Core::Http::HTTPError" class="class">
+    class Azure::Core::Http::HTTPError
+  </h1>
+
+  <section class="description">
+    
+<p>Public: Class for handling all HTTP response errors</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-description" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">description</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Public: Description of the error</p>
+
+<p>Returns a <a href="../../../String.html">String</a></p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-detail" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">detail</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Public: Detail of the error</p>
+
+<p>Returns a <a href="../../../String.html">String</a></p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-header" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">header</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Public: The header name whose value is invalid</p>
+
+<p>Returns a <a href="../../../String.html">String</a></p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-header_value" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">header_value</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Public: The invalid header value</p>
+
+<p>Returns a <a href="../../../String.html">String</a></p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-http_response" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">http_response</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Public: Detail of the response</p>
+
+<p>Returns an <a href="HttpResponse.html">Azure::Core::Http::HttpResponse</a>
+object</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-status_code" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">status_code</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Public: The HTTP status code of this error</p>
+
+<p>Returns a Fixnum</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-type" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">type</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Public: The type of error</p>
+
+<p><a
+href="http://msdn.microsoft.com/en-us/library/azure/dd179357">msdn.microsoft.com/en-us/library/azure/dd179357</a></p>
+
+<p>Returns a <a href="../../../String.html">String</a></p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-uri" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">uri</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Public: The request URI</p>
+
+<p>Returns a <a href="../../../String.html">String</a></p>
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(http_response)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Public: Initialize an error</p>
+
+<p><a href="HTTPError.html#attribute-i-http_response">#http_response</a> - An
+Azure::Core::HttpResponse</p>
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/azure/core/http/http_error.rb, line 70</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">http_response</span>)
+  <span class="ruby-ivar">@http_response</span> = <span class="ruby-identifier">http_response</span>
+  <span class="ruby-ivar">@uri</span> = <span class="ruby-identifier">http_response</span>.<span class="ruby-identifier">uri</span>
+  <span class="ruby-ivar">@status_code</span> = <span class="ruby-identifier">http_response</span>.<span class="ruby-identifier">status_code</span>
+  <span class="ruby-identifier">parse_response</span>
+  <span class="ruby-keyword">super</span>(<span class="ruby-node">&quot;#{type} (#{status_code}): #{description}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-inspect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">inspect</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="inspect-source">
+            <pre><span class="ruby-comment"># File lib/azure/core/http/http_error.rb, line 125</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
+  <span class="ruby-identifier">string</span> = <span class="ruby-node">&quot;#&lt;#{self.class.name}:#{self.object_id} &quot;</span>
+  <span class="ruby-identifier">fields</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">instance_variables</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">field</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{field}: #{self.send(field.to_s.delete(&quot;@&quot;)).inspect}&quot;</span>}
+  <span class="ruby-identifier">string</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;, &quot;</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&gt;&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-parse_json_response" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse_json_response</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="parse_json_response-source">
+            <pre><span class="ruby-comment"># File lib/azure/core/http/http_error.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_json_response</span>
+  <span class="ruby-identifier">odata_error</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@http_response</span>.<span class="ruby-identifier">body</span>)[<span class="ruby-string">&#39;odata.error&#39;</span>]
+  <span class="ruby-ivar">@type</span> = <span class="ruby-identifier">odata_error</span>[<span class="ruby-string">&#39;code&#39;</span>]
+  <span class="ruby-ivar">@description</span> = <span class="ruby-identifier">odata_error</span>[<span class="ruby-string">&#39;message&#39;</span>][<span class="ruby-string">&#39;value&#39;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-parse_response" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse_response</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extract the relevant information from the response&#39;s body. If the
+response body is not an XML, we return an &#39;Unknown&#39; error with the
+entire body as the description</p>
+
+<p>Returns nothing</p>
+          
+          
+
+          
+          <div class="method-source-code" id="parse_response-source">
+            <pre><span class="ruby-comment"># File lib/azure/core/http/http_error.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_response</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@http_response</span>.<span class="ruby-identifier">body</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@http_response</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:headers</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@http_response</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-string">&#39;Content-Type&#39;</span>]
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@http_response</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-string">&#39;Content-Type&#39;</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;xml&#39;</span>)
+      <span class="ruby-identifier">parse_xml_response</span>
+    <span class="ruby-keyword">elsif</span> <span class="ruby-ivar">@http_response</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-string">&#39;Content-Type&#39;</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;json&#39;</span>)
+      <span class="ruby-identifier">parse_json_response</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">parse_unknown_response</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-parse_unknown_response" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse_unknown_response</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="parse_unknown_response-source">
+            <pre><span class="ruby-comment"># File lib/azure/core/http/http_error.rb, line 118</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_unknown_response</span>
+  <span class="ruby-ivar">@type</span> = <span class="ruby-string">&#39;Unknown&#39;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@http_response</span>.<span class="ruby-identifier">body</span>
+    <span class="ruby-ivar">@description</span> = <span class="ruby-node">&quot;#{@http_response.body.strip}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-parse_xml_response" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse_xml_response</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="parse_xml_response-source">
+            <pre><span class="ruby-comment"># File lib/azure/core/http/http_error.rb, line 95</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_xml_response</span>
+  <span class="ruby-identifier">document</span> = <span class="ruby-constant">Nokogiri</span>.<span class="ruby-constant">Slop</span>(<span class="ruby-ivar">@http_response</span>.<span class="ruby-identifier">body</span>)
+
+  <span class="ruby-ivar">@type</span> = <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;code&#39;</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">text</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;code&#39;</span>).<span class="ruby-identifier">any?</span>
+  <span class="ruby-ivar">@type</span> = <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;Code&#39;</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">text</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;Code&#39;</span>).<span class="ruby-identifier">any?</span>
+  <span class="ruby-ivar">@description</span> = <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;message&#39;</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">text</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;message&#39;</span>).<span class="ruby-identifier">any?</span>
+  <span class="ruby-ivar">@description</span> = <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;Message&#39;</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">text</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;Message&#39;</span>).<span class="ruby-identifier">any?</span>
+  <span class="ruby-ivar">@header</span> = <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;headername&#39;</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">text</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;headername&#39;</span>).<span class="ruby-identifier">any?</span>
+  <span class="ruby-ivar">@header</span> = <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;HeaderName&#39;</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">text</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;HeaderName&#39;</span>).<span class="ruby-identifier">any?</span>
+  <span class="ruby-ivar">@header_value</span> = <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;headervalue&#39;</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">text</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;headervalue&#39;</span>).<span class="ruby-identifier">any?</span>
+  <span class="ruby-ivar">@header_value</span> = <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;HeaderValue&#39;</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">text</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;HeaderValue&#39;</span>).<span class="ruby-identifier">any?</span>
+
+  <span class="ruby-comment"># service bus uses detail instead of message</span>
+  <span class="ruby-ivar">@detail</span> = <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;detail&#39;</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">text</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;detail&#39;</span>).<span class="ruby-identifier">any?</span>
+  <span class="ruby-ivar">@detail</span> = <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;Detail&#39;</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">text</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span>.<span class="ruby-identifier">css</span>(<span class="ruby-string">&#39;Detail&#39;</span>).<span class="ruby-identifier">any?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

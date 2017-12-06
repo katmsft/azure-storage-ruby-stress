@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class RuboCop::Cop::Style::ConditionalAssignment - rubocop-0.51.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+  var index_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Cop.html">RuboCop::Cop::Cop</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="ConditionalAssignmentHelper.html">RuboCop::Cop::Style::ConditionalAssignmentHelper</a>
+  
+  
+  
+    <li><a class="include" href="../ConfigurableEnforcedStyle.html">RuboCop::Cop::ConfigurableEnforcedStyle</a>
+  
+  
+  
+    <li><a class="include" href="../IgnoredNode.html">RuboCop::Cop::IgnoredNode</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-allowed_single_line-3F">#allowed_single_line?</a>
+    
+    <li ><a href="#method-i-allowed_statements-3F">#allowed_statements?</a>
+    
+    <li ><a href="#method-i-allowed_ternary-3F">#allowed_ternary?</a>
+    
+    <li ><a href="#method-i-assignment_node">#assignment_node</a>
+    
+    <li ><a href="#method-i-assignment_types_match-3F">#assignment_types_match?</a>
+    
+    <li ><a href="#method-i-autocorrect">#autocorrect</a>
+    
+    <li ><a href="#method-i-candidate_node-3F">#candidate_node?</a>
+    
+    <li ><a href="#method-i-check_assignment_to_condition">#check_assignment_to_condition</a>
+    
+    <li ><a href="#method-i-check_node">#check_node</a>
+    
+    <li ><a href="#method-i-correction_exceeds_line_limit-3F">#correction_exceeds_line_limit?</a>
+    
+    <li ><a href="#method-i-include_ternary-3F">#include_ternary?</a>
+    
+    <li ><a href="#method-i-indentation_width">#indentation_width</a>
+    
+    <li ><a href="#method-i-lhs_all_match-3F">#lhs_all_match?</a>
+    
+    <li ><a href="#method-i-line_length_cop_enabled-3F">#line_length_cop_enabled?</a>
+    
+    <li ><a href="#method-i-longest_line">#longest_line</a>
+    
+    <li ><a href="#method-i-longest_line_exceeds_line_limit-3F">#longest_line_exceeds_line_limit?</a>
+    
+    <li ><a href="#method-i-max_line_length">#max_line_length</a>
+    
+    <li ><a href="#method-i-move_assignment_inside_condition">#move_assignment_inside_condition</a>
+    
+    <li ><a href="#method-i-move_assignment_outside_condition">#move_assignment_outside_condition</a>
+    
+    <li ><a href="#method-i-on_case">#on_case</a>
+    
+    <li ><a href="#method-i-on_if">#on_if</a>
+    
+    <li ><a href="#method-i-on_send">#on_send</a>
+    
+    <li ><a href="#method-i-single_line_conditions_only-3F">#single_line_conditions_only?</a>
+    
+    <li ><a href="#method-i-ternary_condition-3F">#ternary_condition?</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-RuboCop::Cop::Style::ConditionalAssignment">
+  <h1 id="class-RuboCop::Cop::Style::ConditionalAssignment" class="class">
+    class RuboCop::Cop::Style::ConditionalAssignment
+  </h1>
+
+  <section class="description">
+    
+<p>Check for `if` and `case` statements where each branch is used for
+assignment to the same variable when using the return of the condition can
+be used instead.</p>
+
+<p>@example</p>
+
+<pre>EnforcedStyle: assign_to_condition
+
+# bad
+if foo
+  bar = 1
+else
+  bar = 2
+end
+
+case foo
+when &#39;a&#39;
+  bar += 1
+else
+  bar += 2
+end
+
+if foo
+  some_method
+  bar = 1
+else
+  some_other_method
+  bar = 2
+end
+
+# good
+bar = if foo
+        1
+      else
+        2
+      end
+
+bar += case foo
+       when &#39;a&#39;
+         1
+       else
+         2
+       end
+
+bar &lt;&lt; if foo
+         some_method
+         1
+       else
+         some_other_method
+         2
+       end
+
+EnforcedStyle: assign_inside_condition
+# bad
+bar = if foo
+        1
+      else
+        2
+      end
+
+bar += case foo
+       when &#39;a&#39;
+         1
+       else
+         2
+       end
+
+bar &lt;&lt; if foo
+         some_method
+         1
+       else
+         some_other_method
+         2
+       end
+
+# good
+if foo
+  bar = 1
+else
+  bar = 2
+end
+
+case foo
+when &#39;a&#39;
+  bar += 1
+else
+  bar += 2
+end
+
+if foo
+  some_method
+  bar = 1
+else
+  some_other_method
+  bar = 2
+end</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="ASSIGNMENT_TYPES">ASSIGNMENT_TYPES
+        
+        <dd>
+        
+      
+        <dt id="ASSIGN_TO_CONDITION_MSG">ASSIGN_TO_CONDITION_MSG
+        
+        <dd>
+        
+      
+        <dt id="ENABLED">ENABLED
+        
+        <dd>
+        
+      
+        <dt id="INDENTATION_WIDTH">INDENTATION_WIDTH
+        
+        <dd>
+        
+      
+        <dt id="LINE_LENGTH">LINE_LENGTH
+        
+        <dd>
+        
+      
+        <dt id="MAX">MAX
+        
+        <dd>
+        
+      
+        <dt id="MSG">MSG
+        
+        <dd>
+        
+      
+        <dt id="SINGLE_LINE_CONDITIONS_ONLY">SINGLE_LINE_CONDITIONS_ONLY
+        
+        <dd>
+        
+      
+        <dt id="VARIABLE_ASSIGNMENT_TYPES">VARIABLE_ASSIGNMENT_TYPES
+        
+        <dd>
+        
+      
+        <dt id="WIDTH">WIDTH
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-on_case" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_case</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_case-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 260</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_case</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">style</span> <span class="ruby-operator">==</span> <span class="ruby-value">:assign_to_condition</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">else_branch</span>
+
+  <span class="ruby-identifier">when_branches</span> = <span class="ruby-identifier">expand_when_branches</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">when_branches</span>)
+  <span class="ruby-identifier">branches</span> = [<span class="ruby-operator">*</span><span class="ruby-identifier">when_branches</span>, <span class="ruby-identifier">node</span>.<span class="ruby-identifier">else_branch</span>]
+
+  <span class="ruby-identifier">check_node</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">branches</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_if" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_if</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_if-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 246</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_if</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">style</span> <span class="ruby-operator">==</span> <span class="ruby-value">:assign_to_condition</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">elsif?</span>
+
+  <span class="ruby-identifier">else_branch</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">else_branch</span>
+  <span class="ruby-identifier">elsif_branches</span>, <span class="ruby-identifier">else_branch</span> = <span class="ruby-identifier">expand_elses</span>(<span class="ruby-identifier">else_branch</span>)
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">else_branch</span>
+
+  <span class="ruby-identifier">branches</span> = [<span class="ruby-identifier">node</span>.<span class="ruby-identifier">if_branch</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">elsif_branches</span>, <span class="ruby-identifier">else_branch</span>]
+
+  <span class="ruby-identifier">check_node</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">branches</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_send" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_send</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_send-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 240</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_send</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">assignment_type?</span>(<span class="ruby-identifier">node</span>)
+
+  <span class="ruby-identifier">check_assignment_to_condition</span>(<span class="ruby-identifier">node</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-allowed_single_line-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">allowed_single_line?</span><span
+            class="method-args">(branches)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="allowed_single_line-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 298</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">allowed_single_line?</span>(<span class="ruby-identifier">branches</span>)
+  <span class="ruby-identifier">single_line_conditions_only?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">branches</span>.<span class="ruby-identifier">any?</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:begin_type?</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-allowed_statements-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">allowed_statements?</span><span
+            class="method-args">(branches)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="allowed_statements-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 371</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">allowed_statements?</span>(<span class="ruby-identifier">branches</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">branches</span>.<span class="ruby-identifier">all?</span>
+
+  <span class="ruby-identifier">statements</span> = <span class="ruby-identifier">branches</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">branch</span><span class="ruby-operator">|</span> <span class="ruby-identifier">tail</span>(<span class="ruby-identifier">branch</span>) }
+
+  <span class="ruby-identifier">lhs_all_match?</span>(<span class="ruby-identifier">statements</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">statements</span>.<span class="ruby-identifier">none?</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:masgn_type?</span>) <span class="ruby-operator">&amp;&amp;</span>
+    <span class="ruby-identifier">assignment_types_match?</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">statements</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-allowed_ternary-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">allowed_ternary?</span><span
+            class="method-args">(assignment)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="allowed_ternary-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 294</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">allowed_ternary?</span>(<span class="ruby-identifier">assignment</span>)
+  <span class="ruby-identifier">assignment</span>.<span class="ruby-identifier">if_type?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">assignment</span>.<span class="ruby-identifier">ternary?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">include_ternary?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-assignment_node" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">assignment_node</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="assignment_node-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 310</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">assignment_node</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-operator">*</span><span class="ruby-identifier">_variable</span>, <span class="ruby-identifier">assignment</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">node</span>
+
+  <span class="ruby-comment"># ignore pseudo-assignments without rhs in for nodes</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">parent</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">for_type?</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">assignment</span>.<span class="ruby-identifier">begin_type?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">assignment</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">one?</span>
+    <span class="ruby-identifier">assignment</span>, = <span class="ruby-operator">*</span><span class="ruby-identifier">assignment</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">assignment</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-assignment_types_match-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">assignment_types_match?</span><span
+            class="method-args">(*nodes)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="assignment_types_match-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 356</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">assignment_types_match?</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">nodes</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">assignment_type?</span>(<span class="ruby-identifier">nodes</span>.<span class="ruby-identifier">first</span>)
+
+  <span class="ruby-identifier">nodes</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:type</span>).<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">one?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-autocorrect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">autocorrect</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="autocorrect-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 302</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">autocorrect</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">assignment_type?</span>(<span class="ruby-identifier">node</span>)
+    <span class="ruby-identifier">move_assignment_inside_condition</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">move_assignment_outside_condition</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-candidate_node-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">candidate_node?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="candidate_node-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 288</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">candidate_node?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">style</span> <span class="ruby-operator">==</span> <span class="ruby-value">:assign_inside_condition</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">assignment_rhs_exist?</span>(<span class="ruby-identifier">node</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_assignment_to_condition" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_assignment_to_condition</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_assignment_to_condition-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 272</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_assignment_to_condition</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">candidate_node?</span>(<span class="ruby-identifier">node</span>)
+
+  <span class="ruby-identifier">ignore_node</span>(<span class="ruby-identifier">node</span>)
+
+  <span class="ruby-identifier">assignment</span> = <span class="ruby-identifier">assignment_node</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">candidate_condition?</span>(<span class="ruby-identifier">assignment</span>)
+
+  <span class="ruby-identifier">_condition</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">branches</span>, <span class="ruby-identifier">else_branch</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">assignment</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">else_branch</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">allowed_single_line?</span>([<span class="ruby-operator">*</span><span class="ruby-identifier">branches</span>, <span class="ruby-identifier">else_branch</span>])
+
+  <span class="ruby-identifier">add_offense</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-constant">ASSIGN_TO_CONDITION_MSG</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_node" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_node</span><span
+            class="method-args">(node, branches)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_node-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 362</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_node</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">branches</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">allowed_ternary?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">allowed_statements?</span>(<span class="ruby-identifier">branches</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">allowed_single_line?</span>(<span class="ruby-identifier">branches</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">correction_exceeds_line_limit?</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">branches</span>)
+
+  <span class="ruby-identifier">add_offense</span>(<span class="ruby-identifier">node</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-correction_exceeds_line_limit-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">correction_exceeds_line_limit?</span><span
+            class="method-args">(node, branches)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>If `Metrics/LineLength` is enabled, we do not want to introduce an offense
+by auto-correcting this cop. Find the max configured line length. Find the
+longest line of condition. Remove the assignment from lines that contain
+the offending assignment because after correcting, this will not be on the
+line anymore. Check if the length of the longest line + the length of the
+corrected assignment is greater than the max configured line length</p>
+          
+          
+
+          
+          <div class="method-source-code" id="correction_exceeds_line_limit-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 387</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">correction_exceeds_line_limit?</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">branches</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">line_length_cop_enabled?</span>
+
+  <span class="ruby-identifier">assignment</span> = <span class="ruby-identifier">lhs</span>(<span class="ruby-identifier">tail</span>(<span class="ruby-identifier">branches</span>[<span class="ruby-value">0</span>]))
+
+  <span class="ruby-identifier">longest_line_exceeds_line_limit?</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">assignment</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-include_ternary-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">include_ternary?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="include_ternary-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 424</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">include_ternary?</span>
+  <span class="ruby-identifier">cop_config</span>[<span class="ruby-string">&#39;IncludeTernaryExpressions&#39;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-indentation_width" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">indentation_width</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="indentation_width-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 416</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">indentation_width</span>
+  <span class="ruby-identifier">config</span>.<span class="ruby-identifier">for_cop</span>(<span class="ruby-constant">INDENTATION_WIDTH</span>)[<span class="ruby-constant">WIDTH</span>] <span class="ruby-operator">||</span> <span class="ruby-value">2</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-lhs_all_match-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">lhs_all_match?</span><span
+            class="method-args">(branches)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="lhs_all_match-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 351</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">lhs_all_match?</span>(<span class="ruby-identifier">branches</span>)
+  <span class="ruby-identifier">first_lhs</span> = <span class="ruby-identifier">lhs</span>(<span class="ruby-identifier">branches</span>.<span class="ruby-identifier">first</span>)
+  <span class="ruby-identifier">branches</span>.<span class="ruby-identifier">all?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">branch</span><span class="ruby-operator">|</span> <span class="ruby-identifier">lhs</span>(<span class="ruby-identifier">branch</span>) <span class="ruby-operator">==</span> <span class="ruby-identifier">first_lhs</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-line_length_cop_enabled-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">line_length_cop_enabled?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="line_length_cop_enabled-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 408</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">line_length_cop_enabled?</span>
+  <span class="ruby-identifier">config</span>.<span class="ruby-identifier">for_cop</span>(<span class="ruby-constant">LINE_LENGTH</span>)[<span class="ruby-constant">ENABLED</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-longest_line" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">longest_line</span><span
+            class="method-args">(node, assignment)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="longest_line-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 399</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">longest_line</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">assignment</span>)
+  <span class="ruby-identifier">assignment_regex</span> = <span class="ruby-node">/\s*#{Regexp.escape(assignment).gsub(&#39;\ &#39;, &#39;\s*&#39;)}/</span>
+  <span class="ruby-identifier">lines</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source</span>.<span class="ruby-identifier">lines</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">line</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-identifier">assignment_regex</span>, <span class="ruby-string">&#39;&#39;</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">longest_line</span> = <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">max_by</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:length</span>)
+  <span class="ruby-identifier">assignment</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">longest_line</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-longest_line_exceeds_line_limit-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">longest_line_exceeds_line_limit?</span><span
+            class="method-args">(node, assignment)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="longest_line_exceeds_line_limit-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 395</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">longest_line_exceeds_line_limit?</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">assignment</span>)
+  <span class="ruby-identifier">longest_line</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">assignment</span>).<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">max_line_length</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-max_line_length" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">max_line_length</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="max_line_length-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 412</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">max_line_length</span>
+  <span class="ruby-identifier">config</span>.<span class="ruby-identifier">for_cop</span>(<span class="ruby-constant">LINE_LENGTH</span>)[<span class="ruby-constant">MAX</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-move_assignment_inside_condition" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">move_assignment_inside_condition</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="move_assignment_inside_condition-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 335</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">move_assignment_inside_condition</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-operator">*</span><span class="ruby-identifier">_assignment</span>, <span class="ruby-identifier">condition</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">node</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ternary_condition?</span>(<span class="ruby-identifier">condition</span>)
+    <span class="ruby-constant">TernaryCorrector</span>.<span class="ruby-identifier">move_assignment_inside_condition</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">condition</span>.<span class="ruby-identifier">case_type?</span>
+    <span class="ruby-constant">CaseCorrector</span>.<span class="ruby-identifier">move_assignment_inside_condition</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">condition</span>.<span class="ruby-identifier">if_type?</span>
+    <span class="ruby-constant">IfCorrector</span>.<span class="ruby-identifier">move_assignment_inside_condition</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-move_assignment_outside_condition" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">move_assignment_outside_condition</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="move_assignment_outside_condition-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 323</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">move_assignment_outside_condition</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">case_type?</span>
+    <span class="ruby-constant">CaseCorrector</span>.<span class="ruby-identifier">correct</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">ternary?</span>
+    <span class="ruby-constant">TernaryCorrector</span>.<span class="ruby-identifier">correct</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">if?</span>
+    <span class="ruby-constant">IfCorrector</span>.<span class="ruby-identifier">correct</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">unless?</span>
+    <span class="ruby-constant">UnlessCorrector</span>.<span class="ruby-identifier">correct</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-single_line_conditions_only-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">single_line_conditions_only?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="single_line_conditions_only-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 420</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">single_line_conditions_only?</span>
+  <span class="ruby-identifier">cop_config</span>[<span class="ruby-constant">SINGLE_LINE_CONDITIONS_ONLY</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-ternary_condition-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">ternary_condition?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="ternary_condition-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/conditional_assignment.rb, line 347</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">ternary_condition?</span>(<span class="ruby-identifier">node</span>)
+  [<span class="ruby-identifier">node</span>, <span class="ruby-identifier">node</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">first</span>].<span class="ruby-identifier">any?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span> <span class="ruby-identifier">n</span>.<span class="ruby-identifier">if_type?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">n</span>.<span class="ruby-identifier">ternary?</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

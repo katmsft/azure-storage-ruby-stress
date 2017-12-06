@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class RuboCop::Cop::Style::ParallelAssignment - rubocop-0.51.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+  var index_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Cop.html">RuboCop::Cop::Cop</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="../RescueNode.html">RuboCop::Cop::RescueNode</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-add_self_to_getters">#add_self_to_getters</a>
+    
+    <li ><a href="#method-i-allowed_lhs-3F">#allowed_lhs?</a>
+    
+    <li ><a href="#method-i-allowed_masign-3F">#allowed_masign?</a>
+    
+    <li ><a href="#method-i-allowed_rhs-3F">#allowed_rhs?</a>
+    
+    <li ><a href="#method-i-assignment_corrector">#assignment_corrector</a>
+    
+    <li ><a href="#method-i-autocorrect">#autocorrect</a>
+    
+    <li ><a href="#method-i-find_valid_order">#find_valid_order</a>
+    
+    <li ><a href="#method-i-modifier_statement-3F">#modifier_statement?</a>
+    
+    <li ><a href="#method-i-on_masgn">#on_masgn</a>
+    
+    <li ><a href="#method-i-return_of_method_call-3F">#return_of_method_call?</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-RuboCop::Cop::Style::ParallelAssignment">
+  <h1 id="class-RuboCop::Cop::Style::ParallelAssignment" class="class">
+    class RuboCop::Cop::Style::ParallelAssignment
+  </h1>
+
+  <section class="description">
+    
+<p>Checks for simple usages of parallel assignment. This will only complain
+when the number of variables being assigned matched the number of assigning
+variables.</p>
+
+<p>@example</p>
+
+<pre class="ruby"><span class="ruby-comment"># bad</span>
+<span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>, <span class="ruby-identifier">c</span> = <span class="ruby-value">1</span>, <span class="ruby-value">2</span>, <span class="ruby-value">3</span>
+<span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>, <span class="ruby-identifier">c</span> = [<span class="ruby-value">1</span>, <span class="ruby-value">2</span>, <span class="ruby-value">3</span>]
+
+<span class="ruby-comment"># good</span>
+<span class="ruby-identifier">one</span>, <span class="ruby-identifier">two</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">foo</span>
+<span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span> = <span class="ruby-identifier">foo</span>()
+<span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span> = <span class="ruby-identifier">b</span>, <span class="ruby-identifier">a</span>
+
+<span class="ruby-identifier">a</span> = <span class="ruby-value">1</span>
+<span class="ruby-identifier">b</span> = <span class="ruby-value">2</span>
+<span class="ruby-identifier">c</span> = <span class="ruby-value">3</span>
+</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="MSG">MSG
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-on_masgn" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_masgn</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_masgn-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/parallel_assignment.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_masgn</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">lhs</span>, <span class="ruby-identifier">rhs</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">node</span>
+  <span class="ruby-identifier">lhs_elements</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">lhs</span>
+  <span class="ruby-identifier">rhs_elements</span> = [<span class="ruby-operator">*</span><span class="ruby-identifier">rhs</span>].<span class="ruby-identifier">compact</span> <span class="ruby-comment"># edge case for one constant</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">allowed_lhs?</span>(<span class="ruby-identifier">lhs</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">allowed_rhs?</span>(<span class="ruby-identifier">rhs</span>) <span class="ruby-operator">||</span>
+            <span class="ruby-identifier">allowed_masign?</span>(<span class="ruby-identifier">lhs_elements</span>, <span class="ruby-identifier">rhs_elements</span>)
+
+  <span class="ruby-identifier">add_offense</span>(<span class="ruby-identifier">node</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-add_self_to_getters" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_self_to_getters</span><span
+            class="method-args">(right_elements)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Converts (send nil :something) nodes to (send (:self) :something). This
+makes the sorting algorithm work for expressions such as `self.a, self.b =
+b, a`.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="add_self_to_getters-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/parallel_assignment.rb, line 111</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_self_to_getters</span>(<span class="ruby-identifier">right_elements</span>)
+  <span class="ruby-identifier">right_elements</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">implicit_self_getter?</span>(<span class="ruby-identifier">e</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">var</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>(<span class="ruby-value">:send</span>, <span class="ruby-identifier">s</span>(<span class="ruby-value">:self</span>), <span class="ruby-identifier">var</span>) } <span class="ruby-operator">||</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-allowed_lhs-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">allowed_lhs?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="allowed_lhs-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/parallel_assignment.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">allowed_lhs?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">elements</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">node</span>
+
+  <span class="ruby-comment"># Account for edge cases using one variable with a comma</span>
+  <span class="ruby-comment"># E.g.: `foo, = *bar`</span>
+  <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">one?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">any?</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:splat_type?</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-allowed_masign-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">allowed_masign?</span><span
+            class="method-args">(lhs_elements, rhs_elements)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="allowed_masign-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/parallel_assignment.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">allowed_masign?</span>(<span class="ruby-identifier">lhs_elements</span>, <span class="ruby-identifier">rhs_elements</span>)
+  <span class="ruby-identifier">lhs_elements</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">rhs_elements</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">||</span>
+    <span class="ruby-operator">!</span><span class="ruby-identifier">find_valid_order</span>(<span class="ruby-identifier">lhs_elements</span>,
+                      <span class="ruby-identifier">add_self_to_getters</span>(<span class="ruby-identifier">rhs_elements</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-allowed_rhs-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">allowed_rhs?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="allowed_rhs-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/parallel_assignment.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">allowed_rhs?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-comment"># Edge case for one constant</span>
+  <span class="ruby-identifier">elements</span> = [<span class="ruby-operator">*</span><span class="ruby-identifier">node</span>].<span class="ruby-identifier">compact</span>
+
+  <span class="ruby-comment"># Account for edge case of `Constant::CONSTANT`</span>
+  <span class="ruby-operator">!</span><span class="ruby-identifier">node</span>.<span class="ruby-identifier">array_type?</span> <span class="ruby-operator">||</span>
+    <span class="ruby-identifier">return_of_method_call?</span>(<span class="ruby-identifier">node</span>) <span class="ruby-operator">||</span>
+    <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">any?</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:splat_type?</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-assignment_corrector" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">assignment_corrector</span><span
+            class="method-args">(node, order)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="assignment_corrector-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/parallel_assignment.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">assignment_corrector</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">order</span>)
+  <span class="ruby-identifier">_assignment</span>, <span class="ruby-identifier">modifier</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">node</span>.<span class="ruby-identifier">parent</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">modifier_statement?</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">parent</span>)
+    <span class="ruby-constant">ModifierCorrector</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">config</span>, <span class="ruby-identifier">order</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">rescue_modifier?</span>(<span class="ruby-identifier">modifier</span>)
+    <span class="ruby-constant">RescueCorrector</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">config</span>, <span class="ruby-identifier">order</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">GenericCorrector</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">config</span>, <span class="ruby-identifier">order</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-autocorrect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">autocorrect</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="autocorrect-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/parallel_assignment.rb, line 70</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">autocorrect</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">lambda</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">corrector</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">left</span>, <span class="ruby-identifier">right</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">node</span>
+    <span class="ruby-identifier">left_elements</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">left</span>
+    <span class="ruby-identifier">right_elements</span> = [<span class="ruby-operator">*</span><span class="ruby-identifier">right</span>].<span class="ruby-identifier">compact</span>
+    <span class="ruby-identifier">order</span> = <span class="ruby-identifier">find_valid_order</span>(<span class="ruby-identifier">left_elements</span>, <span class="ruby-identifier">right_elements</span>)
+    <span class="ruby-identifier">correction</span> = <span class="ruby-identifier">assignment_corrector</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">order</span>)
+
+    <span class="ruby-identifier">corrector</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">correction</span>.<span class="ruby-identifier">correction_range</span>,
+                      <span class="ruby-identifier">correction</span>.<span class="ruby-identifier">correction</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-find_valid_order" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_valid_order</span><span
+            class="method-args">(left_elements, right_elements)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_valid_order-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/parallel_assignment.rb, line 94</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">find_valid_order</span>(<span class="ruby-identifier">left_elements</span>, <span class="ruby-identifier">right_elements</span>)
+  <span class="ruby-comment"># arrange left_elements in an order such that no corresponding right</span>
+  <span class="ruby-comment"># element refers to a left element earlier in the sequence</span>
+  <span class="ruby-comment"># this can be done using an algorithm called a &quot;topological sort&quot;</span>
+  <span class="ruby-comment"># fortunately for us, Ruby&#39;s stdlib contains an implementation</span>
+  <span class="ruby-identifier">assignments</span> = <span class="ruby-identifier">left_elements</span>.<span class="ruby-identifier">zip</span>(<span class="ruby-identifier">right_elements</span>)
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-constant">AssignmentSorter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">assignments</span>).<span class="ruby-identifier">tsort</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">TSort</span><span class="ruby-operator">::</span><span class="ruby-constant">Cyclic</span>
+    <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-modifier_statement-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">modifier_statement?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="modifier_statement-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/parallel_assignment.rb, line 170</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">modifier_statement?</span>(<span class="ruby-identifier">node</span>)
+      <span class="ruby-identifier">node</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">%</span>[<span class="ruby-keyword">if</span> <span class="ruby-keyword">while</span> <span class="ruby-keyword">until</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">type</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">modifier_form?</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># An internal class for correcting parallel assignment</span>
+    <span class="ruby-keyword">class</span> <span class="ruby-constant">GenericCorrector</span>
+      <span class="ruby-identifier">include</span> <span class="ruby-constant">AutocorrectAlignment</span>
+
+      <span class="ruby-identifier">attr_reader</span> <span class="ruby-value">:config</span>, <span class="ruby-value">:node</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">config</span>, <span class="ruby-identifier">new_elements</span>)
+        <span class="ruby-ivar">@node</span> = <span class="ruby-identifier">node</span>
+        <span class="ruby-ivar">@config</span> = <span class="ruby-identifier">config</span>
+        <span class="ruby-ivar">@new_elements</span> = <span class="ruby-identifier">new_elements</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">correction</span>
+        <span class="ruby-identifier">assignment</span>.<span class="ruby-identifier">join</span>(<span class="ruby-node">&quot;\n#{offset(node)}&quot;</span>)
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">correction_range</span>
+        <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source_range</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-identifier">protected</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">assignment</span>
+        <span class="ruby-ivar">@new_elements</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">lhs</span>, <span class="ruby-identifier">rhs</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{lhs.source} = #{source(rhs)}&quot;</span> }
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-identifier">private</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">source</span>(<span class="ruby-identifier">node</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">str_type?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">begin</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-node">&quot;&#39;#{node.source}&#39;&quot;</span>
+        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">sym_type?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">begin</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-node">&quot;:#{node.source}&quot;</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_sources</span>(<span class="ruby-identifier">node</span>)
+        <span class="ruby-identifier">node</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:source</span>)
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">cop_config</span>
+        <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">for_cop</span>(<span class="ruby-string">&#39;Style/ParallelAssignment&#39;</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># An internal class for correcting parallel assignment</span>
+    <span class="ruby-comment"># protected by rescue</span>
+    <span class="ruby-keyword">class</span> <span class="ruby-constant">RescueCorrector</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">GenericCorrector</span>
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">correction</span>
+        <span class="ruby-identifier">_node</span>, <span class="ruby-identifier">rescue_clause</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">node</span>.<span class="ruby-identifier">parent</span>
+        <span class="ruby-identifier">_</span>, <span class="ruby-identifier">_</span>, <span class="ruby-identifier">rescue_result</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">rescue_clause</span>
+
+        <span class="ruby-comment"># If the parallel assignment uses a rescue modifier and it is the</span>
+        <span class="ruby-comment"># only contents of a method, then we want to make use of the</span>
+        <span class="ruby-comment"># implicit begin</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">parent</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">def_type?</span>
+          <span class="ruby-keyword">super</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">def_correction</span>(<span class="ruby-identifier">rescue_result</span>)
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-identifier">begin_correction</span>(<span class="ruby-identifier">rescue_result</span>)
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">correction_range</span>
+        <span class="ruby-identifier">node</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">source_range</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-identifier">private</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">def_correction</span>(<span class="ruby-identifier">rescue_result</span>)
+        <span class="ruby-string">&quot;\nrescue&quot;</span>                <span class="ruby-node">&quot;\n#{offset(node)}#{rescue_result.source}&quot;</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">begin_correction</span>(<span class="ruby-identifier">rescue_result</span>)
+        <span class="ruby-string">&quot;begin\n&quot;</span>                <span class="ruby-node">&quot;#{indentation(node)}&quot;</span>                <span class="ruby-node">&quot;#{assignment.join(&quot;\n#{indentation(node)}&quot;)}&quot;</span>                <span class="ruby-node">&quot;\n#{offset(node)}rescue\n&quot;</span>                <span class="ruby-node">&quot;#{indentation(node)}#{rescue_result.source}&quot;</span>                <span class="ruby-node">&quot;\n#{offset(node)}end&quot;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># An internal class for correcting parallel assignment</span>
+    <span class="ruby-comment"># guarded by if, unless, while, or until</span>
+    <span class="ruby-keyword">class</span> <span class="ruby-constant">ModifierCorrector</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">GenericCorrector</span>
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">correction</span>
+        <span class="ruby-identifier">parent</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">parent</span>
+
+        <span class="ruby-node">&quot;#{modifier_range(parent).source}\n&quot;</span>                <span class="ruby-node">&quot;#{indentation(node)}&quot;</span>                <span class="ruby-node">&quot;#{assignment.join(&quot;\n#{indentation(node)}&quot;)}&quot;</span>                <span class="ruby-node">&quot;\n#{offset(node)}end&quot;</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">correction_range</span>
+        <span class="ruby-identifier">node</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">source_range</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-identifier">private</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">modifier_range</span>(<span class="ruby-identifier">node</span>)
+        <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Source</span><span class="ruby-operator">::</span><span class="ruby-constant">Range</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">source_range</span>.<span class="ruby-identifier">source_buffer</span>,
+                                  <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">keyword</span>.<span class="ruby-identifier">begin_pos</span>,
+                                  <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source_range</span>.<span class="ruby-identifier">end_pos</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-return_of_method_call-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">return_of_method_call?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="return_of_method_call-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/parallel_assignment.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">return_of_method_call?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">node</span>.<span class="ruby-identifier">block_type?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">send_type?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

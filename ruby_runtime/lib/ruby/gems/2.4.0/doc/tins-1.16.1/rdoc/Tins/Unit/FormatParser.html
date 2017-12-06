@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Tins::Unit::FormatParser - Tins - Useful stuff.</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">StringScanner
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-location">#location</a>
+    
+    <li ><a href="#method-i-parse">#parse</a>
+    
+    <li class="calls-super" ><a href="#method-i-reset">#reset</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Tins::Unit::FormatParser">
+  <h1 id="class-Tins::Unit::FormatParser" class="class">
+    class Tins::Unit::FormatParser
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(format, unit_parser)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/tins/unit.rb, line 123</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">format</span>, <span class="ruby-identifier">unit_parser</span>)
+  <span class="ruby-keyword">super</span> <span class="ruby-identifier">format</span>
+  <span class="ruby-ivar">@unit_parser</span> = <span class="ruby-identifier">unit_parser</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-parse" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="parse-source">
+            <pre><span class="ruby-comment"># File lib/tins/unit.rb, line 139</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse</span>
+  <span class="ruby-identifier">reset</span>
+  <span class="ruby-keyword">until</span> <span class="ruby-identifier">eos?</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@unit_parser</span>.<span class="ruby-identifier">eos?</span>
+    <span class="ruby-keyword">case</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/%f/</span>)
+      <span class="ruby-ivar">@unit_parser</span>.<span class="ruby-identifier">scan_number</span> <span class="ruby-keyword">or</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ParserError</span>, <span class="ruby-node">&quot;\&quot;%f\&quot; expected at #{location}&quot;</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/%U/</span>)
+      <span class="ruby-ivar">@unit_parser</span>.<span class="ruby-identifier">scan_unit</span> <span class="ruby-keyword">or</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ParserError</span>, <span class="ruby-node">&quot;\&quot;%U\&quot; expected at #{location}&quot;</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/%%/</span>)
+      <span class="ruby-ivar">@unit_parser</span>.<span class="ruby-identifier">scan_char</span>(<span class="ruby-value">?%</span>) <span class="ruby-keyword">or</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ParserError</span>, <span class="ruby-node">&quot;#{?%.inspect} expected at #{location}&quot;</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">char</span> = <span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/./</span>)
+      <span class="ruby-ivar">@unit_parser</span>.<span class="ruby-identifier">scan_char</span>(<span class="ruby-identifier">char</span>) <span class="ruby-keyword">or</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ParserError</span>, <span class="ruby-node">&quot;#{char.inspect} expected at #{location}&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">eos?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@unit_parser</span>.<span class="ruby-identifier">eos?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ParserError</span>,
+      <span class="ruby-node">&quot;format #{string.inspect} and string &quot;</span>             <span class="ruby-node">&quot;#{@unit_parser.string.inspect} do not match&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@unit_parser</span>.<span class="ruby-identifier">number</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-reset" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reset</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="reset-source">
+            <pre><span class="ruby-comment"># File lib/tins/unit.rb, line 128</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reset</span>
+  <span class="ruby-keyword">super</span>
+  <span class="ruby-ivar">@unit_parser</span>.<span class="ruby-identifier">reset</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-location" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">location</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="location-source">
+            <pre><span class="ruby-comment"># File lib/tins/unit.rb, line 133</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">location</span>
+  <span class="ruby-ivar">@unit_parser</span>.<span class="ruby-identifier">peek</span>(<span class="ruby-value">10</span>).<span class="ruby-identifier">inspect</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

@@ -1,0 +1,24 @@
+current directory: C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/thrift-0.10.0.0/ext
+C:/Ruby24-x64/bin/ruby.exe -r ./siteconf20171019-11880-1jqefr7.rb extconf.rb
+checking for strlcpy() in string.h... yes
+creating Makefile
+
+current directory: C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/thrift-0.10.0.0/ext
+make "DESTDIR=" clean
+
+current directory: C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/thrift-0.10.0.0/ext
+make "DESTDIR="
+generating thrift_native-x64-mingw32.def
+compiling binary_protocol_accelerated.c
+compiling bytes.c
+compiling compact_protocol.c
+compiling memory_buffer.c
+compiling protocol.c
+compiling strlcpy.c
+compiling struct.c
+compiling thrift_native.c
+linking shared-object thrift_native.so
+
+current directory: C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/thrift-0.10.0.0/ext
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 thrift_native.so ./.gem.20171019-11880-n8mfmu

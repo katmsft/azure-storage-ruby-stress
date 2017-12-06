@@ -1,0 +1,4 @@
+U:RDoc::Attr[iI"original_run_command:ETI"4SimpleCov::CommandGuesser::original_run_command;TI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[
+I"MStorage for the original command line call that invoked the test suite. ;TI"VThis has got to be stored as early as possible because i.e. rake and test/unit 2 ;TI"Uhave a habit of tampering with ARGV, which makes i.e. the automatic distinction ;TI"Tbetween rails unit/functional/integration tests impossible without this cached ;TI"
+item.;T:
+@fileI"%lib/simplecov/command_guesser.rb;T:0@omit_headings_from_table_of_contents_below0T@I"SimpleCov::CommandGuesser;TcRDoc::NormalModule0

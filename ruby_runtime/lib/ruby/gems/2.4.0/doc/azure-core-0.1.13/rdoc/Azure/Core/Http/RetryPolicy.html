@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Azure::Core::Http::RetryPolicy - azure-core-0.1.13 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+  var index_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="HttpFilter.html">Azure::Core::Http::HttpFilter</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-call">#call</a>
+    
+    <li ><a href="#method-i-should_retry-3F">#should_retry?</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Azure::Core::Http::RetryPolicy">
+  <h1 id="class-Azure::Core::Http::RetryPolicy" class="class">
+    class Azure::Core::Http::RetryPolicy
+  </h1>
+
+  <section class="description">
+    
+<p>A <a href="HttpFilter.html">HttpFilter</a> implementation that handles
+retrying based on a specific policy when HTTP layer errors occur</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-retry_data" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">retry_data</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(&block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/azure/core/http/retry_policy.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-ivar">@block</span> = <span class="ruby-identifier">block</span>
+  <span class="ruby-ivar">@retry_data</span> = {}
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-call" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">call</span><span
+            class="method-args">(req, _next)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Overrides the base class implementation of call to implement a retry loop
+that uses should_retry? to determine when to break the loop</p>
+
+<p>req   - <a href="HttpRequest.html">HttpRequest</a>. The HTTP request _next
+- <a href="HttpFilter.html">HttpFilter</a>. The next filter in the pipeline</p>
+          
+          
+
+          
+          <div class="method-source-code" id="call-source">
+            <pre><span class="ruby-comment"># File lib/azure/core/http/retry_policy.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">_next</span>)
+  <span class="ruby-identifier">response</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-comment"># URI could change in the retry, e.g. secondary endpoint</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@retry_data</span>[<span class="ruby-value">:uri</span>].<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">req</span>.<span class="ruby-identifier">uri</span> = <span class="ruby-ivar">@retry_data</span>[<span class="ruby-value">:uri</span>]
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">response</span> = <span class="ruby-identifier">_next</span>.<span class="ruby-identifier">call</span>
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-ivar">@retry_data</span>[<span class="ruby-value">:error</span>] = <span class="ruby-identifier">$!</span>
+  <span class="ruby-keyword">end</span> <span class="ruby-keyword">while</span> <span class="ruby-identifier">should_retry?</span>(<span class="ruby-identifier">response</span>, <span class="ruby-ivar">@retry_data</span>)
+  <span class="ruby-comment"># Assign the error when HTTP error is not thrown from the previous filter</span>
+  <span class="ruby-ivar">@retry_data</span>[<span class="ruby-value">:error</span>] = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">error</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">response</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">response</span>.<span class="ruby-identifier">success?</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@retry_data</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:error</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-ivar">@retry_data</span>[<span class="ruby-value">:error</span>]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">response</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-should_retry-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">should_retry?</span><span
+            class="method-args">(response, retry_data)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Determines if the HTTP request should continue retrying</p>
+
+<p>response - <a href="HttpResponse.html">HttpResponse</a>. The response from
+the active request <a
+href="RetryPolicy.html#attribute-i-retry_data">#retry_data</a> - Hash.
+Stores stateful retry data</p>
+
+<p>The <a href="RetryPolicy.html#attribute-i-retry_data">#retry_data</a> is a
+Hash which can be used to store stateful data about the request execution
+context (such as an incrementing counter, timestamp, etc). The <a
+href="RetryPolicy.html#attribute-i-retry_data">#retry_data</a> object will
+be the same instance throughout the lifetime of the request.</p>
+
+<p>If an inline block was passed to the constructor, that block will be used
+here and should return true to retry the job, or false to stop exit. If an
+inline block was not passed to the constructor the method returns false.</p>
+
+<p>Alternatively, a subclass could override this method.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="should_retry-3F-source">
+            <pre><span class="ruby-comment"># File lib/azure/core/http/retry_policy.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">should_retry?</span>(<span class="ruby-identifier">response</span>, <span class="ruby-identifier">retry_data</span>)
+  <span class="ruby-ivar">@block</span> <span class="ruby-operator">?</span> <span class="ruby-ivar">@block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">response</span>, <span class="ruby-identifier">retry_data</span>) <span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

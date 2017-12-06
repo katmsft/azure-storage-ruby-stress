@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Parser::Runner - parser-2.4.0.2 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Object
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-go">::go</a>
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-execute">#execute</a>
+    
+    <li ><a href="#method-i-input_size">#input_size</a>
+    
+    <li ><a href="#method-i-parse_options">#parse_options</a>
+    
+    <li ><a href="#method-i-prepare_parser">#prepare_parser</a>
+    
+    <li ><a href="#method-i-process">#process</a>
+    
+    <li ><a href="#method-i-process_all_input">#process_all_input</a>
+    
+    <li ><a href="#method-i-process_buffer">#process_buffer</a>
+    
+    <li ><a href="#method-i-process_files">#process_files</a>
+    
+    <li ><a href="#method-i-process_fragments">#process_fragments</a>
+    
+    <li ><a href="#method-i-report_with_time">#report_with_time</a>
+    
+    <li ><a href="#method-i-runner_name">#runner_name</a>
+    
+    <li ><a href="#method-i-setup_option_parsing">#setup_option_parsing</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Parser::Runner">
+  <h1 id="class-Parser::Runner" class="class">
+    class Parser::Runner
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-go" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">go</span><span
+            class="method-args">(options)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="go-source">
+            <pre><span class="ruby-comment"># File lib/parser/runner.rb, line 10</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">go</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">new</span>.<span class="ruby-identifier">execute</span>(<span class="ruby-identifier">options</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/parser/runner.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
+  <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Builders</span><span class="ruby-operator">::</span><span class="ruby-constant">Default</span>.<span class="ruby-identifier">modernize</span>
+
+  <span class="ruby-ivar">@option_parser</span> = <span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">opts</span><span class="ruby-operator">|</span> <span class="ruby-identifier">setup_option_parsing</span>(<span class="ruby-identifier">opts</span>) }
+  <span class="ruby-ivar">@parser_class</span>  = <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@parser</span>        = <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@files</span>         = []
+  <span class="ruby-ivar">@fragments</span>     = []
+  <span class="ruby-ivar">@warnings</span>      = <span class="ruby-keyword">false</span>
+  <span class="ruby-ivar">@benchmark</span>     = <span class="ruby-keyword">false</span>
+
+  <span class="ruby-ivar">@source_count</span> = <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@source_size</span>  = <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-execute" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">execute</span><span
+            class="method-args">(options)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="execute-source">
+            <pre><span class="ruby-comment"># File lib/parser/runner.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">execute</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">parse_options</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">prepare_parser</span>
+
+  <span class="ruby-identifier">process_all_input</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-input_size" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">input_size</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="input_size-source">
+            <pre><span class="ruby-comment"># File lib/parser/runner.rb, line 161</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">input_size</span>
+  <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@fragments</span>.<span class="ruby-identifier">size</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-parse_options" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse_options</span><span
+            class="method-args">(options)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="parse_options-source">
+            <pre><span class="ruby-comment"># File lib/parser/runner.rb, line 125</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_options</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-ivar">@option_parser</span>.<span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">options</span>)
+
+  <span class="ruby-comment"># Slop has just removed recognized options from `options`.</span>
+  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file_or_dir</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">file_or_dir</span>)
+      <span class="ruby-constant">Find</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">file_or_dir</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
+        <span class="ruby-ivar">@files</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">path</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">path</span>.<span class="ruby-identifier">end_with?</span> <span class="ruby-string">&#39;.rb&#39;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@files</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">file_or_dir</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@fragments</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Need something to parse!&#39;</span>
+    <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@parser_class</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;parser/current&#39;</span>
+    <span class="ruby-ivar">@parser_class</span> = <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">CurrentRuby</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-prepare_parser" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">prepare_parser</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="prepare_parser-source">
+            <pre><span class="ruby-comment"># File lib/parser/runner.rb, line 150</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">prepare_parser</span>
+  <span class="ruby-ivar">@parser</span> = <span class="ruby-ivar">@parser_class</span>.<span class="ruby-identifier">new</span>
+
+  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">diagnostics</span>.<span class="ruby-identifier">all_errors_are_fatal</span> = <span class="ruby-keyword">true</span>
+  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">diagnostics</span>.<span class="ruby-identifier">ignore_warnings</span>      = <span class="ruby-operator">!</span><span class="ruby-ivar">@warnings</span>
+
+  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">diagnostics</span>.<span class="ruby-identifier">consumer</span> = <span class="ruby-identifier">lambda</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">diagnostic</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">puts</span>(<span class="ruby-identifier">diagnostic</span>.<span class="ruby-identifier">render</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-process" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process</span><span
+            class="method-args">(buffer)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="process-source">
+            <pre><span class="ruby-comment"># File lib/parser/runner.rb, line 225</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process</span>(<span class="ruby-identifier">buffer</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-node">&quot;implement #{self.class}##{__callee__}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-process_all_input" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process_all_input</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="process_all_input-source">
+            <pre><span class="ruby-comment"># File lib/parser/runner.rb, line 165</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_all_input</span>
+  <span class="ruby-identifier">parsing_time</span> =
+    <span class="ruby-constant">Benchmark</span>.<span class="ruby-identifier">measure</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">process_fragments</span>
+      <span class="ruby-identifier">process_files</span>
+    <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@benchmark</span>
+    <span class="ruby-identifier">report_with_time</span>(<span class="ruby-identifier">parsing_time</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-process_buffer" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process_buffer</span><span
+            class="method-args">(buffer)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="process_buffer-source">
+            <pre><span class="ruby-comment"># File lib/parser/runner.rb, line 209</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_buffer</span>(<span class="ruby-identifier">buffer</span>)
+  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">reset</span>
+
+  <span class="ruby-identifier">process</span>(<span class="ruby-identifier">buffer</span>)
+
+  <span class="ruby-ivar">@source_count</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+  <span class="ruby-ivar">@source_size</span>  <span class="ruby-operator">+=</span> <span class="ruby-identifier">buffer</span>.<span class="ruby-identifier">source</span>.<span class="ruby-identifier">size</span>
+
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">SyntaxError</span>
+  <span class="ruby-comment"># skip</span>
+
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">StandardError</span>
+  <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;Failed on: #{buffer.name}&quot;</span>)
+  <span class="ruby-identifier">raise</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-process_files" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process_files</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="process_files-source">
+            <pre><span class="ruby-comment"># File lib/parser/runner.rb, line 190</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_files</span>
+  <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filename</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">source</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">filename</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">source</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:force_encoding</span>
+      <span class="ruby-identifier">source</span>.<span class="ruby-identifier">force_encoding</span>(<span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">default_encoding</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">buffer</span> = <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Source</span><span class="ruby-operator">::</span><span class="ruby-constant">Buffer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">filename</span>)
+
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Parser::Ruby18&#39;</span>
+      <span class="ruby-identifier">buffer</span>.<span class="ruby-identifier">raw_source</span> = <span class="ruby-identifier">source</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">buffer</span>.<span class="ruby-identifier">source</span>     = <span class="ruby-identifier">source</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">process_buffer</span>(<span class="ruby-identifier">buffer</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-process_fragments" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process_fragments</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="process_fragments-source">
+            <pre><span class="ruby-comment"># File lib/parser/runner.rb, line 177</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_fragments</span>
+  <span class="ruby-ivar">@fragments</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fragment</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">fragment</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:force_encoding</span>
+      <span class="ruby-identifier">fragment</span> = <span class="ruby-identifier">fragment</span>.<span class="ruby-identifier">dup</span>.<span class="ruby-identifier">force_encoding</span>(<span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">default_encoding</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">buffer</span> = <span class="ruby-constant">Source</span><span class="ruby-operator">::</span><span class="ruby-constant">Buffer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;(fragment:#{index})&quot;</span>)
+    <span class="ruby-identifier">buffer</span>.<span class="ruby-identifier">source</span> = <span class="ruby-identifier">fragment</span>
+
+    <span class="ruby-identifier">process_buffer</span>(<span class="ruby-identifier">buffer</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-report_with_time" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">report_with_time</span><span
+            class="method-args">(parsing_time)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="report_with_time-source">
+            <pre><span class="ruby-comment"># File lib/parser/runner.rb, line 229</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">report_with_time</span>(<span class="ruby-identifier">parsing_time</span>)
+  <span class="ruby-identifier">cpu_time</span> = <span class="ruby-identifier">parsing_time</span>.<span class="ruby-identifier">utime</span>
+
+  <span class="ruby-identifier">speed</span> = <span class="ruby-string">&#39;%.3f&#39;</span> <span class="ruby-operator">%</span> (<span class="ruby-ivar">@source_size</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">cpu_time</span> <span class="ruby-operator">/</span> <span class="ruby-value">1000</span>)
+  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Parsed #{@source_count} files (#{@source_size} characters)&quot;</span>             <span class="ruby-node">&quot; in #{&#39;%.2f&#39; % cpu_time} seconds (#{speed} kchars/s).&quot;</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">defined?</span>(<span class="ruby-constant">RUBY_ENGINE</span>)
+    <span class="ruby-identifier">engine</span> = <span class="ruby-constant">RUBY_ENGINE</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">engine</span> = <span class="ruby-string">&#39;ruby&#39;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Running on #{engine} #{RUBY_VERSION}.&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-runner_name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">runner_name</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="runner_name-source">
+            <pre><span class="ruby-comment"># File lib/parser/runner.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">runner_name</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-node">&quot;implement #{self.class}##{__callee__}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-setup_option_parsing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setup_option_parsing</span><span
+            class="method-args">(opts)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setup_option_parsing-source">
+            <pre><span class="ruby-comment"># File lib/parser/runner.rb, line 42</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">setup_option_parsing</span>(<span class="ruby-identifier">opts</span>)
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">banner</span> = <span class="ruby-node">&quot;Usage: #{runner_name} [options] FILE|DIRECTORY...&quot;</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on_tail</span> <span class="ruby-string">&#39;-h&#39;</span>, <span class="ruby-string">&#39;--help&#39;</span>, <span class="ruby-string">&#39;Display this help message and exit&#39;</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">help</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-value">&lt;&lt;-HELP
+
+If you specify a DIRECTORY, then all *.rb files are fetched
+from it recursively and appended to the file list.
+
+The default parsing mode is for current Ruby (#{RUBY_VERSION}).
+      HELP</span>
+      <span class="ruby-identifier">exit</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on_tail</span> <span class="ruby-string">&#39;-V&#39;</span>, <span class="ruby-string">&#39;--version&#39;</span>, <span class="ruby-string">&#39;Output version information and exit&#39;</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{runner_name} based on parser version #{Parser::VERSION}&quot;</span>
+      <span class="ruby-identifier">exit</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span> <span class="ruby-string">&#39;--18&#39;</span>, <span class="ruby-string">&#39;Parse as Ruby 1.8.7 would&#39;</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;parser/ruby18&#39;</span>
+      <span class="ruby-ivar">@parser_class</span> = <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Ruby18</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span> <span class="ruby-string">&#39;--19&#39;</span>, <span class="ruby-string">&#39;Parse as Ruby 1.9.3 would&#39;</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;parser/ruby19&#39;</span>
+      <span class="ruby-ivar">@parser_class</span> = <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Ruby19</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span> <span class="ruby-string">&#39;--20&#39;</span>, <span class="ruby-string">&#39;Parse as Ruby 2.0 would&#39;</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;parser/ruby20&#39;</span>
+      <span class="ruby-ivar">@parser_class</span> = <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Ruby20</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span> <span class="ruby-string">&#39;--21&#39;</span>, <span class="ruby-string">&#39;Parse as Ruby 2.1 would&#39;</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;parser/ruby21&#39;</span>
+      <span class="ruby-ivar">@parser_class</span> = <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Ruby21</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span> <span class="ruby-string">&#39;--22&#39;</span>, <span class="ruby-string">&#39;Parse as Ruby 2.2 would&#39;</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;parser/ruby22&#39;</span>
+      <span class="ruby-ivar">@parser_class</span> = <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Ruby22</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span> <span class="ruby-string">&#39;--23&#39;</span>, <span class="ruby-string">&#39;Parse as Ruby 2.3 would&#39;</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;parser/ruby23&#39;</span>
+      <span class="ruby-ivar">@parser_class</span> = <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Ruby23</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span> <span class="ruby-string">&#39;--24&#39;</span>, <span class="ruby-string">&#39;Parse as Ruby 2.4 would&#39;</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;parser/ruby24&#39;</span>
+      <span class="ruby-ivar">@parser_class</span> = <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Ruby24</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span> <span class="ruby-string">&#39;--25&#39;</span>, <span class="ruby-string">&#39;Parse as Ruby 2.5 would&#39;</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;parser/ruby25&#39;</span>
+      <span class="ruby-ivar">@parser_class</span> = <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Ruby25</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span> <span class="ruby-string">&#39;--mac&#39;</span>, <span class="ruby-string">&#39;Parse as MacRuby 0.12 would&#39;</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;parser/macruby&#39;</span>
+      <span class="ruby-ivar">@parser_class</span> = <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">MacRuby</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span> <span class="ruby-string">&#39;--ios&#39;</span>, <span class="ruby-string">&#39;Parse as mid-2015 RubyMotion would&#39;</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;parser/rubymotion&#39;</span>
+      <span class="ruby-ivar">@parser_class</span> = <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">RubyMotion</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span> <span class="ruby-string">&#39;-w&#39;</span>, <span class="ruby-string">&#39;--warnings&#39;</span>, <span class="ruby-string">&#39;Enable warnings&#39;</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">w</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@warnings</span> = <span class="ruby-identifier">w</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span> <span class="ruby-string">&#39;-B&#39;</span>,  <span class="ruby-string">&#39;--benchmark&#39;</span>, <span class="ruby-string">&#39;Benchmark the processor&#39;</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@benchmark</span> = <span class="ruby-identifier">b</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span> <span class="ruby-string">&#39;-e fragment&#39;</span>, <span class="ruby-string">&#39;Process a fragment of Ruby code&#39;</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fragment</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@fragments</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">fragment</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

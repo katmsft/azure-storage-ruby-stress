@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class RuboCop::Cop::Generator - rubocop-0.51.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../../Object.html">Object</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-generate">#generate</a>
+    
+    <li ><a href="#method-i-generated_source">#generated_source</a>
+    
+    <li ><a href="#method-i-generated_spec">#generated_spec</a>
+    
+    <li ><a href="#method-i-inject_require">#inject_require</a>
+    
+    <li ><a href="#method-i-require_path">#require_path</a>
+    
+    <li ><a href="#method-i-snake_case">#snake_case</a>
+    
+    <li ><a href="#method-i-source_path">#source_path</a>
+    
+    <li ><a href="#method-i-spec_path">#spec_path</a>
+    
+    <li ><a href="#method-i-todo">#todo</a>
+    
+    <li ><a href="#method-i-write_source">#write_source</a>
+    
+    <li ><a href="#method-i-write_spec">#write_spec</a>
+    
+    <li ><a href="#method-i-write_unless_file_exists">#write_unless_file_exists</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-RuboCop::Cop::Generator">
+  <h1 id="class-RuboCop::Cop::Generator" class="class">
+    class RuboCop::Cop::Generator
+  </h1>
+
+  <section class="description">
+    
+<p>Source and spec generator for new cops</p>
+
+<p>This generator will take a cop name and generate a source file and spec
+file when given a valid qualified cop name.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="SOURCE_TEMPLATE">SOURCE_TEMPLATE
+        
+        <dd>
+        
+      
+        <dt id="SPEC_TEMPLATE">SPEC_TEMPLATE
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-badge" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">badge</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(name)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/generator.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-ivar">@badge</span> = <span class="ruby-constant">Badge</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">name</span>)
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">badge</span>.<span class="ruby-identifier">qualified?</span>
+
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&#39;Specify a cop name with Department/Name style&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-inject_require" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">inject_require</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="inject_require-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/generator.rb, line 94</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">inject_require</span>
+  <span class="ruby-constant">RequireFileInjector</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">require_path</span>).<span class="ruby-identifier">inject</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-todo" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">todo</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="todo-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/generator.rb, line 98</span>
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">todo</span>
+        <span class="ruby-string">&quot;          Files created:
+            - #{source_path}
+            - #{spec_path}
+          File modified:
+            - `require_relative &#39;#{require_path}&#39;` added into lib/rubocop.rb
+
+          Do 3 steps:
+            1. Add an entry to the &quot;New features&quot; section in CHANGELOG.md,
+               e.g. &quot;Add new `#{badge}` cop. ([@your_id][])&quot;
+            2. Add an entry into config/enabled.yml or config/disabled.yml
+            3. Implement your new cop in the generated file!
+&quot;</span>.<span class="ruby-identifier">strip_indent</span>
+      <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-write_source" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write_source</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="write_source-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/generator.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_source</span>
+  <span class="ruby-identifier">write_unless_file_exists</span>(<span class="ruby-identifier">source_path</span>, <span class="ruby-identifier">generated_source</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-write_spec" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write_spec</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="write_spec-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/generator.rb, line 90</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_spec</span>
+  <span class="ruby-identifier">write_unless_file_exists</span>(<span class="ruby-identifier">spec_path</span>, <span class="ruby-identifier">generated_spec</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-generate" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generate</span><span
+            class="method-args">(template)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="generate-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/generator.rb, line 138</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generate</span>(<span class="ruby-identifier">template</span>)
+  <span class="ruby-identifier">format</span>(<span class="ruby-identifier">template</span>, <span class="ruby-identifier">department</span><span class="ruby-operator">:</span> <span class="ruby-identifier">badge</span>.<span class="ruby-identifier">department</span>, <span class="ruby-identifier">cop_name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">badge</span>.<span class="ruby-identifier">cop_name</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-generated_source" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generated_source</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="generated_source-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/generator.rb, line 130</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generated_source</span>
+  <span class="ruby-identifier">generate</span>(<span class="ruby-constant">SOURCE_TEMPLATE</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-generated_spec" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generated_spec</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="generated_spec-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/generator.rb, line 134</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generated_spec</span>
+  <span class="ruby-identifier">generate</span>(<span class="ruby-constant">SPEC_TEMPLATE</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-require_path" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">require_path</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="require_path-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/generator.rb, line 142</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">require_path</span>
+  <span class="ruby-identifier">source_path</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;lib/&#39;</span>, <span class="ruby-string">&#39;&#39;</span>).<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;.rb&#39;</span>, <span class="ruby-string">&#39;&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-snake_case" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">snake_case</span><span
+            class="method-args">(camel_case_string)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="snake_case-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/generator.rb, line 166</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">snake_case</span>(<span class="ruby-identifier">camel_case_string</span>)
+  <span class="ruby-identifier">camel_case_string</span>
+    .<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/([^A-Z])([A-Z]+)/</span>, <span class="ruby-string">&#39;\1_\2&#39;</span>)
+    .<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/([A-Z])([A-Z][^A-Z\d]+)/</span>, <span class="ruby-string">&#39;\1_\2&#39;</span>)
+    .<span class="ruby-identifier">downcase</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-source_path" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">source_path</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="source_path-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/generator.rb, line 156</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">source_path</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(
+    <span class="ruby-string">&#39;lib&#39;</span>,
+    <span class="ruby-string">&#39;rubocop&#39;</span>,
+    <span class="ruby-string">&#39;cop&#39;</span>,
+    <span class="ruby-identifier">snake_case</span>(<span class="ruby-identifier">badge</span>.<span class="ruby-identifier">department</span>.<span class="ruby-identifier">to_s</span>),
+    <span class="ruby-node">&quot;#{snake_case(badge.cop_name.to_s)}.rb&quot;</span>
+  )
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-spec_path" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">spec_path</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="spec_path-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/generator.rb, line 146</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">spec_path</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(
+    <span class="ruby-string">&#39;spec&#39;</span>,
+    <span class="ruby-string">&#39;rubocop&#39;</span>,
+    <span class="ruby-string">&#39;cop&#39;</span>,
+    <span class="ruby-identifier">snake_case</span>(<span class="ruby-identifier">badge</span>.<span class="ruby-identifier">department</span>.<span class="ruby-identifier">to_s</span>),
+    <span class="ruby-node">&quot;#{snake_case(badge.cop_name.to_s)}_spec.rb&quot;</span>
+  )
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-write_unless_file_exists" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write_unless_file_exists</span><span
+            class="method-args">(path, contents)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="write_unless_file_exists-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/generator.rb, line 118</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_unless_file_exists</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">contents</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">path</span>)
+    <span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;rake new_cop: #{path} already exists!&quot;</span>
+    <span class="ruby-identifier">exit!</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">dir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">path</span>)
+  <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-identifier">dir</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">dir</span>)
+
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">contents</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class RuboCop::AST::Node - rubocop-0.51.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Parser::AST::Node
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="Sexp.html">RuboCop::AST::Sexp</a>
+  
+  
+  </ul>
+</div>
+
+    <div id="extends-section" class="nav-section">
+  <h3>Extended With Modules</h3>
+
+  <ul class="link-list">
+    
+  
+    <li><a class="extend" href="../NodePattern/Macros.html">RuboCop::NodePattern::Macros</a>
+  
+  
+  </ul>
+</div>
+
+    
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-RuboCop::AST::Node">
+  <h1 id="class-RuboCop::AST::Node" class="class">
+    class RuboCop::AST::Node
+  </h1>
+
+  <section class="description">
+    
+<p>`RuboCop::AST::Node` is a subclass of `Parser::AST::Node`. It provides
+access to parent nodes and an object-oriented way to traverse an <a
+href="../AST.html">AST</a> with the power of `Enumerable`.</p>
+
+<p>It has predicate methods for every node type, like this:</p>
+
+<p>@example</p>
+
+<pre class="ruby"><span class="ruby-identifier">node</span>.<span class="ruby-identifier">send_type?</span>    <span class="ruby-comment"># Equivalent to: `node.type == :send`</span>
+<span class="ruby-identifier">node</span>.<span class="ruby-identifier">op_asgn_type?</span> <span class="ruby-comment"># Equivalent to: `node.type == :op_asgn`</span>
+
+<span class="ruby-comment"># Non-word characters (other than a-zA-Z0-9_) in type names are omitted.</span>
+<span class="ruby-identifier">node</span>.<span class="ruby-identifier">defined_type?</span> <span class="ruby-comment"># Equivalent to: `node.type == :defined?`</span>
+
+<span class="ruby-comment"># Find the first lvar node under the receiver node.</span>
+<span class="ruby-identifier">lvar_node</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">each_descendant</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">&amp;</span>:<span class="ruby-identifier">lvar_type?</span>)
+</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="BASIC_LITERALS">BASIC_LITERALS
+        
+        <dd>
+        
+      
+        <dt id="COMPARISON_OPERATORS">COMPARISON_OPERATORS
+        
+        <dd><p>&lt;=&gt; isn&#39;t included here, because it doesn&#39;t return a boolean.</p>
+        
+      
+        <dt id="COMPOSITE_LITERALS">COMPOSITE_LITERALS
+        
+        <dd>
+        
+      
+        <dt id="FALSEY_LITERALS">FALSEY_LITERALS
+        
+        <dd>
+        
+      
+        <dt id="IMMUTABLE_LITERALS">IMMUTABLE_LITERALS
+        
+        <dd>
+        
+      
+        <dt id="KEYWORDS">KEYWORDS
+        
+        <dd>
+        
+      
+        <dt id="LITERALS">LITERALS
+        
+        <dd>
+        
+      
+        <dt id="MUTABLE_LITERALS">MUTABLE_LITERALS
+        
+        <dd>
+        
+      
+        <dt id="REFERENCES">REFERENCES
+        
+        <dd>
+        
+      
+        <dt id="TRUTHY_LITERALS">TRUTHY_LITERALS
+        
+        <dd>
+        
+      
+        <dt id="VARIABLES">VARIABLES
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>module RuboCop::Cop::StatementModifier - rubocop-0.51.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-body_length">#body_length</a>
+    
+    <li ><a href="#method-i-comment_lines">#comment_lines</a>
+    
+    <li ><a href="#method-i-commented-3F">#commented?</a>
+    
+    <li ><a href="#method-i-empty_body-3F">#empty_body?</a>
+    
+    <li ><a href="#method-i-length_in_modifier_form">#length_in_modifier_form</a>
+    
+    <li ><a href="#method-i-line_count">#line_count</a>
+    
+    <li ><a href="#method-i-max_line_length">#max_line_length</a>
+    
+    <li ><a href="#method-i-modifier_fits_on_single_line-3F">#modifier_fits_on_single_line?</a>
+    
+    <li ><a href="#method-i-non_eligible_body-3F">#non_eligible_body?</a>
+    
+    <li ><a href="#method-i-non_eligible_condition-3F">#non_eligible_condition?</a>
+    
+    <li ><a href="#method-i-non_eligible_node-3F">#non_eligible_node?</a>
+    
+    <li ><a href="#method-i-single_line_as_modifier-3F">#single_line_as_modifier?</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-RuboCop::Cop::StatementModifier">
+  <h1 id="module-RuboCop::Cop::StatementModifier" class="module">
+    module RuboCop::Cop::StatementModifier
+  </h1>
+
+  <section class="description">
+    
+<p>Common functionality for modifier cops.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-body_length" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">body_length</span><span
+            class="method-args">(body)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="body_length-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/statement_modifier.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">body_length</span>(<span class="ruby-identifier">body</span>)
+  <span class="ruby-identifier">body</span>.<span class="ruby-identifier">source_range</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">body</span>.<span class="ruby-identifier">source_range</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-comment_lines" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">comment_lines</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="comment_lines-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/statement_modifier.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">comment_lines</span>
+  <span class="ruby-ivar">@comment_lines</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">processed_source</span>.<span class="ruby-identifier">comments</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">line</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-commented-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">commented?</span><span
+            class="method-args">(source)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="commented-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/statement_modifier.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">commented?</span>(<span class="ruby-identifier">source</span>)
+  <span class="ruby-identifier">comment_lines</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">source</span>.<span class="ruby-identifier">line</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-empty_body-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">empty_body?</span><span
+            class="method-args">(body)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="empty_body-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/statement_modifier.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">empty_body?</span>(<span class="ruby-identifier">body</span>)
+  <span class="ruby-operator">!</span><span class="ruby-identifier">body</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">body_length</span>(<span class="ruby-identifier">body</span>).<span class="ruby-identifier">zero?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-length_in_modifier_form" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">length_in_modifier_form</span><span
+            class="method-args">(node, cond, body_length)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="length_in_modifier_form-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/statement_modifier.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">length_in_modifier_form</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">cond</span>, <span class="ruby-identifier">body_length</span>)
+  <span class="ruby-identifier">indentation</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">keyword</span>.<span class="ruby-identifier">column</span>
+  <span class="ruby-identifier">kw_length</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">keyword</span>.<span class="ruby-identifier">size</span>
+  <span class="ruby-identifier">cond_length</span> = <span class="ruby-identifier">cond</span>.<span class="ruby-identifier">source_range</span>.<span class="ruby-identifier">size</span>
+  <span class="ruby-identifier">space</span> = <span class="ruby-value">1</span>
+  <span class="ruby-identifier">indentation</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">body_length</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">space</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">kw_length</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">space</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">cond_length</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-line_count" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">line_count</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="line_count-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/statement_modifier.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">line_count</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source</span>.<span class="ruby-identifier">lines</span>.<span class="ruby-identifier">grep</span>(<span class="ruby-regexp">/\S/</span>).<span class="ruby-identifier">size</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-max_line_length" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">max_line_length</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="max_line_length-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/statement_modifier.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">max_line_length</span>
+  <span class="ruby-identifier">cop_config</span>[<span class="ruby-string">&#39;MaxLineLength&#39;</span>] <span class="ruby-operator">||</span>
+    <span class="ruby-identifier">config</span>.<span class="ruby-identifier">for_cop</span>(<span class="ruby-string">&#39;Metrics/LineLength&#39;</span>)[<span class="ruby-string">&#39;Max&#39;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-modifier_fits_on_single_line-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">modifier_fits_on_single_line?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="modifier_fits_on_single_line-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/statement_modifier.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">modifier_fits_on_single_line?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">modifier_length</span> = <span class="ruby-identifier">length_in_modifier_form</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">node</span>.<span class="ruby-identifier">condition</span>,
+                                            <span class="ruby-identifier">body_length</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">body</span>))
+
+  <span class="ruby-identifier">modifier_length</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">max_line_length</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-non_eligible_body-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">non_eligible_body?</span><span
+            class="method-args">(body)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="non_eligible_body-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/statement_modifier.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">non_eligible_body?</span>(<span class="ruby-identifier">body</span>)
+  <span class="ruby-identifier">empty_body?</span>(<span class="ruby-identifier">body</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">body</span>.<span class="ruby-identifier">begin_type?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">commented?</span>(<span class="ruby-identifier">body</span>.<span class="ruby-identifier">source_range</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-non_eligible_condition-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">non_eligible_condition?</span><span
+            class="method-args">(condition)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="non_eligible_condition-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/statement_modifier.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">non_eligible_condition?</span>(<span class="ruby-identifier">condition</span>)
+  <span class="ruby-identifier">condition</span>.<span class="ruby-identifier">each_node</span>.<span class="ruby-identifier">any?</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:lvasgn_type?</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-non_eligible_node-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">non_eligible_node?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="non_eligible_node-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/statement_modifier.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">non_eligible_node?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">line_count</span>(<span class="ruby-identifier">node</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">3</span> <span class="ruby-operator">||</span>
+    <span class="ruby-operator">!</span><span class="ruby-identifier">node</span>.<span class="ruby-identifier">modifier_form?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">commented?</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">end</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-single_line_as_modifier-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">single_line_as_modifier?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="single_line_as_modifier-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/statement_modifier.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">single_line_as_modifier?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">non_eligible_node?</span>(<span class="ruby-identifier">node</span>) <span class="ruby-operator">||</span>
+                  <span class="ruby-identifier">non_eligible_body?</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">body</span>) <span class="ruby-operator">||</span>
+                  <span class="ruby-identifier">non_eligible_condition?</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">condition</span>)
+
+  <span class="ruby-identifier">modifier_fits_on_single_line?</span>(<span class="ruby-identifier">node</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

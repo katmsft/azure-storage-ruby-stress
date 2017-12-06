@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class RuboCop::Cop::Style::YodaCondition - rubocop-0.51.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+  var index_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Cop.html">RuboCop::Cop::Cop</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="../ConfigurableEnforcedStyle.html">RuboCop::Cop::ConfigurableEnforcedStyle</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-actual_code_range">#actual_code_range</a>
+    
+    <li ><a href="#method-i-autocorrect">#autocorrect</a>
+    
+    <li ><a href="#method-i-check_equality_only-3F">#check_equality_only?</a>
+    
+    <li ><a href="#method-i-corrected_code">#corrected_code</a>
+    
+    <li ><a href="#method-i-message">#message</a>
+    
+    <li ><a href="#method-i-non_equality_operator-3F">#non_equality_operator?</a>
+    
+    <li ><a href="#method-i-noncommutative_operator-3F">#noncommutative_operator?</a>
+    
+    <li ><a href="#method-i-on_send">#on_send</a>
+    
+    <li ><a href="#method-i-reverse_comparison">#reverse_comparison</a>
+    
+    <li ><a href="#method-i-yoda_condition-3F">#yoda_condition?</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-RuboCop::Cop::Style::YodaCondition">
+  <h1 id="class-RuboCop::Cop::Style::YodaCondition" class="class">
+    class RuboCop::Cop::Style::YodaCondition
+  </h1>
+
+  <section class="description">
+    
+<p>This cop checks for Yoda conditions, i.e. comparison operations where
+readability is reduced because the operands are not ordered the same way as
+they would be ordered in spoken English.</p>
+
+<p>@example</p>
+
+<pre class="ruby"><span class="ruby-comment"># EnforcedStyle: all_comparison_operators</span>
+
+<span class="ruby-comment"># bad</span>
+<span class="ruby-value">99</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">foo</span>
+<span class="ruby-string">&quot;bar&quot;</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">foo</span>
+<span class="ruby-value">42</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">foo</span>
+<span class="ruby-value">10</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">bar</span>
+
+<span class="ruby-comment"># good</span>
+<span class="ruby-identifier">foo</span> <span class="ruby-operator">==</span> <span class="ruby-value">99</span>
+<span class="ruby-identifier">foo</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;bar&quot;</span>
+<span class="ruby-identifier">foo</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">42</span>
+<span class="ruby-identifier">bar</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">10</span>
+</pre>
+
+<p>@example</p>
+
+<pre class="ruby"><span class="ruby-comment"># EnforcedStyle: equality_operators_only</span>
+
+<span class="ruby-comment"># bad</span>
+<span class="ruby-value">99</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">foo</span>
+<span class="ruby-string">&quot;bar&quot;</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">foo</span>
+
+<span class="ruby-comment"># good</span>
+<span class="ruby-value">99</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">foo</span>
+<span class="ruby-value">3</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">a</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">a</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">5</span>
+</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="EQUALITY_OPERATORS">EQUALITY_OPERATORS
+        
+        <dd>
+        
+      
+        <dt id="MSG">MSG
+        
+        <dd>
+        
+      
+        <dt id="NONCOMMUTATIVE_OPERATORS">NONCOMMUTATIVE_OPERATORS
+        
+        <dd>
+        
+      
+        <dt id="REVERSE_COMPARISON">REVERSE_COMPARISON
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-on_send" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_send</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_send-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/yoda_condition.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_send</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">yoda_condition?</span>(<span class="ruby-identifier">node</span>)
+
+  <span class="ruby-identifier">add_offense</span>(<span class="ruby-identifier">node</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-actual_code_range" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">actual_code_range</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="actual_code_range-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/yoda_condition.rb, line 88</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">actual_code_range</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">range_between</span>(
+    <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">expression</span>.<span class="ruby-identifier">begin_pos</span>, <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">expression</span>.<span class="ruby-identifier">end_pos</span>
+  )
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-autocorrect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">autocorrect</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="autocorrect-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/yoda_condition.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">autocorrect</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">lambda</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">corrector</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">corrector</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">actual_code_range</span>(<span class="ruby-identifier">node</span>), <span class="ruby-identifier">corrected_code</span>(<span class="ruby-identifier">node</span>))
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_equality_only-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_equality_only?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_equality_only-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/yoda_condition.rb, line 98</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_equality_only?</span>
+  <span class="ruby-identifier">style</span> <span class="ruby-operator">==</span> <span class="ruby-value">:equality_operators_only</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-corrected_code" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">corrected_code</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="corrected_code-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/yoda_condition.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">corrected_code</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">lhs</span>, <span class="ruby-identifier">operator</span>, <span class="ruby-identifier">rhs</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">node</span>
+  <span class="ruby-node">&quot;#{rhs.source} #{reverse_comparison(operator)} #{lhs.source}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">message</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="message-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/yoda_condition.rb, line 73</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">message</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">format</span>(<span class="ruby-constant">MSG</span>, <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-non_equality_operator-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">non_equality_operator?</span><span
+            class="method-args">(operator)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="non_equality_operator-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/yoda_condition.rb, line 102</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">non_equality_operator?</span>(<span class="ruby-identifier">operator</span>)
+  <span class="ruby-operator">!</span><span class="ruby-constant">EQUALITY_OPERATORS</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">operator</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-noncommutative_operator-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">noncommutative_operator?</span><span
+            class="method-args">(operator)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="noncommutative_operator-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/yoda_condition.rb, line 106</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">noncommutative_operator?</span>(<span class="ruby-identifier">operator</span>)
+  <span class="ruby-constant">NONCOMMUTATIVE_OPERATORS</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">operator</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-reverse_comparison" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reverse_comparison</span><span
+            class="method-args">(operator)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="reverse_comparison-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/yoda_condition.rb, line 94</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reverse_comparison</span>(<span class="ruby-identifier">operator</span>)
+  <span class="ruby-constant">REVERSE_COMPARISON</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">operator</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">operator</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-yoda_condition-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">yoda_condition?</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="yoda_condition-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/style/yoda_condition.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">yoda_condition?</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">comparison_method?</span>
+
+  <span class="ruby-identifier">lhs</span>, <span class="ruby-identifier">operator</span>, <span class="ruby-identifier">rhs</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">node</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">check_equality_only?</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">non_equality_operator?</span>(<span class="ruby-identifier">operator</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">noncommutative_operator?</span>(<span class="ruby-identifier">operator</span>)
+
+  <span class="ruby-identifier">lhs</span>.<span class="ruby-identifier">literal?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">rhs</span>.<span class="ruby-identifier">literal?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Mocha::Mock - mocha-1.3.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Object.html">Object</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-__expectations__">#__expectations__</a>
+    
+    <li ><a href="#method-i-__expects__">#__expects__</a>
+    
+    <li ><a href="#method-i-__stubs__">#__stubs__</a>
+    
+    <li ><a href="#method-i-__verified__-3F">#__verified__?</a>
+    
+    <li ><a href="#method-i-all_expectations">#all_expectations</a>
+    
+    <li ><a href="#method-i-any_expectations-3F">#any_expectations?</a>
+    
+    <li ><a href="#method-i-ensure_method_not_already_defined">#ensure_method_not_already_defined</a>
+    
+    <li ><a href="#method-i-expects">#expects</a>
+    
+    <li ><a href="#method-i-inspect">#inspect</a>
+    
+    <li ><a href="#method-i-method_missing">#method_missing</a>
+    
+    <li ><a href="#method-i-mocha_inspect">#mocha_inspect</a>
+    
+    <li ><a href="#method-i-quacks_like">#quacks_like</a>
+    
+    <li ><a href="#method-i-quacks_like_instance_of">#quacks_like_instance_of</a>
+    
+    <li ><a href="#method-i-respond_to-3F">#respond_to?</a>
+    
+    <li ><a href="#method-i-responds_like">#responds_like</a>
+    
+    <li ><a href="#method-i-responds_like_instance_of">#responds_like_instance_of</a>
+    
+    <li ><a href="#method-i-stub_everything">#stub_everything</a>
+    
+    <li ><a href="#method-i-stubs">#stubs</a>
+    
+    <li ><a href="#method-i-unstub">#unstub</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Mocha::Mock">
+  <h1 id="class-Mocha::Mock" class="class">
+    class Mocha::Mock
+  </h1>
+
+  <section class="description">
+    
+<p>Traditional mock object.</p>
+
+<p>All methods return an {Expectation} which can be further modified by
+methods on {Expectation}.</p>
+
+<p>Stubs and expectations are basically the same thing. A stub is just an
+expectation of zero or more invocations. The {#stubs} method is syntactic
+sugar to make the intent of the test more explicit.</p>
+
+<p>When a method is invoked on a mock object, the mock object searches through
+its expectations from newest to oldest to find one that matches the
+invocation. After the invocation, the matching expectation might stop
+matching further invocations. For example, an +expects(:foo).once+
+expectation only matches once and will be ignored on future invocations
+while an +expects(:foo).at_least_once+ expectation will always be matched
+against invocations.</p>
+
+<p>This scheme allows you to:</p>
+<ul><li>
+<p>Set up default stubs in your the <code>setup</code> method of your test
+class and override some of those stubs in individual tests.</p>
+</li><li>
+<p>Set up different <code>once</code> expectations for the same method with
+different action per invocation. However, it&#39;s better to use the
+{Expectation#returns} method with multiple arguments to do this, as
+described below.</p>
+</li></ul>
+
+<p>However, there are some possible “gotchas” caused by this scheme:</p>
+<ul><li>
+<p>if you create an expectation and then a stub for the same method, the stub
+will always override the expectation and the expectation will never be met.</p>
+</li><li>
+<p>if you create a stub and then an expectation for the same method, the
+expectation will match, and when it stops matching the stub will be used
+instead, possibly masking test failures.</p>
+</li><li>
+<p>if you create different expectations for the same method, they will be
+invoked in the opposite order than that in which they were specified,
+rather than the same order.</p>
+</li></ul>
+
+<p>The best thing to do is not set up multiple expectations and stubs for the
+same method with exactly the same matchers. Instead, use the
+{Expectation#returns} method with multiple arguments to create multiple
+actions for a method. You can also chain multiple calls to
+{Expectation#returns} and {Expectation#raises} (along with syntactic sugar
+{Expectation#then} if desired).</p>
+
+<p>@example</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">stubs</span>(:<span class="ruby-identifier">expected_method</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-value">1</span>, <span class="ruby-value">2</span>).<span class="ruby-identifier">then</span>.<span class="ruby-identifier">raises</span>(<span class="ruby-constant">Exception</span>)
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expected_method</span> <span class="ruby-comment"># =&gt; 1</span>
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expected_method</span> <span class="ruby-comment"># =&gt; 2</span>
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expected_method</span> <span class="ruby-comment"># =&gt; raises exception of class Exception1</span>
+</pre>
+
+<p>If you want to specify more complex ordering or order invocations across
+different mock objects, use the {Expectation#in_sequence} method to
+explicitly define a total or partial ordering of invocations.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-everything_stubbed" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">everything_stubbed</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>@private</p>
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(mockery, name = nil, receiver = nil, &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 255</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">mockery</span>, <span class="ruby-identifier">name</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">receiver</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-ivar">@mockery</span> = <span class="ruby-identifier">mockery</span>
+  <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span> <span class="ruby-operator">||</span> <span class="ruby-constant">DefaultName</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>)
+  <span class="ruby-ivar">@receiver</span> = <span class="ruby-identifier">receiver</span> <span class="ruby-operator">||</span> <span class="ruby-constant">DefaultReceiver</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>)
+  <span class="ruby-ivar">@expectations</span> = <span class="ruby-constant">ExpectationList</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@everything_stubbed</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-ivar">@responder</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@unexpected_invocation</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block</span>
+    <span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warning</span>(<span class="ruby-string">&#39;Passing a block is deprecated. Use Object#tap or define stubs/expectations with an explicit receiver instead.&#39;</span>)
+    <span class="ruby-identifier">instance_eval</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-__expectations__" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">__expectations__</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="__expectations__-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 280</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">__expectations__</span>
+  <span class="ruby-ivar">@expectations</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-__expects__" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">__expects__</span><span
+            class="method-args">(method_name_or_hash, backtrace = nil)</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="Mock.html#method-i-expects">expects</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-__stubs__" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">__stubs__</span><span
+            class="method-args">(method_name_or_hash, backtrace = nil)</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="Mock.html#method-i-stubs">stubs</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-__verified__-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">__verified__?</span><span
+            class="method-args">(assertion_counter = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="__verified__-3F-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 330</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">__verified__?</span>(<span class="ruby-identifier">assertion_counter</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-ivar">@expectations</span>.<span class="ruby-identifier">verified?</span>(<span class="ruby-identifier">assertion_counter</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-all_expectations" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">all_expectations</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="all_expectations-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 290</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">all_expectations</span>
+  <span class="ruby-ivar">@receiver</span>.<span class="ruby-identifier">mocks</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-constant">ExpectationList</span>.<span class="ruby-identifier">new</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span>, <span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">__expectations__</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-any_expectations-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">any_expectations?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="any_expectations-3F-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 350</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">any_expectations?</span>
+  <span class="ruby-ivar">@expectations</span>.<span class="ruby-identifier">any?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-ensure_method_not_already_defined" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">ensure_method_not_already_defined</span><span
+            class="method-args">(method_name)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="ensure_method_not_already_defined-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 345</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">ensure_method_not_already_defined</span>(<span class="ruby-identifier">method_name</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">__metaclass__</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:undef_method</span>, <span class="ruby-identifier">method_name</span>) <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">__metaclass__</span>.<span class="ruby-identifier">method_defined?</span>(<span class="ruby-identifier">method_name</span>) <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">__metaclass__</span>.<span class="ruby-identifier">private_method_defined?</span>(<span class="ruby-identifier">method_name</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-expects" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">expects</span><span
+            class="method-args">(method_name_or_hash, backtrace = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds an expectation that the specified method must be called exactly once
+with any parameters.</p>
+
+<p>@param [Symbol,String] method_name name of expected method @param [Hash]
+expected_methods_vs_return_values expected method name symbols as keys and
+corresponding return values as values - these expectations are setup as if
+{#expects} were called multiple times.</p>
+
+<p>@overload def expects(method_name) @overload def
+expects(expected_methods_vs_return_values) @return [Expectation] last-built
+expectation which can be further modified by methods on {Expectation}.</p>
+
+<p>@example Expected method invoked once so no error raised</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">expected_method</span>)
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expected_method</span>
+</pre>
+
+<p>@example Expected method not invoked so error raised</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">expected_method</span>)
+<span class="ruby-comment"># error raised when test completes, because expected_method not called exactly once</span>
+</pre>
+
+<p>@example Expected method invoked twice so error raised</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">expected_method</span>)
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expected_method</span>
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expected_method</span> <span class="ruby-comment"># =&gt; error raised when expected method invoked second time</span>
+</pre>
+
+<p>@example Setup multiple expectations using
+<code>expected_methods_vs_return_values</code>.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">expected_method_one</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">result_one</span>, :<span class="ruby-identifier">expected_method_two</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">result_two</span>)
+
+<span class="ruby-comment"># is exactly equivalent to</span>
+
+<span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">expected_method_one</span>).<span class="ruby-identifier">returns</span>(:<span class="ruby-identifier">result_one</span>)
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">expected_method_two</span>).<span class="ruby-identifier">returns</span>(:<span class="ruby-identifier">result_two</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="expects-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 106</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">expects</span>(<span class="ruby-identifier">method_name_or_hash</span>, <span class="ruby-identifier">backtrace</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">iterator</span> = <span class="ruby-constant">ArgumentIterator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">method_name_or_hash</span>)
+  <span class="ruby-identifier">iterator</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-operator">*</span><span class="ruby-identifier">args</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">method_name</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">shift</span>
+    <span class="ruby-identifier">ensure_method_not_already_defined</span>(<span class="ruby-identifier">method_name</span>)
+    <span class="ruby-identifier">expectation</span> = <span class="ruby-constant">Expectation</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">backtrace</span>)
+    <span class="ruby-identifier">expectation</span>.<span class="ruby-identifier">returns</span>(<span class="ruby-identifier">args</span>.<span class="ruby-identifier">shift</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-ivar">@expectations</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">expectation</span>)
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="Mock.html#method-i-__expects__">__expects__</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-inspect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">inspect</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="inspect-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 340</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">inspect</span>
+  <span class="ruby-identifier">mocha_inspect</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-method_missing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">method_missing</span><span
+            class="method-args">(symbol, *arguments, &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="method_missing-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 295</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">symbol</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">arguments</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@responder</span> <span class="ruby-keyword">and</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@responder</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">symbol</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">NoMethodError</span>, <span class="ruby-node">&quot;undefined method `#{symbol}&#39; for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">matching_expectation_allowing_invocation</span> = <span class="ruby-identifier">all_expectations</span>.<span class="ruby-identifier">match_allowing_invocation</span>(<span class="ruby-identifier">symbol</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">arguments</span>)
+    <span class="ruby-identifier">matching_expectation_allowing_invocation</span>.<span class="ruby-identifier">invoke</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">matching_expectation</span> = <span class="ruby-identifier">all_expectations</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">symbol</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">arguments</span>)) <span class="ruby-operator">||</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">matching_expectation</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@everything_stubbed</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-ivar">@unexpected_invocation</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-ivar">@unexpected_invocation</span> = <span class="ruby-constant">UnexpectedInvocation</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">symbol</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">arguments</span>)
+        <span class="ruby-identifier">matching_expectation</span>.<span class="ruby-identifier">invoke</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">matching_expectation</span>
+        <span class="ruby-identifier">message</span> = <span class="ruby-ivar">@unexpected_invocation</span>.<span class="ruby-identifier">full_description</span>
+        <span class="ruby-identifier">message</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@mockery</span>.<span class="ruby-identifier">mocha_inspect</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">message</span> = <span class="ruby-ivar">@unexpected_invocation</span>.<span class="ruby-identifier">short_description</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ExpectationErrorFactory</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">caller</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-mocha_inspect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">mocha_inspect</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="mocha_inspect-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 335</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">mocha_inspect</span>
+  <span class="ruby-ivar">@name</span>.<span class="ruby-identifier">mocha_inspect</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-quacks_like" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">quacks_like</span><span
+            class="method-args">(responder)</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="Mock.html#method-i-responds_like">responds_like</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-quacks_like_instance_of" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">quacks_like_instance_of</span><span
+            class="method-args">(responder_class)</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="Mock.html#method-i-responds_like_instance_of">responds_like_instance_of</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-respond_to-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">respond_to?</span><span
+            class="method-args">(symbol, include_private = false)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="respond_to-3F-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 317</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">symbol</span>, <span class="ruby-identifier">include_private</span> = <span class="ruby-keyword">false</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@responder</span> <span class="ruby-keyword">then</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@responder</span>.<span class="ruby-identifier">method</span>(<span class="ruby-value">:respond_to?</span>).<span class="ruby-identifier">arity</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+      <span class="ruby-ivar">@responder</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">symbol</span>, <span class="ruby-identifier">include_private</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@responder</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">symbol</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@everything_stubbed</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">all_expectations</span>.<span class="ruby-identifier">matches_method?</span>(<span class="ruby-identifier">symbol</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-responds_like" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">responds_like</span><span
+            class="method-args">(responder)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the {Mock} instance so that it can only expect or stub methods
+to which <code>responder</code> responds. The constraint is only applied at
+method invocation time.</p>
+
+<p>A <code>NoMethodError</code> will be raised if the <code>responder</code>
+does not <code>#respond_to?</code> a method invocation (even if the method
+has been expected or stubbed).</p>
+
+<p>The {Mock} instance will delegate its <code>#respond_to?</code> method to
+the <code>responder</code>.</p>
+
+<p>Note that the methods on <code>responder</code> are never actually invoked.</p>
+
+<p>@param [Object, <a href="Mock.html#method-i-respond_to-3F">respond_to?</a>]
+responder an object used to determine whether {Mock} instance should
+<code>#respond_to?</code> to an invocation. @return [Mock] the same {Mock}
+instance, thereby allowing invocations of other {Mock} methods to be
+chained. @see <a
+href="Mock.html#method-i-responds_like_instance_of">responds_like_instance_of</a></p>
+
+<p>@example Normal mocking</p>
+
+<pre class="ruby"><span class="ruby-identifier">sheep</span> = <span class="ruby-identifier">mock</span>(<span class="ruby-string">&#39;sheep&#39;</span>)
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">chew</span>)
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">foo</span>)
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">respond_to?</span>(:<span class="ruby-identifier">chew</span>) <span class="ruby-comment"># =&gt; true</span>
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">respond_to?</span>(:<span class="ruby-identifier">foo</span>) <span class="ruby-comment"># =&gt; true</span>
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">chew</span>
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">foo</span>
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Using {#responds_like} with an instance method</p>
+
+<pre class="ruby"><span class="ruby-keyword">class</span> <span class="ruby-constant">Sheep</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">chew</span>(<span class="ruby-identifier">grass</span>); <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-identifier">sheep</span> = <span class="ruby-identifier">mock</span>(<span class="ruby-string">&#39;sheep&#39;</span>)
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">responds_like</span>(<span class="ruby-constant">Sheep</span>.<span class="ruby-identifier">new</span>)
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">chew</span>)
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">foo</span>)
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">respond_to?</span>(:<span class="ruby-identifier">chew</span>) <span class="ruby-comment"># =&gt; true</span>
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">respond_to?</span>(:<span class="ruby-identifier">foo</span>) <span class="ruby-comment"># =&gt; false</span>
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">chew</span>
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">foo</span> <span class="ruby-comment"># =&gt; raises NoMethodError exception</span>
+</pre>
+
+<p>@example Using {#responds_like} with a class method</p>
+
+<pre class="ruby"><span class="ruby-keyword">class</span> <span class="ruby-constant">Sheep</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">number_of_legs</span>; <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-identifier">sheep_class</span> = <span class="ruby-identifier">mock</span>(<span class="ruby-string">&#39;sheep_class&#39;</span>)
+<span class="ruby-identifier">sheep_class</span>.<span class="ruby-identifier">responds_like</span>(<span class="ruby-constant">Sheep</span>)
+<span class="ruby-identifier">sheep_class</span>.<span class="ruby-identifier">stubs</span>(:<span class="ruby-identifier">number_of_legs</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-value">4</span>)
+<span class="ruby-identifier">sheep_class</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">foo</span>)
+<span class="ruby-identifier">sheep_class</span>.<span class="ruby-identifier">respond_to?</span>(:<span class="ruby-identifier">number_of_legs</span>) <span class="ruby-comment"># =&gt; true</span>
+<span class="ruby-identifier">sheep_class</span>.<span class="ruby-identifier">respond_to?</span>(:<span class="ruby-identifier">foo</span>) <span class="ruby-comment"># =&gt; false</span>
+<span class="ruby-identifier">sheep_class</span>.<span class="ruby-identifier">number_of_legs</span> <span class="ruby-comment"># =&gt; 4</span>
+<span class="ruby-identifier">sheep_class</span>.<span class="ruby-identifier">foo</span> <span class="ruby-comment"># =&gt; raises NoMethodError exception</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="responds_like-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 217</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">responds_like</span>(<span class="ruby-identifier">responder</span>)
+  <span class="ruby-ivar">@responder</span> = <span class="ruby-identifier">responder</span>
+  <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="Mock.html#method-i-quacks_like">quacks_like</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-responds_like_instance_of" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">responds_like_instance_of</span><span
+            class="method-args">(responder_class)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the {Mock} instance so that it can only expect or stub methods
+to which an instance of the <code>responder_class</code> responds. The
+constraint is only applied at method invocation time. Note that the
+responder instance is instantiated using +Class#allocate+.</p>
+
+<p>A <code>NoMethodError</code> will be raised if the responder instance does
+not <code>#respond_to?</code> a method invocation (even if the method has
+been expected or stubbed).</p>
+
+<p>The {Mock} instance will delegate its <code>#respond_to?</code> method to
+the responder instance.</p>
+
+<p>Note that the methods on the responder instance are never actually invoked.</p>
+
+<p>@param [Class] responder_class a class used to determine whether {Mock}
+instance should <code>#respond_to?</code> to an invocation. @return [Mock]
+the same {Mock} instance, thereby allowing invocations of other {Mock}
+methods to be chained. @see <a
+href="Mock.html#method-i-responds_like">responds_like</a></p>
+
+<p>@example Using {#responds_like_instance_of}</p>
+
+<pre class="ruby"><span class="ruby-keyword">class</span> <span class="ruby-constant">Sheep</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;some awkward code we don&#39;t want to call&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">chew</span>(<span class="ruby-identifier">grass</span>); <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-identifier">sheep</span> = <span class="ruby-identifier">mock</span>(<span class="ruby-string">&#39;sheep&#39;</span>)
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">responds_like_instance_of</span>(<span class="ruby-constant">Sheep</span>)
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">chew</span>)
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">expects</span>(:<span class="ruby-identifier">foo</span>)
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">respond_to?</span>(:<span class="ruby-identifier">chew</span>) <span class="ruby-comment"># =&gt; true</span>
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">respond_to?</span>(:<span class="ruby-identifier">foo</span>) <span class="ruby-comment"># =&gt; false</span>
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">chew</span>
+<span class="ruby-identifier">sheep</span>.<span class="ruby-identifier">foo</span> <span class="ruby-comment"># =&gt; raises NoMethodError exception</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="responds_like_instance_of-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 250</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">responds_like_instance_of</span>(<span class="ruby-identifier">responder_class</span>)
+  <span class="ruby-identifier">responds_like</span>(<span class="ruby-identifier">responder_class</span>.<span class="ruby-identifier">allocate</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="Mock.html#method-i-quacks_like_instance_of">quacks_like_instance_of</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-stub_everything" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stub_everything</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>@private</p>
+          
+          
+
+          
+          <div class="method-source-code" id="stub_everything-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 285</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stub_everything</span>
+  <span class="ruby-ivar">@everything_stubbed</span> = <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-stubs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stubs</span><span
+            class="method-args">(method_name_or_hash, backtrace = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds an expectation that the specified method may be called any number of
+times with any parameters.</p>
+
+<p>@param [Symbol,String] method_name name of stubbed method @param [Hash]
+stubbed_methods_vs_return_values stubbed method name symbols as keys and
+corresponding return values as values - these stubbed methods are setup as
+if {#stubs} were called multiple times.</p>
+
+<p>@overload def stubs(method_name) @overload def
+stubs(stubbed_methods_vs_return_values) @return [Expectation] last-built
+expectation which can be further modified by methods on {Expectation}.</p>
+
+<p>@example No error raised however many times stubbed method is invoked</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">stubs</span>(:<span class="ruby-identifier">stubbed_method</span>)
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">stubbed_method</span>
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">stubbed_method</span>
+<span class="ruby-comment"># no error raised</span>
+</pre>
+
+<p>@example Setup multiple expectations using
+<code>stubbed_methods_vs_return_values</code>.</p>
+
+<pre class="ruby"><span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">stubs</span>(:<span class="ruby-identifier">stubbed_method_one</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">result_one</span>, :<span class="ruby-identifier">stubbed_method_two</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">result_two</span>)
+
+<span class="ruby-comment"># is exactly equivalent to</span>
+
+<span class="ruby-identifier">object</span> = <span class="ruby-identifier">mock</span>()
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">stubs</span>(:<span class="ruby-identifier">stubbed_method_one</span>).<span class="ruby-identifier">returns</span>(:<span class="ruby-identifier">result_one</span>)
+<span class="ruby-identifier">object</span>.<span class="ruby-identifier">stubs</span>(:<span class="ruby-identifier">stubbed_method_two</span>).<span class="ruby-identifier">returns</span>(:<span class="ruby-identifier">result_two</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="stubs-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 142</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stubs</span>(<span class="ruby-identifier">method_name_or_hash</span>, <span class="ruby-identifier">backtrace</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">iterator</span> = <span class="ruby-constant">ArgumentIterator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">method_name_or_hash</span>)
+  <span class="ruby-identifier">iterator</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-operator">*</span><span class="ruby-identifier">args</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">method_name</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">shift</span>
+    <span class="ruby-identifier">ensure_method_not_already_defined</span>(<span class="ruby-identifier">method_name</span>)
+    <span class="ruby-identifier">expectation</span> = <span class="ruby-constant">Expectation</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">backtrace</span>)
+    <span class="ruby-identifier">expectation</span>.<span class="ruby-identifier">at_least</span>(<span class="ruby-value">0</span>)
+    <span class="ruby-identifier">expectation</span>.<span class="ruby-identifier">returns</span>(<span class="ruby-identifier">args</span>.<span class="ruby-identifier">shift</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-ivar">@expectations</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">expectation</span>)
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="Mock.html#method-i-__stubs__">__stubs__</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-unstub" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unstub</span><span
+            class="method-args">(method_name)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Removes the specified stubbed method (added by calls to {#expects} or
+{#stubs}) and all expectations associated with it.</p>
+
+<p>@param [Symbol] method_name name of method to unstub.</p>
+
+<p>@example Invoking an unstubbed method causes error to be raised</p>
+
+<pre>object = mock(&#39;mock&#39;) do
+object.stubs(:stubbed_method).returns(:result_one)
+object.stubbed_method # =&gt; :result_one
+object.unstub(:stubbed_method)
+object.stubbed_method # =&gt; unexpected invocation: #&lt;Mock:mock&gt;.stubbed_method()</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="unstub-source">
+            <pre><span class="ruby-comment"># File lib/mocha/mock.rb, line 164</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unstub</span>(<span class="ruby-identifier">method_name</span>)
+  <span class="ruby-ivar">@expectations</span>.<span class="ruby-identifier">remove_all_matching_method</span>(<span class="ruby-identifier">method_name</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

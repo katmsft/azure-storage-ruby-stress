@@ -5,6 +5,11 @@ require_relative "../converter/core_converter"
 require_relative "../converter/queue_converter"
 require_relative "../infrastructure/logging_aspect"
 
+# TODO: use base64 encoding for the message texts
+# TODO: setPermission cannot run
+# TODO: time needs to be converted
+# TODO: log
+# TODO: Add requestInfoFilter to service.
 
 module Azure::Storage::Stress
   module Handler

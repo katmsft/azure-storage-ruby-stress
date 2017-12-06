@@ -1,0 +1,14 @@
+.idea
+performance-tests/output
+coverage
+rdoc
+doc
+.yardoc
+.bundle
+pkg
+.svn
+.DS_Store
+*.tmproj
+*.swp
+.redcar
+.rbx

@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"	body:ETI"(Azure::Core::Http::HttpRequest#body;TI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"+The body of the request (IO or String);T:
+@fileI"(lib/azure/core/http/http_request.rb;T:0@omit_headings_from_table_of_contents_below0F@I"#Azure::Core::Http::HttpRequest;TcRDoc::NormalClass0

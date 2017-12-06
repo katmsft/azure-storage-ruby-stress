@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"source:EFI"'SimpleCov::SourceFile::Line#source;TI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"6The source code for this line. Aliased as :source;T:
+@fileI"!lib/simplecov/source_file.rb;T:0@omit_headings_from_table_of_contents_below0F@I" SimpleCov::SourceFile::Line;TcRDoc::NormalClass0

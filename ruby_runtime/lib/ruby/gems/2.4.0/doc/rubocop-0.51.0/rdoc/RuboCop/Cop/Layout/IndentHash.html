@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class RuboCop::Cop::Layout::IndentHash - rubocop-0.51.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+  var index_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Cop.html">RuboCop::Cop::Cop</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="../AutocorrectAlignment.html">RuboCop::Cop::AutocorrectAlignment</a>
+  
+  
+  
+    <li><a class="include" href="../ConfigurableEnforcedStyle.html">RuboCop::Cop::ConfigurableEnforcedStyle</a>
+  
+  
+  
+    <li><a class="include" href="../ArrayHashIndentation.html">RuboCop::Cop::ArrayHashIndentation</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-base_description">#base_description</a>
+    
+    <li ><a href="#method-i-brace_alignment_style">#brace_alignment_style</a>
+    
+    <li ><a href="#method-i-check">#check</a>
+    
+    <li ><a href="#method-i-check_based_on_longest_key">#check_based_on_longest_key</a>
+    
+    <li ><a href="#method-i-check_right_brace">#check_right_brace</a>
+    
+    <li ><a href="#method-i-message">#message</a>
+    
+    <li ><a href="#method-i-on_hash">#on_hash</a>
+    
+    <li ><a href="#method-i-on_send">#on_send</a>
+    
+    <li ><a href="#method-i-separator_style-3F">#separator_style?</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-RuboCop::Cop::Layout::IndentHash">
+  <h1 id="class-RuboCop::Cop::Layout::IndentHash" class="class">
+    class RuboCop::Cop::Layout::IndentHash
+  </h1>
+
+  <section class="description">
+    
+<p>This cops checks the indentation of the first key in a hash literal where
+the opening brace and the first key are on separate lines. The other
+keys&#39; indentations are handled by the <a
+href="AlignHash.html">AlignHash</a> cop.</p>
+
+<p>By default, Hash literals that are arguments in a method call with
+parentheses, and where the opening curly brace of the hash is on the same
+line as the opening parenthesis of the method call, shall have their first
+key indented one step (two spaces) more than the position inside the
+opening parenthesis.</p>
+
+<p>Other hash literals shall have their first key indented one step more than
+the start of the line where the opening curly brace is.</p>
+
+<p>This default style is called &#39;special_inside_parentheses&#39;.
+Alternative styles are &#39;consistent&#39; and &#39;align_braces&#39;.
+Here are examples:</p>
+
+<pre class="ruby"><span class="ruby-comment"># special_inside_parentheses</span>
+<span class="ruby-identifier">hash</span> = {
+  <span class="ruby-identifier">key</span><span class="ruby-operator">:</span> :<span class="ruby-identifier">value</span>
+}
+<span class="ruby-identifier">but_in_a_method_call</span>({
+                       <span class="ruby-identifier">its_like</span><span class="ruby-operator">:</span> :<span class="ruby-identifier">this</span>
+                     })
+<span class="ruby-comment"># consistent</span>
+<span class="ruby-identifier">hash</span> = {
+  <span class="ruby-identifier">key</span><span class="ruby-operator">:</span> :<span class="ruby-identifier">value</span>
+}
+<span class="ruby-identifier">and_in_a_method_call</span>({
+  <span class="ruby-identifier">no</span><span class="ruby-operator">:</span> :<span class="ruby-identifier">difference</span>
+})
+<span class="ruby-comment"># align_braces</span>
+<span class="ruby-identifier">and_now_for_something</span> = {
+                          <span class="ruby-identifier">completely</span><span class="ruby-operator">:</span> :<span class="ruby-identifier">different</span>
+                        }
+</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-on_hash" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_hash</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_hash-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_hash.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_hash</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">check</span>(<span class="ruby-identifier">node</span>, <span class="ruby-keyword">nil</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">begin</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_send" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_send</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_send-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_hash.rb, line 49</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_send</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">each_argument_node</span>(<span class="ruby-identifier">node</span>, <span class="ruby-value">:hash</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">hash_node</span>, <span class="ruby-identifier">left_parenthesis</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">check</span>(<span class="ruby-identifier">hash_node</span>, <span class="ruby-identifier">left_parenthesis</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-base_description" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">base_description</span><span
+            class="method-args">(left_parenthesis)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the description of what the correct indentation is based on.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="base_description-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_hash.rb, line 116</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">base_description</span>(<span class="ruby-identifier">left_parenthesis</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">style</span> <span class="ruby-operator">==</span> <span class="ruby-value">:align_braces</span>
+    <span class="ruby-string">&#39;the position of the opening brace&#39;</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">left_parenthesis</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">style</span> <span class="ruby-operator">==</span> <span class="ruby-value">:special_inside_parentheses</span>
+    <span class="ruby-string">&#39;the first position after the preceding left parenthesis&#39;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-string">&#39;the start of the line where the left curly brace is&#39;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-brace_alignment_style" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">brace_alignment_style</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="brace_alignment_style-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_hash.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">brace_alignment_style</span>
+  <span class="ruby-value">:align_braces</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check</span><span
+            class="method-args">(hash_node, left_parenthesis)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_hash.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check</span>(<span class="ruby-identifier">hash_node</span>, <span class="ruby-identifier">left_parenthesis</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">ignored_node?</span>(<span class="ruby-identifier">hash_node</span>)
+
+  <span class="ruby-identifier">left_brace</span> = <span class="ruby-identifier">hash_node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">begin</span>
+  <span class="ruby-identifier">first_pair</span> = <span class="ruby-identifier">hash_node</span>.<span class="ruby-identifier">pairs</span>.<span class="ruby-identifier">first</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">first_pair</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">first_pair</span>.<span class="ruby-identifier">source_range</span>.<span class="ruby-identifier">line</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">left_brace</span>.<span class="ruby-identifier">line</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">separator_style?</span>(<span class="ruby-identifier">first_pair</span>)
+      <span class="ruby-identifier">check_based_on_longest_key</span>(<span class="ruby-identifier">hash_node</span>.<span class="ruby-identifier">children</span>, <span class="ruby-identifier">left_brace</span>,
+                                 <span class="ruby-identifier">left_parenthesis</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">check_first</span>(<span class="ruby-identifier">first_pair</span>, <span class="ruby-identifier">left_brace</span>, <span class="ruby-identifier">left_parenthesis</span>, <span class="ruby-value">0</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">check_right_brace</span>(<span class="ruby-identifier">hash_node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">end</span>, <span class="ruby-identifier">left_brace</span>, <span class="ruby-identifier">left_parenthesis</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_based_on_longest_key" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_based_on_longest_key</span><span
+            class="method-args">(pairs, left_brace, left_parenthesis)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_based_on_longest_key-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_hash.rb, line 107</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_based_on_longest_key</span>(<span class="ruby-identifier">pairs</span>, <span class="ruby-identifier">left_brace</span>, <span class="ruby-identifier">left_parenthesis</span>)
+  <span class="ruby-identifier">key_lengths</span> = <span class="ruby-identifier">pairs</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pair</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">pair</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">source_range</span>.<span class="ruby-identifier">length</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">check_first</span>(<span class="ruby-identifier">pairs</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">left_brace</span>, <span class="ruby-identifier">left_parenthesis</span>,
+              <span class="ruby-identifier">key_lengths</span>.<span class="ruby-identifier">max</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">key_lengths</span>.<span class="ruby-identifier">first</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_right_brace" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_right_brace</span><span
+            class="method-args">(right_brace, left_brace, left_parenthesis)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_right_brace-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_hash.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_right_brace</span>(<span class="ruby-identifier">right_brace</span>, <span class="ruby-identifier">left_brace</span>, <span class="ruby-identifier">left_parenthesis</span>)
+  <span class="ruby-comment"># if the right brace is on the same line as the last value, accept</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">right_brace</span>.<span class="ruby-identifier">source_line</span>[<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">right_brace</span>.<span class="ruby-identifier">column</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/\S/</span>
+
+  <span class="ruby-identifier">expected_column</span> = <span class="ruby-identifier">base_column</span>(<span class="ruby-identifier">left_brace</span>, <span class="ruby-identifier">left_parenthesis</span>)
+  <span class="ruby-ivar">@column_delta</span> = <span class="ruby-identifier">expected_column</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">right_brace</span>.<span class="ruby-identifier">column</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@column_delta</span>.<span class="ruby-identifier">zero?</span>
+
+  <span class="ruby-identifier">msg</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">style</span> <span class="ruby-operator">==</span> <span class="ruby-value">:align_braces</span>
+          <span class="ruby-string">&#39;Indent the right brace the same as the left brace.&#39;</span>
+        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">style</span> <span class="ruby-operator">==</span> <span class="ruby-value">:special_inside_parentheses</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">left_parenthesis</span>
+          <span class="ruby-string">&#39;Indent the right brace the same as the first position &#39;</span>                    <span class="ruby-string">&#39;after the preceding left parenthesis.&#39;</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-string">&#39;Indent the right brace the same as the start of the line &#39;</span>                    <span class="ruby-string">&#39;where the left brace is.&#39;</span>
+        <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">add_offense</span>(<span class="ruby-identifier">right_brace</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-identifier">right_brace</span>, <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-identifier">msg</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">message</span><span
+            class="method-args">(base_description)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="message-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_hash.rb, line 126</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">message</span>(<span class="ruby-identifier">base_description</span>)
+  <span class="ruby-identifier">format</span>(<span class="ruby-string">&#39;Use %d spaces for indentation in a hash, relative to %s.&#39;</span>,
+         <span class="ruby-identifier">configured_indentation_width</span>, <span class="ruby-identifier">base_description</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-separator_style-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">separator_style?</span><span
+            class="method-args">(first_pair)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="separator_style-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/layout/indent_hash.rb, line 101</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">separator_style?</span>(<span class="ruby-identifier">first_pair</span>)
+  <span class="ruby-identifier">separator</span> = <span class="ruby-identifier">first_pair</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">operator</span>
+  <span class="ruby-identifier">key</span> = <span class="ruby-node">&quot;Enforced#{separator.is?(&#39;:&#39;) ? &#39;Colon&#39; : &#39;HashRocket&#39;}Style&quot;</span>
+  <span class="ruby-identifier">config</span>.<span class="ruby-identifier">for_cop</span>(<span class="ruby-string">&#39;Layout/AlignHash&#39;</span>)[<span class="ruby-identifier">key</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;separator&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

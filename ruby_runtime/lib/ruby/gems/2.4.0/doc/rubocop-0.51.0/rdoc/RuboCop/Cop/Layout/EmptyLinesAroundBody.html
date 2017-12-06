@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>module RuboCop::Cop::Layout::EmptyLinesAroundBody - rubocop-0.51.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+  var index_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="../ConfigurableEnforcedStyle.html">RuboCop::Cop::ConfigurableEnforcedStyle</a>
+  
+  
+  </ul>
+</div>
+
+    <div id="extends-section" class="nav-section">
+  <h3>Extended With Modules</h3>
+
+  <ul class="link-list">
+    
+  
+    <li><a class="extend" href="../../NodePattern/Macros.html">RuboCop::NodePattern::Macros</a>
+  
+  
+  </ul>
+</div>
+
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-autocorrect">#autocorrect</a>
+    
+    <li ><a href="#method-i-check">#check</a>
+    
+    <li ><a href="#method-i-check_beginning">#check_beginning</a>
+    
+    <li ><a href="#method-i-check_both">#check_both</a>
+    
+    <li ><a href="#method-i-check_deferred_empty_line">#check_deferred_empty_line</a>
+    
+    <li ><a href="#method-i-check_empty_lines_except_namespace">#check_empty_lines_except_namespace</a>
+    
+    <li ><a href="#method-i-check_empty_lines_special">#check_empty_lines_special</a>
+    
+    <li ><a href="#method-i-check_ending">#check_ending</a>
+    
+    <li ><a href="#method-i-check_line">#check_line</a>
+    
+    <li ><a href="#method-i-check_source">#check_source</a>
+    
+    <li ><a href="#method-i-deferred_message">#deferred_message</a>
+    
+    <li ><a href="#method-i-first_child_requires_empty_line-3F">#first_child_requires_empty_line?</a>
+    
+    <li ><a href="#method-i-first_empty_line_required_child">#first_empty_line_required_child</a>
+    
+    <li ><a href="#method-i-message">#message</a>
+    
+    <li ><a href="#method-i-namespace-3F">#namespace?</a>
+    
+    <li ><a href="#method-i-previous_line_ignoring_comments">#previous_line_ignoring_comments</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-RuboCop::Cop::Layout::EmptyLinesAroundBody">
+  <h1 id="module-RuboCop::Cop::Layout::EmptyLinesAroundBody" class="module">
+    module RuboCop::Cop::Layout::EmptyLinesAroundBody
+  </h1>
+
+  <section class="description">
+    
+<p>Common functionality for checking if presence/absence of empty lines around
+some kind of body matches the configuration.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="MSG_DEFERRED">MSG_DEFERRED
+        
+        <dd>
+        
+      
+        <dt id="MSG_EXTRA">MSG_EXTRA
+        
+        <dd>
+        
+      
+        <dt id="MSG_MISSING">MSG_MISSING
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-autocorrect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">autocorrect</span><span
+            class="method-args">(args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="autocorrect-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">autocorrect</span>(<span class="ruby-identifier">args</span>)
+  <span class="ruby-identifier">offense_style</span>, <span class="ruby-identifier">range</span> = <span class="ruby-identifier">args</span>
+  <span class="ruby-identifier">lambda</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">corrector</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">case</span> <span class="ruby-identifier">offense_style</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:no_empty_lines</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-identifier">corrector</span>.<span class="ruby-identifier">remove</span>(<span class="ruby-identifier">range</span>)
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:empty_lines</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-identifier">corrector</span>.<span class="ruby-identifier">insert_before</span>(<span class="ruby-identifier">range</span>, <span class="ruby-string">&quot;\n&quot;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-check" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check</span><span
+            class="method-args">(node, body)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check</span>(<span class="ruby-identifier">node</span>, <span class="ruby-identifier">body</span>)
+  <span class="ruby-comment"># When style is `empty_lines`, if the body is empty, we don&#39;t enforce</span>
+  <span class="ruby-comment"># the presence OR absence of an empty line</span>
+  <span class="ruby-comment"># But if style is `no_empty_lines`, there must not be an empty line</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">body</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">style</span> <span class="ruby-operator">==</span> <span class="ruby-value">:no_empty_lines</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">single_line?</span>
+
+  <span class="ruby-identifier">first_line</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source_range</span>.<span class="ruby-identifier">first_line</span>
+  <span class="ruby-identifier">last_line</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">source_range</span>.<span class="ruby-identifier">last_line</span>
+
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">style</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:empty_lines_except_namespace</span>
+    <span class="ruby-identifier">check_empty_lines_except_namespace</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">first_line</span>, <span class="ruby-identifier">last_line</span>)
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:empty_lines_special</span>
+    <span class="ruby-identifier">check_empty_lines_special</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">first_line</span>, <span class="ruby-identifier">last_line</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">check_both</span>(<span class="ruby-identifier">style</span>, <span class="ruby-identifier">first_line</span>, <span class="ruby-identifier">last_line</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_beginning" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_beginning</span><span
+            class="method-args">(style, first_line)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_beginning-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 80</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_beginning</span>(<span class="ruby-identifier">style</span>, <span class="ruby-identifier">first_line</span>)
+  <span class="ruby-identifier">check_source</span>(<span class="ruby-identifier">style</span>, <span class="ruby-identifier">first_line</span>, <span class="ruby-string">&#39;beginning&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_both" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_both</span><span
+            class="method-args">(style, first_line, last_line)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_both-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_both</span>(<span class="ruby-identifier">style</span>, <span class="ruby-identifier">first_line</span>, <span class="ruby-identifier">last_line</span>)
+  <span class="ruby-identifier">check_beginning</span>(<span class="ruby-identifier">style</span>, <span class="ruby-identifier">first_line</span>)
+  <span class="ruby-identifier">check_ending</span>(<span class="ruby-identifier">style</span>, <span class="ruby-identifier">last_line</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_deferred_empty_line" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_deferred_empty_line</span><span
+            class="method-args">(body)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_deferred_empty_line-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 107</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_deferred_empty_line</span>(<span class="ruby-identifier">body</span>)
+  <span class="ruby-identifier">node</span> = <span class="ruby-identifier">first_empty_line_required_child</span>(<span class="ruby-identifier">body</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">node</span>
+
+  <span class="ruby-identifier">line</span> = <span class="ruby-identifier">previous_line_ignoring_comments</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">loc</span>.<span class="ruby-identifier">first_line</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">processed_source</span>[<span class="ruby-identifier">line</span>].<span class="ruby-identifier">empty?</span>
+
+  <span class="ruby-identifier">range</span> = <span class="ruby-identifier">source_range</span>(<span class="ruby-identifier">processed_source</span>.<span class="ruby-identifier">buffer</span>, <span class="ruby-identifier">line</span> <span class="ruby-operator">+</span> <span class="ruby-value">2</span>, <span class="ruby-value">0</span>)
+
+  <span class="ruby-identifier">add_offense</span>(
+    [<span class="ruby-value">:empty_lines</span>, <span class="ruby-identifier">range</span>],
+    <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-identifier">range</span>,
+    <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-identifier">deferred_message</span>(<span class="ruby-identifier">node</span>)
+  )
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_empty_lines_except_namespace" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_empty_lines_except_namespace</span><span
+            class="method-args">(body, first_line, last_line)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_empty_lines_except_namespace-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_empty_lines_except_namespace</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">first_line</span>, <span class="ruby-identifier">last_line</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">namespace?</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">with_one_child</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>)
+    <span class="ruby-identifier">check_both</span>(<span class="ruby-value">:no_empty_lines</span>, <span class="ruby-identifier">first_line</span>, <span class="ruby-identifier">last_line</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">check_both</span>(<span class="ruby-value">:empty_lines</span>, <span class="ruby-identifier">first_line</span>, <span class="ruby-identifier">last_line</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_empty_lines_special" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_empty_lines_special</span><span
+            class="method-args">(body, first_line, last_line)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_empty_lines_special-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_empty_lines_special</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">first_line</span>, <span class="ruby-identifier">last_line</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">body</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">namespace?</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">with_one_child</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>)
+    <span class="ruby-identifier">check_both</span>(<span class="ruby-value">:no_empty_lines</span>, <span class="ruby-identifier">first_line</span>, <span class="ruby-identifier">last_line</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">first_child_requires_empty_line?</span>(<span class="ruby-identifier">body</span>)
+      <span class="ruby-identifier">check_beginning</span>(<span class="ruby-value">:empty_lines</span>, <span class="ruby-identifier">first_line</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">check_beginning</span>(<span class="ruby-value">:no_empty_lines</span>, <span class="ruby-identifier">first_line</span>)
+      <span class="ruby-identifier">check_deferred_empty_line</span>(<span class="ruby-identifier">body</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">check_ending</span>(<span class="ruby-value">:empty_lines</span>, <span class="ruby-identifier">last_line</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_ending" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_ending</span><span
+            class="method-args">(style, last_line)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_ending-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 84</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_ending</span>(<span class="ruby-identifier">style</span>, <span class="ruby-identifier">last_line</span>)
+  <span class="ruby-identifier">check_source</span>(<span class="ruby-identifier">style</span>, <span class="ruby-identifier">last_line</span> <span class="ruby-operator">-</span> <span class="ruby-value">2</span>, <span class="ruby-string">&#39;end&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_line" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_line</span><span
+            class="method-args">(style, line, msg) { |lines| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_line-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_line</span>(<span class="ruby-identifier">style</span>, <span class="ruby-identifier">line</span>, <span class="ruby-identifier">msg</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">processed_source</span>.<span class="ruby-identifier">lines</span>[<span class="ruby-identifier">line</span>])
+
+  <span class="ruby-identifier">offset</span> = <span class="ruby-identifier">style</span> <span class="ruby-operator">==</span> <span class="ruby-value">:empty_lines</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;end.&#39;</span>) <span class="ruby-operator">?</span> <span class="ruby-value">2</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+  <span class="ruby-identifier">range</span> = <span class="ruby-identifier">source_range</span>(<span class="ruby-identifier">processed_source</span>.<span class="ruby-identifier">buffer</span>, <span class="ruby-identifier">line</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">offset</span>, <span class="ruby-value">0</span>)
+  <span class="ruby-identifier">add_offense</span>([<span class="ruby-identifier">style</span>, <span class="ruby-identifier">range</span>], <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-identifier">range</span>, <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-identifier">msg</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_source" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_source</span><span
+            class="method-args">(style, line_no, desc)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_source-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 88</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_source</span>(<span class="ruby-identifier">style</span>, <span class="ruby-identifier">line_no</span>, <span class="ruby-identifier">desc</span>)
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">style</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:no_empty_lines</span>
+    <span class="ruby-identifier">check_line</span>(<span class="ruby-identifier">style</span>, <span class="ruby-identifier">line_no</span>, <span class="ruby-identifier">message</span>(<span class="ruby-constant">MSG_EXTRA</span>, <span class="ruby-identifier">desc</span>), <span class="ruby-operator">&amp;</span><span class="ruby-value">:empty?</span>)
+  <span class="ruby-keyword">when</span> <span class="ruby-value">:empty_lines</span>
+    <span class="ruby-identifier">check_line</span>(<span class="ruby-identifier">style</span>, <span class="ruby-identifier">line_no</span>, <span class="ruby-identifier">message</span>(<span class="ruby-constant">MSG_MISSING</span>, <span class="ruby-identifier">desc</span>)) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+      <span class="ruby-operator">!</span><span class="ruby-identifier">line</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-deferred_message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">deferred_message</span><span
+            class="method-args">(node)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="deferred_message-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 159</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">deferred_message</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-identifier">format</span>(<span class="ruby-constant">MSG_DEFERRED</span>, <span class="ruby-identifier">node</span>.<span class="ruby-identifier">type</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-first_child_requires_empty_line-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">first_child_requires_empty_line?</span><span
+            class="method-args">(body)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="first_child_requires_empty_line-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 132</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">first_child_requires_empty_line?</span>(<span class="ruby-identifier">body</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">body</span>.<span class="ruby-identifier">begin_type?</span>
+    <span class="ruby-identifier">empty_line_required?</span>(<span class="ruby-identifier">body</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">first</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">empty_line_required?</span>(<span class="ruby-identifier">body</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-first_empty_line_required_child" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">first_empty_line_required_child</span><span
+            class="method-args">(body)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="first_empty_line_required_child-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 140</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">first_empty_line_required_child</span>(<span class="ruby-identifier">body</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">body</span>.<span class="ruby-identifier">begin_type?</span>
+    <span class="ruby-identifier">body</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">empty_line_required?</span>(<span class="ruby-identifier">child</span>) }
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">empty_line_required?</span>(<span class="ruby-identifier">body</span>)
+    <span class="ruby-identifier">body</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">message</span><span
+            class="method-args">(type, desc)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="message-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 155</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">message</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">desc</span>)
+  <span class="ruby-identifier">format</span>(<span class="ruby-identifier">type</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span><span class="ruby-operator">::</span><span class="ruby-constant">KIND</span>, <span class="ruby-identifier">desc</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-namespace-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">namespace?</span><span
+            class="method-args">(body, with_one_child: false)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="namespace-3F-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 123</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">namespace?</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">with_one_child</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">body</span>.<span class="ruby-identifier">begin_type?</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">with_one_child</span>
+    <span class="ruby-identifier">body</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">all?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">constant_definition?</span>(<span class="ruby-identifier">child</span>) }
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">constant_definition?</span>(<span class="ruby-identifier">body</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-previous_line_ignoring_comments" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">previous_line_ignoring_comments</span><span
+            class="method-args">(send_line)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="previous_line_ignoring_comments-source">
+            <pre><span class="ruby-comment"># File lib/rubocop/cop/mixin/empty_lines_around_body.rb, line 148</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">previous_line_ignoring_comments</span>(<span class="ruby-identifier">send_line</span>)
+  (<span class="ruby-identifier">send_line</span> <span class="ruby-operator">-</span> <span class="ruby-value">2</span>).<span class="ruby-identifier">downto</span>(<span class="ruby-value">0</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">line</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">comment_line?</span>(<span class="ruby-identifier">processed_source</span>[<span class="ruby-identifier">line</span>])
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
