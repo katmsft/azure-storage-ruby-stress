@@ -10,7 +10,9 @@ module Azure::Storage::Stress
   module Handler
     class CloudQueueClientHandler < BaseHandler
       def listQueues(listQueuesPayload, accountInfo)
-        queueClient = XSS::Converter::QueueConverter.getQueueService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        queueClient = self.build_client(internalRequestInfo, accountInfo, XSS::Converter::QueueConverter.getQueueService)
         # ==== Construct Parameters ==== #
         reqOptions = XSS::Converter::CoreConverter.getRequestOptions(listQueuesPayload.requestOptions)
         reqOptions.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
@@ -42,7 +44,9 @@ module Azure::Storage::Stress
       end
 
       def listQueuesSegmented(listQueuesPayload, accountInfo, maxResults, currentToken)
-        queueClient = XSS::Converter::QueueConverter.getQueueService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        queueClient = self.build_client(internalRequestInfo, accountInfo, XSS::Converter::QueueConverter.getQueueService)
         # ==== Construct Parameters ==== #
         reqOptions = XSS::Converter::CoreConverter.getRequestOptions(listQueuesPayload.requestOptions)
         reqOptions.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
@@ -71,7 +75,9 @@ module Azure::Storage::Stress
       end
 
       def setProperties(thriftRequestOptions, accountInfo, thriftOperationContext, properties)
-        queueClient = XSS::Converter::QueueConverter.getQueueService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        queueClient = self.build_client(internalRequestInfo, accountInfo, XSS::Converter::QueueConverter.getQueueService)
         # ==== Construct Parameters ==== #
         reqOptions = XSS::Converter::CoreConverter.getRequestOptions(thriftRequestOptions)
         reqOptions.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
@@ -84,7 +90,9 @@ module Azure::Storage::Stress
         return
       end
       def getProperties(thriftRequestOptions, thriftOperationContext, accountInfo)
-        queueClient = XSS::Converter::QueueConverter.getQueueService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        queueClient = self.build_client(internalRequestInfo, accountInfo, XSS::Converter::QueueConverter.getQueueService)
         # ==== Construct Parameters ==== #
         reqOptions = XSS::Converter::CoreConverter.getRequestOptions(thriftRequestOptions)
         reqOptions.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
@@ -97,7 +105,9 @@ module Azure::Storage::Stress
         return result
       end
       def getServiceStats(thriftRequestOptions, thriftOperationContext, accountInfo)
-        queueClient = XSS::Converter::QueueConverter.getQueueService(self, accountInfo)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        queueClient = self.build_client(internalRequestInfo, accountInfo, XSS::Converter::QueueConverter.getQueueService)
         # ==== Construct Parameters ==== #
         reqOptions = XSS::Converter::CoreConverter.getRequestOptions(thriftRequestOptions)
         reqOptions.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
