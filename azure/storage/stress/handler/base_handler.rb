@@ -10,6 +10,10 @@ module Azure::Storage::Stress
         @request_info = request_info || XSS::Utilities::get_default_request_info
       end
 
+      def build_client(internalRequestInfo, accountInfo, buildClientCallable)
+        buildClientCallable(self, accountInfo, [self.get_request_info_filter(internalRequestInfo)])
+      end
+
       def get_request_info_filter(request_info)
         XSS::Infrastructure::RequestInfoFilter.new(request_info)
       end
