@@ -231,8 +231,7 @@ module Azure::Storage::Stress
 
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Getting message from queue #{queueName} successful")
-        result = XSS::Converter::QueueConverter.convertQueueMessageToThriftQueueMessage(temp[0])
-        result
+        XSS::Converter::QueueConverter.convertQueueMessageToThriftQueueMessage(temp[0])
       end
 
       def peekMessage(requestInfo, accountInfo)
@@ -251,8 +250,7 @@ module Azure::Storage::Stress
 
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Peeking message from queue #{queueName} successful")
-        result = QueueConverter.convertQueueMessageToThriftQueueMessage(temp[0])
-        return result
+        QueueConverter.convertQueueMessageToThriftQueueMessage(temp[0])
       end
 
       def getMessages(requestInfo, accountInfo, visibilityTimeout, messageCount)
@@ -267,15 +265,18 @@ module Azure::Storage::Stress
         reqOptions[:number_of_messages] = messageCount
 
         # ==== Operation ==== #
+        LoggingAspect::logger.info("Getting messages from queue #{queueName}")
+        LoggingAspect::logger.debug("'options' is #{reqOptions.to_s}")
         temp = queueClient.list_messages(queueName, visibilityTimeout, reqOptions)
 
         # ==== Construct Return Value ==== #
+        LoggingAspect::logger.info("Getting messages from queue #{queueName} successful")
         result = []
         temp.each do |message|
           entry = QueueConverter.convertQueueMessageToThriftQueueMessage(message)
           result.push(entry)
         end
-        return result
+        result
       end
 
       def peekMessages(requestInfo, accountInfo, messageCount)

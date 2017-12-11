@@ -11,7 +11,7 @@ module Azure::Storage::Stress
     class CloudBlobBaseHandler < BaseHandler
       def build_client(internalRequestInfo, accountInfo)
         # ==== Build Client ==== #
-        super(internalRequestInfo, accountInfo, XSS::Converter::BlobConverter::getBlobService)
+        XSS::Converter::BlobConverter.getBlobService(self, accountInfo, [self.get_request_info_filter(internalRequestInfo)])
       end
     end
   end
