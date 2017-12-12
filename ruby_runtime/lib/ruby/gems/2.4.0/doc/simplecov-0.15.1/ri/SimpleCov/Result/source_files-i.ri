@@ -1,2 +1,0 @@
-U:RDoc::Attr[iI"source_files:EFI"#SimpleCov::Result#source_files;TI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"„Returns all files that are applicable to this result (sans filters!) as instances of SimpleCov::SourceFile. Aliased as :source_files;T:
-@fileI"lib/simplecov/result.rb;T:0@omit_headings_from_table_of_contents_below0F@I"SimpleCov::Result;TcRDoc::NormalClass0

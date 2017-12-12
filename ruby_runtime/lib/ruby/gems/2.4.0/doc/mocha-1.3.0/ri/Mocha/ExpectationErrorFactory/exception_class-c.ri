@@ -1,9 +1,0 @@
-U:RDoc::Attr[iI"exception_class:ETI"4Mocha::ExpectationErrorFactory::exception_class;TI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I" @!attribute exception_class;To:RDoc::Markup::Verbatim;	[I"\Determines what class of exception should be raised when Mocha detects a test failure.
-;TI"
-;TI"¹This attribute may be set by authors of test libraries in order to have Mocha raise exceptions of a specific class when there is an unexpected invocation or an unsatisfied expectation.
-;TI"
-;TI"<By default a +Mocha::ExpectationError+ will be raised.
-;TI"
-;TI"Z@return [Exception] class of exception to be raised when an expectation error occurs
-;TI"!@see Mocha::ExpectationError;T:@format0:
-@fileI"+lib/mocha/expectation_error_factory.rb;T:0@omit_headings_from_table_of_contents_below0T@I"#Mocha::ExpectationErrorFactory;TcRDoc::NormalClass0
