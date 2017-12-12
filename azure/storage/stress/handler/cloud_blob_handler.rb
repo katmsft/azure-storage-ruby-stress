@@ -22,8 +22,8 @@ module Azure::Storage::Stress
         options[:snapshot] = requestInfo.snapshotTime unless requestInfo.snapshotTime.nil?
         options[:delete_snapshots] = XSS::Converter::BlobConverter::getDeleteSnapshotsFromDeleteSnapshotsOption(deleteSnapshotsOption)
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Deleting blob #{containerName}\\#{blobName}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Deleting blob #{containerName}\\#{blobName}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         begin
           blobClient.delete_blob(containerName, blobName, options)
         rescue Azure::Core::Http::HTTPError => e
@@ -32,7 +32,7 @@ module Azure::Storage::Stress
           end
         end
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Deleting blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Deleting blob #{containerName}\\#{blobName} successful")
         # ==== Construct Return Value ==== #
         # Return true if successful deleted
         true
@@ -51,8 +51,8 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         # ==== Operation ==== #
         begin
-          LoggingAspect::logger.info("Fetching blob attributes #{containerName}\\#{blobName}")
-          LoggingAspect::logger.debug("'options' is #{options.to_s}")
+          LoggingAspect::info("Fetching blob attributes #{containerName}\\#{blobName}")
+          LoggingAspect::debug("'options' is #{options.to_s}")
           result = blobClient.get_blob_properties(containerName, blobName, options)
         rescue Azure::Core::Http::HTTPError => e
           if e.description.include? XSS::Constants::ERROR_BLOB_NOT_EXIST
@@ -79,12 +79,12 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Setting metadata for blob #{containerName}\\#{blobName}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
-        LoggingAspect::logger.debug("'metadata' is #{metadata.to_s}")
+        LoggingAspect::info("Setting metadata for blob #{containerName}\\#{blobName}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
+        LoggingAspect::debug("'metadata' is #{metadata.to_s}")
         result = blobClient.set_blob_metadata(containerName, blobName, metadata, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Setting metadata for blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Setting metadata for blob #{containerName}\\#{blobName} successful")
         XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
       end
 
@@ -98,12 +98,13 @@ module Azure::Storage::Stress
         options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
         options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        XSS::Converter::BlobConverter::addPropertiesToOptions(properties, options)
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Setting properties for blob #{containerName}\\#{blobName}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Setting properties for blob #{containerName}\\#{blobName}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         result = blobClient.set_blob_properties(containerName, blobName, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Setting properties for blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Setting properties for blob #{containerName}\\#{blobName} successful")
         r = properties.clone
         XSS::Converter::BlobConverter::updateCloudBlobResponseFromInternalRequestInfo(r, internalRequestInfo)
         r
@@ -120,11 +121,11 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Getting properties for blob #{containerName}\\#{blobName}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Getting properties for blob #{containerName}\\#{blobName}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         result = blobClient.get_blob_properties(containerName, blobName, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Getting properties for blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Getting properties for blob #{containerName}\\#{blobName} successful")
         XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
       end
 
@@ -139,11 +140,11 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Getting blob #{containerName}\\#{blobName}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Getting blob #{containerName}\\#{blobName}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         result, body = blobClient.get_blob(containerName, blobName, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Getting blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Getting blob #{containerName}\\#{blobName} successful")
         # ==== Construct Return Value ==== #
         r = XSS::AutoGenerated::BlobDownloadToByteArrayResponse.new
         r.bytesRead = body.size
@@ -165,11 +166,11 @@ module Azure::Storage::Stress
         options[:start_range] = offset
         options[:end_range] = length + offset
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Getting blob #{containerName}\\#{blobName}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Getting blob #{containerName}\\#{blobName}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         result = blobClient.get_blob(containerName, blobName, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Getting blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Getting blob #{containerName}\\#{blobName} successful")
         # ==== Construct Return Value ==== #
         r = XSS::AutoGenerated::BlobDownloadToByteArrayResponse.new
         r.bytesRead = result[1].size
@@ -189,11 +190,11 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Getting blob #{containerName}\\#{blobName}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Getting blob #{containerName}\\#{blobName}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         result = blobClient.get_blob(containerName, blobName, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Getting blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Getting blob #{containerName}\\#{blobName} successful")
         # ==== Construct Return Value ==== #
         r = XSS::AutoGenerated::BlobDownloadToByteArrayResponse.new
         r.bytesRead = result[1].size
@@ -215,11 +216,11 @@ module Azure::Storage::Stress
         options[:start_range] = offset
         options[:end_range] = length + offset
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Getting blob #{containerName}\\#{blobName}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Getting blob #{containerName}\\#{blobName}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         result = blobClient.get_blob(containerName, blobName, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Getting blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Getting blob #{containerName}\\#{blobName} successful")
         # ==== Construct Return Value ==== #
         r = XSS::AutoGenerated::BlobDownloadToByteArrayResponse.new
         r.bytesRead = result[1].size
@@ -245,11 +246,11 @@ module Azure::Storage::Stress
         options[:duration] = leaseTime
         options[:proposed_lease_id] = proposedLeaseId
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Acquiring lease for blob #{containerName}\\#{blobName} with leaseTime #{leaseTime}, proposedLeaseId #{proposedLeaseId}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Acquiring lease for blob #{containerName}\\#{blobName} with leaseTime #{leaseTime}, proposedLeaseId #{proposedLeaseId}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         result = blobClient.acquire_blob_lease(containerName, blobName, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Acquiring lease for blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Acquiring lease for blob #{containerName}\\#{blobName} successful")
         r = XSS::AutoGenerated::BlobChangeAcquireLeaseResponse.new
         r.leaseId = result
         r.response = XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
@@ -268,11 +269,11 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         options[:break_period] = breakPeriod
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Breaking lease for blob #{containerName}\\#{blobName} with breakPeriod #{breakPeriod}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Breaking lease for blob #{containerName}\\#{blobName} with breakPeriod #{breakPeriod}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         result = blobClient.break_blob_lease(containerName, blobName, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Breaking lease for blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Breaking lease for blob #{containerName}\\#{blobName} successful")
         r = XSS::AutoGenerated::BlobBreakLeaseResponse.new
         r.remainingLeaseTimeinSeconds = result
         r.response = XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
@@ -291,11 +292,11 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         lease = options[:lease_id]
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Changing lease for blob #{containerName}\\#{blobName} with proposedLeaseId #{proposedLeaseId}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Changing lease for blob #{containerName}\\#{blobName} with proposedLeaseId #{proposedLeaseId}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         result = blobClient.change_blob_lease(containerName, blobName, lease, proposedLeaseId, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Changing lease for blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Changing lease for blob #{containerName}\\#{blobName} successful")
         r = XSS::AutoGenerated::BlobChangeAcquireLeaseResponse.new
         r.leaseId = result
         r.response = XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
@@ -314,11 +315,11 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         lease = options[:lease_id]
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Releasing lease for blob #{containerName}\\#{blobName}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Releasing lease for blob #{containerName}\\#{blobName}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         result = blobClient.release_blob_lease(containerName, blobName, lease, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Releasing lease for blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Releasing lease for blob #{containerName}\\#{blobName} successful")
         XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
       end
 
@@ -334,11 +335,11 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         lease = options[:lease_id]
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Renewing lease for blob #{containerName}\\#{blobName}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Renewing lease for blob #{containerName}\\#{blobName}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         result = blobClient.renew_container_lease(containerName, blobName, lease, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Renewing lease for blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Renewing lease for blob #{containerName}\\#{blobName} successful")
         XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
       end
 
@@ -355,11 +356,11 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         uriStr = uri.primaryUri
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Starting copy for blob #{containerName}\\#{blobName} from uri: #{uriStr}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Starting copy for blob #{containerName}\\#{blobName} from uri: #{uriStr}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         result = blobClient.copy_blob_from_uri(containerName, blobName, uriStr, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Starting copy for blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Starting copy for blob #{containerName}\\#{blobName} successful")
         r = XSS::AutoGenerated::BlobStartCopyFromBlobResponse.new
         r.response = XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
         r.copyID = result[0]
@@ -377,11 +378,11 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Aborting copy for blob #{containerName}\\#{blobName} with copyId: #{copyId}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Aborting copy for blob #{containerName}\\#{blobName} with copyId: #{copyId}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         result = blobClient.abort_copy_blob(containerName, blobName, copy_id, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Aborting copy for blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Aborting copy for blob #{containerName}\\#{blobName} successful")
         XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
       end
 
@@ -397,11 +398,11 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         options[:metadata] = metadata unless metadata.nil?
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Creating snapshot for blob #{containerName}\\#{blobName}")
-        LoggingAspect::logger.debug("'options' is #{options.to_s}")
+        LoggingAspect::info("Creating snapshot for blob #{containerName}\\#{blobName}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
         result = blobClient.create_blob_snapshot(containerName, blobName, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Creating snapshot for blob #{containerName}\\#{blobName} successful")
+        LoggingAspect::info("Creating snapshot for blob #{containerName}\\#{blobName} successful")
         # ==== Construct Return Value ==== #
         XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
       end

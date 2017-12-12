@@ -9,9 +9,9 @@ end
 
 # Azure::Storage::Stress::Infrastructure::LoggingAspect.apply(Azure::Storage::Stress::Utilities)
 # Azure::Storage::Stress::Infrastructure::LoggingAspect.apply(Azure::Storage::Stress::Utilities)
-# Azure::Storage::Stress::Infrastructure::LoggingAspect::logger.debug("start")
+# Azure::Storage::Stress::Infrastructure::LoggingAspect::debug("start")
 # bin_to_hex(Azure::Storage::Stress::Utilities.generateMT19937Payload(2000000, 7))
-# Azure::Storage::Stress::Infrastructure::LoggingAspect::logger.debug("end")
-# Azure::Storage::Stress::Infrastructure::LoggingAspect::logger.debug("start")
+# Azure::Storage::Stress::Infrastructure::LoggingAspect::debug("end")
+# Azure::Storage::Stress::Infrastructure::LoggingAspect::debug("start")
 # bin_to_hex(Azure::Storage::Stress::Utilities.generateMT19937PayloadSlow(2000000, 7))
-# Azure::Storage::Stress::Infrastructure::LoggingAspect::logger.debug("end")
+# Azure::Storage::Stress::Infrastructure::LoggingAspect::debug("end")
