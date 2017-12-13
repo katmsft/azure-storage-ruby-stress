@@ -1,4 +1,5 @@
 require_relative "base_handler"
+require_relative "cloud_file_base_handler"
 require_relative "../utils"
 require_relative "../auto_generated/cloud_file_client_service"
 require_relative "../converter/core_converter"

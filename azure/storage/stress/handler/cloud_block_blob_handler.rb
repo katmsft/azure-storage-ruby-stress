@@ -24,7 +24,7 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         options[:content_md5] = putBlockPayload.contentMD5 if putBlockPayload.contentMD5
         content = XSS::Utilities::generateMT19937Payload(putBlockPayload.blockDataLength, putBlockPayload.version)
-        blockId = Base64.decode64(putBlockPayload.blockId)
+        blockId = Base64.strict_decode64(putBlockPayload.blockId)
         # ==== Operation ==== #
         LoggingAspect::info("Putting block to block blob #{containerName}\\#{blobName} with blockId: #{blockId}")
         LoggingAspect::debug("'options' is #{options.to_s}")

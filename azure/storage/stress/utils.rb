@@ -8,11 +8,11 @@ module Azure::Storage::Stress
     end
 
     def self.timeStringToInteger(timeString)
-      Time.parse(timeString).to_i
+      Time.parse(timeString).to_i * XSS::Constants::TICKS_PER_SECOND + XSS::Constants::UNIX_EPOCH_IN_TICKS
     end
 
     def self.timeIntegerToEdmString(timeInt)
-      Time.at(timeInt).utc.strftime("%Y-%m-%dT%H:%M:%S.%6N0Z")
+      Time.at(self.timeSpanToSecond(timeInt - XSS::Constants::UNIX_EPOCH_IN_TICKS)).utc.strftime("%Y-%m-%dT%H:%M:%S.%6N0Z")
     end
 
     def self.timeStampToTime(time)
@@ -50,7 +50,7 @@ module Azure::Storage::Stress
       random = ::Random.new(seed)
       payload = Array.new(length)
       for i in 0...length
-        payload[i] = random.rand(255)
+        payload[i] = random.rand(256)
       end
       payload[0] = seed
       payload.pack("C*")
@@ -59,7 +59,7 @@ module Azure::Storage::Stress
     def self.generateMT19937PayloadSlow(length, seed)
       random = ::Random.new(seed)
       payload = "#{seed.chr}"
-      random.rand(255)
+      random.rand(256)
       for i in 1...length
         payload += random.rand(255).chr
       end

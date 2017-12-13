@@ -403,7 +403,6 @@ module Azure::Storage::Stress
         result = blobClient.create_blob_snapshot(containerName, blobName, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::info("Creating snapshot for blob #{containerName}\\#{blobName} successful")
-        # ==== Construct Return Value ==== #
         XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
       end
     end

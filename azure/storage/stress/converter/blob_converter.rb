@@ -32,7 +32,7 @@ module Azure::Storage::Stress
         response.etag = rInfo.responseHeaders["etag"] unless rInfo.responseHeaders["etag"].nil?
         response.etag = "" if response.etag.nil?
 
-        response.lastModified = XSS::Utilities::timeStringToInteger(rInfo.responseHeaders["last-modified"]) unless rInfo.responseHeaders["last-modified"].nil?
+        response.lastModified = XSS::Utilities::timeStringToInteger(rInfo.responseHeaders["last-modified"]) if rInfo.responseHeaders["last-modified"]
         response.lastModified = 0 if response.lastModified.nil?
 
         response.metadata = XSS::Utilities::metadataFromHeaders(rInfo.responseHeaders)
@@ -68,12 +68,12 @@ module Azure::Storage::Stress
 
         response.PageBlobSequenceNumber = rInfo.responseHeaders["x-ms-blob-sequence-number"].to_i if rInfo.responseHeaders["x-ms-blob-sequence-number"]
 
-        response.snapshotTime = XSS::Utilities::timeStringToInteger(rInfo.responseHeaders["x-ms-snapshot"]) unless rInfo.responseHeaders["x-ms-snapshot"].nil?
+        response.snapshotTime = XSS::Utilities::timeStringToInteger(rInfo.responseHeaders["x-ms-snapshot"]) if rInfo.responseHeaders["x-ms-snapshot"]
         response.isSnapshot = true if response.snapshotTime
 
         response.copyState = XSS::Converter::CoreConverter::getCopyStateFromInternalRequestInfo(rInfo)
 
-        response.isIncrementalCopy = rInfo.responseHeaders["x-ms-incremental-copy"].to_s == "true" unless rInfo.responseHeaders["x-ms-incremental-copy"].nil?
+        response.isIncrementalCopy = rInfo.responseHeaders["x-ms-incremental-copy"].to_s == "true" if rInfo.responseHeaders["x-ms-incremental-copy"]
 
         # TODO: 2017-04-17
         # response.standardBlobTier
@@ -270,7 +270,7 @@ module Azure::Storage::Stress
 
       def self.buildBlobListFromThriftArray(blockList)
         result = []
-        blockList.each { |block| result.push([Base64::strict_encode64(block), :uncommitted]) } # TODO: What about uncommitted?
+        blockList.each { |block| result.push([Base64::strict_decode64(block), :uncommitted]) } # TODO: What about uncommitted?
         result
       end
 
