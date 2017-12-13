@@ -76,6 +76,25 @@ module Azure::Storage::Stress
         r.bytesRead = result.properties[:append_offset] if result.properties && result.properties[:append_offset]
         r
       end
+
+      def uploadFromByteArray(requestInfo, accountInfo, buffer, index, count)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        # ==== Construct Parameters ==== #
+        blobName = requestInfo.blobName
+        containerName = requestInfo.containerName
+        options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        # ==== Operation ==== #
+        LoggingAspect::info("Creating append blob #{containerName}\\#{blobName}")
+        LoggingAspect::debug("'options' is #{options.to_s}")
+        result = blobClient.create_append_blob_from_content(containerName, blobName, buffer[index, count], options)
+        # ==== Construct Return Value ==== #
+        LoggingAspect::info("Creating append blob #{containerName}\\#{blobName} successful")
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+      end
     end
   end
 end

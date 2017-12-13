@@ -30,7 +30,7 @@ module Azure::Storage::Stress
             LoggingAspect::info("Container #{containerName} does not exist")
             exists = false
           else
-            raise exists
+            raise e
           end
         end
         # ==== Construct Return Value ==== #

@@ -37,10 +37,11 @@ module Azure::Storage::Stress
 
     # Error messages
     ERROR_CONTAINER_NOT_EXIST = "The specified container does not exist."
+    ERROR_FILE_NOT_EXIST = "The specified resource does not exist."
     ERROR_BLOB_NOT_EXIST = "The specified blob does not exist."
     # TODO: validate the share error description
     ERROR_SHARE_NOT_EXIST = "The specified share does not exist."
     # TODO: validate the directory error description
-    ERROR_DIRECTORY_NOT_EXIST = "The specified directory does not exist."
+    ERROR_DIRECTORY_NOT_EXIST = "The specified resource does not exist."
   end
 end

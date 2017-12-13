@@ -139,6 +139,26 @@ module Azure::Storage::Stress
         pageRangesResponse
       end
 
+      def uploadFromByteArray(requestInfo, accountInfo, buffer, index, count)
+        # ==== Build Client ==== #
+        internalRequestInfo = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        # ==== Construct Parameters ==== #
+        blobName = requestInfo.blobName
+        containerName = requestInfo.containerName
+        options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
+        options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
+        options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        # ==== Operation ==== #
+        LoggingAspect::info("Uploading from stream for page blob #{containerName}\\#{blobName} with length #{length}")
+        LoggingAspect::debug("'source' is #{source}") if length < 100
+        LoggingAspect::debug("'options' is #{options.to_s}")
+        result = blobClient.create_page_blob_with_content(containerName, blobName, count, buffer[index, count], options)
+        # ==== Construct Return Value ==== #
+        LoggingAspect::info("Uploading from stream for page blob #{containerName}\\#{blobName} successful")
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+      end
+
       def uploadFromStream(requestInfo, accountInfo, source, length)
         # ==== Build Client ==== #
         internalRequestInfo = XSS::Utilities::get_default_request_info
