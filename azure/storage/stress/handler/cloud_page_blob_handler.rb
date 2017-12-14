@@ -124,7 +124,7 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         options[:start_range] = offset
         options[:end_range] = offset + length - 1
-        options[:previous_snapshot] = requestInfo.snapshotTime if requestInfo.snapshotTime
+        options[:snapshot] = requestInfo.snapshotTime if requestInfo.snapshotTime
         # ==== Operation ==== #
         LoggingAspect::info("Listing pages for page blob #{containerName}\\#{blobName} with offset #{offset}, endOffset #{options[:end_range]}")
         LoggingAspect::debug("'options' is #{options.to_s}")
