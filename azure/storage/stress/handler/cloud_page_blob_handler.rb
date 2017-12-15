@@ -26,7 +26,9 @@ module Azure::Storage::Stress
         result = blobClient.create_page_blob(containerName, blobName, size, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::info("Page blob #{containerName}\\#{blobName} with size #{size} created")
-        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+        r = XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+        r.length = size
+        r
       end
 
       def resize(requestInfo, accountInfo, size)

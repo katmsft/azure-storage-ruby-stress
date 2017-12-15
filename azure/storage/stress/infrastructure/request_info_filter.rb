@@ -1,6 +1,7 @@
 require "azure/core/http/http_filter"
 require "time"
 require_relative "../utils"
+require_relative "logging_aspect"
 
 module Azure::Storage::Stress
   module Infrastructure
@@ -30,12 +31,25 @@ module Azure::Storage::Stress
         @requestInfo.contentLength     = r.headers["Content-Length"] || r.headers["content-length"]
         @requestInfo.requestResults    = build_request_result(req, r)
         raise e unless e.nil?
+        printDebugLogRequestInfo(@requestInfo)
         r
       end
 
       def build_request_result(request, response)
         # TODO: build an actual request result if needed
         nil
+      end
+
+      def printDebugLogRequestInfo(rInfo)
+        LoggingAspect::logger.debug("Request successful")
+        LoggingAspect::logger.debug("Request URI is #{@requestInfo.uri.to_s}")
+        LoggingAspect::logger.debug("Request httpVerb is #{@requestInfo.httpVerb.to_s}")
+        LoggingAspect::logger.debug("Request headers is #{@requestInfo.requestHeaders.to_s}")
+        LoggingAspect::logger.debug("Request ID is #{@requestInfo.clientRequestId.to_s}")
+        LoggingAspect::logger.debug("Request content-length is #{@requestInfo.contentLength.to_s}")
+        LoggingAspect::logger.debug("Response status code is #{@requestInfo.statusCode.to_s}")
+        LoggingAspect::logger.debug("Response status description is #{@requestInfo.statusDescription.to_s}")
+        LoggingAspect::logger.debug("Response headers is #{@requestInfo.responseHeaders.to_s}")
       end
     end
   end

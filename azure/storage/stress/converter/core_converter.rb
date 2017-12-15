@@ -241,12 +241,11 @@ module Azure::Storage::Stress
 
         results = {}
         signedIdentifiers.each { |signedIdentifier|
-          # tsp = ThriftSharedAccessPolicy
           tsp = policyClass.new
           accessPolicy = signedIdentifier.access_policy
           tsp.permissions = accessPolicy.permission
-          tsp.expiry = XSS::Utilities::timeStringToInteger accessPolicy.expiryTime
-          tsp.start = XSS::Utilities::timeStringToInteger accessPolicy.startTime
+          tsp.expiryTime = XSS::Utilities::timeStringToInteger accessPolicy.expiry
+          tsp.startTime = XSS::Utilities::timeStringToInteger accessPolicy.start
           results[signedIdentifier.id] = tsp
         }
         results

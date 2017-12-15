@@ -27,7 +27,7 @@ module Azure::Storage::Stress
           LoggingAspect.logger.error "Trace:\n#{backtraceStr}"
           raise XSS::Converter::CoreConverter::buildThriftException(e)
         end
-        LoggingAspect.logger.debug "Exiting  #{class_method}: #{result}"
+        LoggingAspect.logger.debug "Exiting  #{class_method}: #{result.inspect}"
         result
       end
 
