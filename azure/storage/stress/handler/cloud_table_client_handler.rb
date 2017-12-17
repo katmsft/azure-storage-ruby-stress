@@ -10,11 +10,11 @@ module Azure::Storage::Stress
     class CloudTableClientHandler < BaseHandler
       def getServiceStats(requestInfo, accountInfo)
         tableClient = XSS::Converter::TableConverter.getTableService(self, accountInfo)
-        
+
         # ==== Construct Parameters ==== #
         reqOptions = XSS::Converter::CoreConverter.getRequestOptions(requestInfo.thriftRequestOptions)
         reqOptions.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
-        
+
         # ==== Operation ==== #
         LoggingAspect::logger.info("Get tables service stats")
         LoggingAspect::logger.debug("'options' is #{reqOptions.to_s}")
@@ -27,7 +27,7 @@ module Azure::Storage::Stress
 
       def getServiceProperties(requestInfo, accountInfo)
         tableClient = XSS::Converter::TableConverter.getTableService(self, accountInfo)
-        
+
         # ==== Construct Parameters ==== #
         reqOptions = XSS::Converter::CoreConverter.getRequestOptions(requestInfo.thriftRequestOptions)
         reqOptions.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
@@ -44,7 +44,7 @@ module Azure::Storage::Stress
 
       def setServiceProperties(serviceProperties, requestInfo, accountInfo)
         tableClient = XSS::Converter::TableConverter.getTableService(self, accountInfo)
-        
+
         # ==== Construct Parameters ==== #
         reqOptions = XSS::Converter::CoreConverter.getRequestOptions(requestInfo.thriftRequestOptions)
         reqOptions.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
@@ -61,7 +61,7 @@ module Azure::Storage::Stress
 
       def listTables(prefix, requestInfo, accountInfo)
         tableClient = XSS::Converter::TableConverter.getTableService(self, accountInfo)
-        
+
         # ==== Construct Parameters ==== #
         reqOptions = XSS::Converter::CoreConverter.getRequestOptions(requestInfo.thriftRequestOptions)
         reqOptions.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
