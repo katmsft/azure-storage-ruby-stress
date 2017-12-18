@@ -162,7 +162,7 @@ module Azure::Storage::Stress
         begin
           LoggingAspect::logger.info("Fetching attributes from file #{shareName}/#{directoryName}/#{fileName}")
           LoggingAspect::logger.debug("'options' is #{options.to_s}")
-          result = blobClient.get_file_properties(shareName, directoryName, fileName, options)
+          result = fileClient.get_file_properties(shareName, directoryName, fileName, options)
         rescue Azure::Core::Http::HTTPError => e
           if e.description.include? XSS::Constants::ERROR_FILE_NOT_EXIST
             LoggingAspect::info("File #{shareName}/#{directoryName}/#{fileName} does not exist")

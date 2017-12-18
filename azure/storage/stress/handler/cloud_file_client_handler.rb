@@ -46,7 +46,7 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         options[:prefix] = prefix
         options[:max_results] = maxResults
-        options[:marker] = continuationToken.nextMarker
+        options[:marker] = continuationToken.nextMarker if continuationToken
         # TODO: options[:metadata]?
         # ==== Operation ==== #
         LoggingAspect::logger.info("Listing Shares segmented")

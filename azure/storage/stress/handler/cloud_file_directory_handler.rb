@@ -50,7 +50,6 @@ module Azure::Storage::Stress
         r
       end
 
-
       def deleteDirectory(accountInfo, filePath, deleteIfExists, accessCondition, fileRequestOptions, operationContext)
         # If container does not exist, return success
         if deleteIfExists
@@ -88,7 +87,6 @@ module Azure::Storage::Stress
         true
       end
 
-
       def setMetadata(accountInfo, filePath, accessCondition, fileRequestOptions, operationContext, metadata)
         # ==== Build Client ==== #
         internalRequestInfo = XSS::Utilities::get_default_request_info
@@ -112,8 +110,6 @@ module Azure::Storage::Stress
         XSS::Converter::FileConverter::bulidCloudFileDirectoryResponseFromInternalRequestInfo(internalRequestInfo)
       end
 
-
-
       def fetchAttributes(accountInfo, filePath, accessCondition, fileRequestOptions, operationContext)
         # ==== Build Client ==== #
         internalRequestInfo = XSS::Utilities::get_default_request_info
@@ -136,8 +132,6 @@ module Azure::Storage::Stress
         LoggingAspect::logger.info("Fetching container attributes #{shareName}/#{directoryName} Successful")
         XSS::Converter::FileConverter::bulidCloudFileDirectoryResponseFromInternalRequestInfo(internalRequestInfo)
       end
-
-
 
       def exists(accountInfo, filePath, fileRequestOptions, operationContext)
         exists = true
@@ -186,7 +180,7 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         # TODO: snapshotTime
         options[:prefix] = prefix
-        options[:marker] = continuationToken.nextMarker
+        options[:marker] = continuationToken.nextMarker if continuationToken
         options[:max_results] = maxResults
         # ==== Operation ==== #
         LoggingAspect::logger.info("List Files And Directories Segmented #{shareName}/#{directoryName}")
@@ -199,10 +193,10 @@ module Azure::Storage::Stress
         r.directories = []
         r.files = []
         result.each do |filesOrdirectories|
-          case filesOrdirectories.class
-          when Azure::Storage::File::Directory::Directory
+          case filesOrdirectories.class.to_s
+          when "Azure::Storage::File::Directory::Directory"
             r.directories.push(XSS::Converter::FileConverter::buildCloudFileDirectoryListItemWithDirectory(filesOrdirectories, filePath, fileClient))
-          when Azure::Storage::File::File
+          when "Azure::Storage::File::File"
             r.files.push(XSS::Converter::FileConverter::buildCloudFileListItemWithFile(filesOrdirectories, filePath, fileClient))
           end
         end
@@ -232,10 +226,10 @@ module Azure::Storage::Stress
           result = fileClient.list_directories_and_files(shareName, directoryName, options)
           # ==== Construct Return Value ==== #
           result.each do |filesOrdirectories|
-            case filesOrdirectories.class
-            when Azure::Storage::File::Directory::Directory
+            case filesOrdirectories.class.to_s
+            when "Azure::Storage::File::Directory::Directory"
               r.directories.push(XSS::Converter::FileConverter::buildCloudFileDirectoryListItemWithDirectory(filesOrdirectories, filePath, fileClient))
-            when Azure::Storage::File::File
+            when "Azure::Storage::File::File"
               r.files.push(XSS::Converter::FileConverter::buildCloudFileListItemWithFile(filesOrdirectories, filePath, fileClient))
             end
           end

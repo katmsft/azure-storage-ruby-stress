@@ -26,12 +26,14 @@ module Azure::Storage::Stress
         @requestInfo.statusCode        = r.status_code.to_i
         @requestInfo.statusDescription = r.status_code.to_s
         @requestInfo.responseHeaders   = r.headers
-        @requestInfo.clientRequestId   = r.headers["x-ms-client-request-id"]
+        @requestInfo.clientRequestId   = r.headers["x-ms-request-id"]
         @requestInfo.endTime           = Time.now.utc.to_i
         @requestInfo.contentLength     = r.headers["Content-Length"] || r.headers["content-length"]
         @requestInfo.requestResults    = build_request_result(req, r)
         raise e unless e.nil?
         printDebugLogRequestInfo(@requestInfo)
+        # Print body if short enough.
+        LoggingAspect::logger.debug("Response body is #{r.body}") if r.body.size < 2048
         r
       end
 
