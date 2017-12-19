@@ -6,9 +6,11 @@ require_relative "../infrastructure/logging_aspect"
 module Azure::Storage::Stress
   module Converter
     class TableConverter
-      def self.getTableService(handler, accountInfo)
+      def self.getTableService(handler, accountInfo, filters = [])
         storageService = XSS::Converter::CoreConverter.getStorageService(handler, accountInfo)
-        return storageService.table_client
+        table_client = storageService.table_client
+        filters.each { |filter| table_client.with_filter(filter) }
+        table_client
       end
 
       def self.getStorageEntityFromThriftOperation(thriftOperation)
