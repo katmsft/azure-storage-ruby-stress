@@ -12,8 +12,8 @@ module Azure::Storage::Stress
     class CloudPageBlobHandler < CloudBlobHandler
       def create(requestInfo, accountInfo, size)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         blobName = requestInfo.blobName
         containerName = requestInfo.containerName
@@ -26,15 +26,15 @@ module Azure::Storage::Stress
         result = blobClient.create_page_blob(containerName, blobName, size, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::info("Page blob #{containerName}\\#{blobName} with size #{size} created")
-        r = XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+        r = XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
         r.length = size
         r
       end
 
       def resize(requestInfo, accountInfo, size)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         blobName = requestInfo.blobName
         containerName = requestInfo.containerName
@@ -47,13 +47,13 @@ module Azure::Storage::Stress
         result = blobClient.resize_page_blob(containerName, blobName, size, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::info("Resized page blob #{containerName}\\#{blobName} with size #{size}")
-        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
       end
 
       def setSequenceNumber(requestInfo, accountInfo, sequenceNumberAction, sequenceNumber)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         blobName = requestInfo.blobName
         containerName = requestInfo.containerName
@@ -67,13 +67,13 @@ module Azure::Storage::Stress
         result = blobClient.set_sequence_number(containerName, blobName, action, sequenceNumber, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::info("page blob #{containerName}\\#{blobName}'s sequenceNumber is set")
-        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
       end
 
       def writePages(writePagesPayload, accountInfo)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         requestInfo = writePagesPayload.requestInfo
         blobName = requestInfo.blobName
@@ -92,13 +92,13 @@ module Azure::Storage::Stress
         result = blobClient.put_blob_pages(containerName, blobName, startOffset, endOffset, writePagesPayload.pageData, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::info("Putting pages for page blob #{containerName}\\#{blobName} successful")
-        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
       end
 
       def clearPages(requestInfo, accountInfo, startOffset, length)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         blobName = requestInfo.blobName
         containerName = requestInfo.containerName
@@ -111,13 +111,13 @@ module Azure::Storage::Stress
         result = blobClient.clear_blob_pages(containerName, blobName, startOffset, startOffset + length - 1, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::info("Clearing pages for page blob #{containerName}\\#{blobName} successful")
-        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
       end
 
       def getPageRanges(requestInfo, accountInfo, offset, length)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         blobName = requestInfo.blobName
         containerName = requestInfo.containerName
@@ -134,15 +134,15 @@ module Azure::Storage::Stress
         # ==== Construct Return Value ==== #
         LoggingAspect::info("Listing pages for page blob #{containerName}\\#{blobName} successful")
         pageRangesResponse = XSS::AutoGenerated::BlobGetPageRangesResponse.new
-        pageRangesResponse.response = XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+        pageRangesResponse.response = XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
         pageRangesResponse.pageRanges = XSS::Converter::BlobConverter::buildPageRangesFromListRangeResult(result)
         pageRangesResponse
       end
 
       def uploadFromByteArray(requestInfo, accountInfo, buffer, index, count)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         blobName = requestInfo.blobName
         containerName = requestInfo.containerName
@@ -156,13 +156,13 @@ module Azure::Storage::Stress
         result = blobClient.create_page_blob_with_content(containerName, blobName, count, buffer[index, count], options)
         # ==== Construct Return Value ==== #
         LoggingAspect::info("Uploading from stream for page blob #{containerName}\\#{blobName} successful")
-        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
       end
 
       def uploadFromStream(requestInfo, accountInfo, source, length)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         blobName = requestInfo.blobName
         containerName = requestInfo.containerName
@@ -176,13 +176,13 @@ module Azure::Storage::Stress
         result = blobClient.create_page_blob_with_content(containerName, blobName, length, source, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::info("Uploading from stream for page blob #{containerName}\\#{blobName} successful")
-        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
       end
 
       def startIncrementalCopy(requestInfo, accountInfo, uri)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        blobClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        blobClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         blobName = requestInfo.blobName
         containerName = requestInfo.containerName
@@ -197,7 +197,7 @@ module Azure::Storage::Stress
         LoggingAspect::info("Incremental copy for page blob #{containerName}\\#{blobName} successful")
         copyResponse = XSS::AutoGenerated::BlobStartCopyFromBlobResponse.new
         copyResponse.copyID = result[0]
-        copyResponse.response = XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(internalRequestInfo)
+        copyResponse.response = XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
         copyResponse
       end
     end

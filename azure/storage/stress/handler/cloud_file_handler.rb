@@ -11,8 +11,8 @@ module Azure::Storage::Stress
     class CloudFileHandler < CloudFileBaseHandler
       def create(accountInfo, filePath, size, accessCondition, fileRequestOptions, operationContext)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         shareName = filePath.shareName
         directoryName = filePath.directoryName
@@ -27,13 +27,13 @@ module Azure::Storage::Stress
         result = fileClient.create_file(shareName, directoryName, fileName, size, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Create file #{shareName}/#{directoryName}/#{fileName} with #{size} size successful")
-        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
       end
 
       def writeRange(accountInfo, filePath, version, length, startOffset, contentMd5, accessCondition, fileRequestOptions, operationContext)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         shareName = filePath.shareName
         directoryName = filePath.directoryName
@@ -51,7 +51,7 @@ module Azure::Storage::Stress
         result = fileClient.put_file_range(shareName, directoryName, fileName, startOffset, startOffset + length - 1, content, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Write range to file #{shareName}/#{directoryName}/#{fileName} with #{length} length payload successful")
-        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
       end
 
       def deleteFile(accountInfo, filePath, deleteIfExists, accessCondition, fileRequestOptions, operationContext)
@@ -66,8 +66,8 @@ module Azure::Storage::Stress
           end
         end
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         shareName = filePath.shareName
         directoryName = filePath.directoryName
@@ -81,14 +81,14 @@ module Azure::Storage::Stress
         result = fileClient.delete_file(shareName, directoryName, fileName, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Delete file #{shareName}/#{directoryName}/#{fileName} successful")
-        r.cloudFileResponse = XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        r.cloudFileResponse = XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
         r
       end
 
       def setMetadata(accountInfo, filePath, metadata, accessCondition, fileRequestOptions, operationContext)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         shareName = filePath.shareName
         directoryName = filePath.directoryName
@@ -103,13 +103,13 @@ module Azure::Storage::Stress
         result = fileClient.set_file_metadata(shareName, directoryName, fileName, metadata, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Set metadata to file #{shareName}/#{directoryName}/#{fileName} successful")
-        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
       end
 
       def setProperties(accountInfo, filePath, properties, accessCondition, fileRequestOptions, operationContext)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         shareName = filePath.shareName
         directoryName = filePath.directoryName
@@ -124,13 +124,13 @@ module Azure::Storage::Stress
         result = fileClient.set_file_properties(shareName, directoryName, fileName, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Set properties to file #{shareName}/#{directoryName}/#{fileName} successful")
-        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
       end
 
       def fetchAttributes(accountInfo, filePath, accessCondition, fileRequestOptions, operationContext)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         shareName = filePath.shareName
         directoryName = filePath.directoryName
@@ -144,14 +144,14 @@ module Azure::Storage::Stress
         result = fileClient.get_file_properties(shareName, directoryName, fileName, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Fetch attributes from file #{shareName}/#{directoryName}/#{fileName} successful")
-        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
       end
 
       def exists(accountInfo, filePath, fileRequestOptions, operationContext)
         exists = true
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         shareName = filePath.shareName
         directoryName = filePath.directoryName
@@ -174,14 +174,14 @@ module Azure::Storage::Stress
         # ==== Construct Return Value ==== #
         r = XSS::AutoGenerated::ExistsFileResponse.new
         r.exists = exists
-        r.cloudFileResponse = XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        r.cloudFileResponse = XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
         r
       end
 
       def clearRange(accountInfo, filePath, offset, length, accessCondition, fileRequestOptions, operationContext)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         shareName = filePath.shareName
         directoryName = filePath.directoryName
@@ -195,13 +195,13 @@ module Azure::Storage::Stress
         result = fileClient.clear_file_range(shareName, directoryName, fileName, offset, offset + length - 1, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Clear range for file #{shareName}/#{directoryName}/#{fileName} start from #{startOffset} with length #{length} successful")
-        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
       end
 
       def resize(accountInfo, filePath, size, accessCondition, fileRequestOptions, operationContext)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         shareName = filePath.shareName
         directoryName = filePath.directoryName
@@ -215,13 +215,13 @@ module Azure::Storage::Stress
         result = fileClient.resize_file(shareName, directoryName, fileName, size, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Resize file #{shareName}/#{directoryName}/#{fileName} to size #{size} successful")
-        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
       end
 
       def listRanges(accountInfo, filePath, size, length, accessCondition, fileRequestOptions, operationContext)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         shareName = filePath.shareName
         directoryName = filePath.directoryName
@@ -238,7 +238,7 @@ module Azure::Storage::Stress
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("List ranges for file #{shareName}/#{directoryName}/#{fileName} with size #{size}, length #{length} successful")
         r = XSS::AutoGenerated::ListRangesResponse.new
-        r.cloudFileResponse = XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        r.cloudFileResponse = XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
         r.ranges = []
         result[1].each { |range|
           tRange = XSS::AutoGenerated::ThriftFileRange.new
@@ -251,8 +251,8 @@ module Azure::Storage::Stress
 
       def uploadFromStream(accountInfo, filePath, source, length, accessCondition, fileRequestOptions, operationContext)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         shareName = filePath.shareName
         directoryName = filePath.directoryName
@@ -266,13 +266,13 @@ module Azure::Storage::Stress
         result = fileClient.create_file_with_content(shareName, directoryName, fileName, length, source, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Create file #{shareName}/#{directoryName}/#{fileName} using stream with size #{length} successful")
-        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
       end
 
       def uploadFromByteArray(accountInfo, filePath, buffer, index, count, accessCondition, fileRequestOptions, operationContext)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         shareName = filePath.shareName
         directoryName = filePath.directoryName
@@ -286,13 +286,13 @@ module Azure::Storage::Stress
         result = fileClient.create_file_with_content(shareName, directoryName, fileName, count, buffer[index, count], options)
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Create file #{shareName}/#{directoryName}/#{fileName} with size #{count} and content successful")
-        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
       end
 
       def downloadToByteArray(accountInfo, filePath, targetSize, index, accessCondition, fileRequestOptions, operationContext)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         shareName = filePath.shareName
         directoryName = filePath.directoryName
@@ -309,14 +309,14 @@ module Azure::Storage::Stress
         r = XSS::AutoGenerated::DownloadToByteArrayFileResponse.new
         r.totalBytesRead = result[1].size
         r.target = result[1]
-        r.cloudFileResponse = XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        r.cloudFileResponse = XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
         r
       end
 
       def downloadRangeToByteArray(accountInfo, filePath, targetSize, index, fileOffset, length, accessCondition, fileRequestOptions, operationContext)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         shareName = filePath.shareName
         directoryName = filePath.directoryName
@@ -335,14 +335,14 @@ module Azure::Storage::Stress
         r = XSS::AutoGenerated::DownloadToByteArrayFileResponse.new
         r.totalBytesRead = result[1].size
         r.target = result[1]
-        r.cloudFileResponse = XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        r.cloudFileResponse = XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
         r
       end
 
       def startCopyFromFileOrBlob(requestInfo, accountInfo, uri)
         # ==== Build Client ==== #
-        internalRequestInfo = XSS::Utilities::get_default_request_info
-        fileClient = self.build_client(internalRequestInfo, accountInfo)
+        @request_info = XSS::Utilities::get_default_request_info
+        fileClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         filePath = requestInfo.filePath
         shareName = filePath.shareName
@@ -361,7 +361,7 @@ module Azure::Storage::Stress
         LoggingAspect::logger.info("Copy file #{shareName}/#{directoryName}/#{fileName} from uri #{source} successful")
         r = XSS::AutoGenerated::FileStartCopyResponse.new
         r.copyID = result[0]
-        r.cloudFileResponse = XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(internalRequestInfo)
+        r.cloudFileResponse = XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
         r
       end
     end
