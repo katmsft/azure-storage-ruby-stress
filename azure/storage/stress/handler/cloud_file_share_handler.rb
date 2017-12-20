@@ -10,7 +10,7 @@ module Azure::Storage::Stress
   module Handler
     class CloudFileShareHandler < CloudFileBaseHandler
       def createShare(accountInfo, shareName, createIfNotExists, snapshotTime, fileRequestOptions, operationContext)
-        # If container already exists, return response from self.exists
+        # If share already exists, return response from self.exists
         if createIfNotExists
           exists = self.exists(accountInfo, shareName, snapshotTime, fileRequestOptions, operationContext)
           if (exists.exists)
@@ -48,7 +48,7 @@ module Azure::Storage::Stress
       end
 
       def deleteShare(accountInfo, shareName, deleteIfExists, snapshotTime, deleteSnapshotOptions, accessCondition, fileRequestOptions, operationContext)
-        # If container does not exist, return success
+        # If share does not exist, return success
         if deleteIfExists
           exists = self.exists(accountInfo, shareName, snapshotTime, fileRequestOptions, operationContext)
           unless (exists.exists)

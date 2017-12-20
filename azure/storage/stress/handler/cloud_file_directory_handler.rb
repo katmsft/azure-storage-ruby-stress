@@ -10,7 +10,7 @@ module Azure::Storage::Stress
   module Handler
     class CloudFileDirectoryHandler < CloudFileBaseHandler
       def createDirectory(accountInfo, filePath, createIfNotExists, fileRequestOptions, operationContext)
-        # If container already exists, return response from self.exists
+        # If directory already exists, return response from self.exists
         # TODO: The return type is not align with the original one. Will this also OK?
         if createIfNotExists
           exists = self.exists(accountInfo, filePath, fileRequestOptions, operationContext)
@@ -51,7 +51,7 @@ module Azure::Storage::Stress
       end
 
       def deleteDirectory(accountInfo, filePath, deleteIfExists, accessCondition, fileRequestOptions, operationContext)
-        # If container does not exist, return success
+        # If directory does not exist, return success
         if deleteIfExists
           exists = self.exists(accountInfo, filePath, fileRequestOptions, operationContext)
           unless (exists.exists)
@@ -125,11 +125,11 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(accessCondition)
         # TODO: snapshotTime
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Fetching container attributes #{shareName}/#{directoryName}")
+        LoggingAspect::logger.info("Fetching directory attributes #{shareName}/#{directoryName}")
         LoggingAspect::logger.debug("'options' is #{options.to_s}")
         result = fileClient.get_directory_properties(shareName, directoryName, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Fetching container attributes #{shareName}/#{directoryName} Successful")
+        LoggingAspect::logger.info("Fetching directory attributes #{shareName}/#{directoryName} Successful")
         XSS::Converter::FileConverter::bulidCloudFileDirectoryResponseFromInternalRequestInfo(@request_info)
       end
 
@@ -181,7 +181,7 @@ module Azure::Storage::Stress
         # TODO: snapshotTime
         options[:prefix] = prefix
         options[:marker] = continuationToken.nextMarker if continuationToken
-        options[:max_results] = maxResults
+        options[:max_results] = maxResults if maxResults && maxResults > 0
         # ==== Operation ==== #
         LoggingAspect::logger.info("List Files And Directories Segmented #{shareName}/#{directoryName}")
         LoggingAspect::logger.debug("'options' is #{options.to_s}")

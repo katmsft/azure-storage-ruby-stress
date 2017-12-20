@@ -20,7 +20,7 @@ module Azure::Storage::Stress
           options[:RowKey] = thriftOperation.entity.rowKey
           thriftOperation.entity.properties.each do |key, property|
             options[key] = property.isNull ? nil : property.value
-          end
+          end if thriftOperation.entity.properties
         end
         options
       end

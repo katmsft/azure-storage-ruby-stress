@@ -190,11 +190,11 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(operationContext)
         options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(accessCondition)
         # ==== Operation ==== #
-        LoggingAspect::logger.info("Clear range for file #{shareName}/#{directoryName}/#{fileName} start from #{startOffset} with length #{length}")
+        LoggingAspect::logger.info("Clear range for file #{shareName}/#{directoryName}/#{fileName} start from #{offset} with length #{length}")
         LoggingAspect::logger.debug("'options' is #{options.to_s}")
         result = fileClient.clear_file_range(shareName, directoryName, fileName, offset, offset + length - 1, options)
         # ==== Construct Return Value ==== #
-        LoggingAspect::logger.info("Clear range for file #{shareName}/#{directoryName}/#{fileName} start from #{startOffset} with length #{length} successful")
+        LoggingAspect::logger.info("Clear range for file #{shareName}/#{directoryName}/#{fileName} start from #{offset} with length #{length} successful")
         XSS::Converter::FileConverter::buildCloudFileResponseFromInternalRequestInfo(@request_info)
       end
 

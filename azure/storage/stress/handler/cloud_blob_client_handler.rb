@@ -58,7 +58,7 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(listContainersPayload.thriftOperationContext)
         options.merge! XSS::Converter::BlobConverter::getListDetailOptionsFromBlobContainerListingDetails(listContainersPayload.containerListingDetails)
         options[:prefix] = listContainersPayload.prefix if listContainersPayload.prefix
-        options[:max_results] = maxResults
+        options[:max_results] = maxResults if maxResults && maxResults > 0
         options[:marker] = currentToken.nextMarker
         options[:location_mode] = XSS::Converter::CoreConverter::getLocationModeFromStorageLocation(currentToken.targetLocation)
         # options[:delimiter]?
