@@ -20,17 +20,17 @@ module Azure::Storage::Stress
         LoggingAspect.apply(handler)
         processor = @processor_type.new(handler)
         LoggingAspect.apply(processor)
-        wrap_out_protocol(oprot, handler.request_info)
+        wrap_out_protocol(oprot, handler)
         processor.process(iprot, oprot)
       end
 
-      def wrap_out_protocol(oprot, request_info)
+      def wrap_out_protocol(oprot, handler)
         LoggingAspect.logger.debug "Wrapping out_protocol in aspect so request_info gets written"
         aspector(oprot) do
           around :write_message_begin do |proxy, *args, &block|
             proxy.call *args, &block
             LoggingAspect.logger.debug "Writing request_info to out_protocol"
-            request_info.write(oprot)
+            handler.request_info.write(oprot)
           end
         end
       end

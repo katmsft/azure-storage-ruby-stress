@@ -134,7 +134,9 @@ module Azure::Storage::Stress
         result = blobClient.set_container_metadata(containerName, metadata, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::info("Fetching container #{containerName} attributes successful")
-        XSS::Converter::BlobConverter::buildBlobContainerResponseFromInternalRequestInfo(@request_info)
+        r = XSS::Converter::BlobConverter::buildBlobContainerResponseFromInternalRequestInfo(@request_info)
+        r.metadata = metadata
+        r
       end
 
       def createContainer(reqInfo, accountInfo, accessType, createIfNotExists, metadata)

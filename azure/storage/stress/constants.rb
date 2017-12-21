@@ -33,7 +33,7 @@ module Azure::Storage::Stress
     UNIX_EPOCH_IN_MILLISECONDS = 62135596800000
     UNIX_EPOCH_IN_TICKS = 621355968000000000
     MILLISECONDS_PER_SECOND = 1000
-    HTTP_METHODS = ["DELETE", "GET", "HEAD", "MERGE", "POST", "OPTIONS", "PUT"]
+    HTTP_METHODS = ["DELETE", "GET", "HEAD", "MERGE", "POST", "OPTIONS", "PUT", "CONNECT"]
 
     # Error messages
     ERROR_CONTAINER_NOT_EXIST = "The specified container does not exist."

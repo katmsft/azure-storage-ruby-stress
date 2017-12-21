@@ -8,7 +8,7 @@ module Azure::Storage::Stress
     end
 
     def self.timeStringToInteger(timeString)
-      Time.parse(timeString).to_i * XSS::Constants::TICKS_PER_SECOND + XSS::Constants::UNIX_EPOCH_IN_TICKS
+      (Time.parse(timeString).to_f * XSS::Constants::TICKS_PER_SECOND).to_i + XSS::Constants::UNIX_EPOCH_IN_TICKS
     end
 
     def self.timeIntegerToEdmString(timeInt)
@@ -22,6 +22,10 @@ module Azure::Storage::Stress
 
     def self.timeSpanToSecond(timeSpan)
       return timeSpan / XSS::Constants::TICKS_PER_SECOND
+    end
+
+    def self.getCurrentTimeInTicks()
+      (Time.now.utc.to_f * XSS::Constants::TICKS_PER_SECOND).to_i
     end
 
     def self.metadataFromHeaders(headers)

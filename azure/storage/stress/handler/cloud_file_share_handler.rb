@@ -145,7 +145,9 @@ module Azure::Storage::Stress
         result = fileClient.set_share_metadata(shareName, metadata, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Setting metadata for share #{shareName} successful")
-        XSS::Converter::FileConverter::buildCloudFileShareResponseFromInternalRequestInfo(@request_info)
+        r = XSS::Converter::FileConverter::buildCloudFileShareResponseFromInternalRequestInfo(@request_info)
+        r.metadata = metadata
+        r
       end
 
       def setProperties(requestInfo, accountInfo, properties)

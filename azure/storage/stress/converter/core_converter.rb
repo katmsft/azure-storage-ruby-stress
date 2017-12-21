@@ -125,8 +125,8 @@ module Azure::Storage::Stress
       def self.filterHTTPMethodsArray(methods)
         result = []
         methods.split(",").each do |method|
-          if XSS::Constants::HTTP_METHODS.include?(method.capitalize)
-            result.push(method.capitalize)
+          if XSS::Constants::HTTP_METHODS.include?(method.upcase)
+            result.push(method.upcase) unless method.upcase == "NONE"
           end
         end
         result

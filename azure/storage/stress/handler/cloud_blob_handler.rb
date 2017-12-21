@@ -85,7 +85,9 @@ module Azure::Storage::Stress
         result = blobClient.set_blob_metadata(containerName, blobName, metadata, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::info("Setting metadata for blob #{containerName}\\#{blobName} successful")
-        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
+        r = XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
+        r.metadata = metadata
+        r
       end
 
       def setProperties(requestInfo, accountInfo, properties)

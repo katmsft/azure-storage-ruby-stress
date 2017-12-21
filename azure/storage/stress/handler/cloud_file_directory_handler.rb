@@ -107,7 +107,9 @@ module Azure::Storage::Stress
         fileClient.set_directory_metadata(shareName, directoryName, metadata, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::logger.info("Set Metadata #{shareName}/#{directoryName} Successful")
-        XSS::Converter::FileConverter::bulidCloudFileDirectoryResponseFromInternalRequestInfo(@request_info)
+        r = XSS::Converter::FileConverter::bulidCloudFileDirectoryResponseFromInternalRequestInfo(@request_info)
+        r.metadata = metadata
+        r
       end
 
       def fetchAttributes(accountInfo, filePath, accessCondition, fileRequestOptions, operationContext)

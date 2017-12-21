@@ -170,9 +170,9 @@ module Azure::Storage::Stress
         tableClient = self.build_client(@request_info, accountInfo)
         # ==== Construct Parameters ==== #
         tableName = requestInfo.tableName
-        batch = XSS::Converter::TableConverter.getStorageBatchFromThriftOperations(tableName, operations)
         reqOptions = XSS::Converter::CoreConverter.getRequestOptions(requestInfo.thriftRequestOptions)
         reqOptions.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        batch = XSS::Converter::TableConverter.getStorageBatchFromThriftOperations(tableName, operations, reqOptions)
 
         # ==== Operation ==== #
         LoggingAspect::logger.info("Execute batch on table #{tableName}")
