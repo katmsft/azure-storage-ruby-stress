@@ -73,7 +73,7 @@ module Azure::Storage::Stress
         # ==== Construct Parameters ==== #
         reqOptions = XSS::Converter::CoreConverter.getRequestOptions(requestInfo.thriftRequestOptions)
         reqOptions.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
-
+        temp = nil
         # ==== Operation ==== #
         entries = []
         begin

@@ -27,7 +27,7 @@ module Azure::Storage::Stress
           LoggingAspect.logger.error "Trace:\n#{backtraceStr}"
           raise XSS::Converter::CoreConverter::buildThriftException(e)
         end
-        LoggingAspect.logger.debug "Exiting  #{class_method}: #{result.inspect}"
+        LoggingAspect.logger.debug "Exiting  #{class_method}: #{XSS::Infrastructure::LoggingAspect::inspectIgnoreLargeString(result)}"
         result
       end
 
@@ -57,6 +57,17 @@ module Azure::Storage::Stress
           @is_init = true
         end
         @logger
+      end
+
+      def self.inspectIgnoreLargeString(object)
+        istr = "<" + object.class.to_s
+        ivs = object.instance_variables
+        ivs.each { |iv|
+          ivstr = object.instance_variable_get(iv).inspect
+          ivstr = "!!!Not shown because too long!!!" if ivstr.size > XSS::Constants::MAX_ALLOWED_INSPECT_SIZE
+          istr += "<#{iv.to_s}: #{ivstr}; >"
+        }
+        istr + ">"
       end
 
       def self.debug(message)

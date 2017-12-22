@@ -33,11 +33,13 @@ module Azure::Storage::Stress
     UNIX_EPOCH_IN_MILLISECONDS = 62135596800000
     UNIX_EPOCH_IN_TICKS = 621355968000000000
     MILLISECONDS_PER_SECOND = 1000
-    HTTP_METHODS = ["DELETE", "GET", "HEAD", "MERGE", "POST", "OPTIONS", "PUT", "CONNECT"]
+    MAX_ALLOWED_INSPECT_SIZE = 4096
+    HTTP_METHODS = ["DELETE", "GET", "HEAD", "MERGE", "POST", "OPTIONS", "PUT", "CONNECT", "OPTIONS"]
 
     # Error messages
     ERROR_CONTAINER_NOT_EXIST = "The specified container does not exist."
     ERROR_FILE_NOT_EXIST = "The specified resource does not exist."
+    ERROR_PATH_NOT_EXIST = "The specified parent path does not exist."
     ERROR_TABLE_NOT_EXIST = "The specified resource does not exist."
     ERROR_BLOB_NOT_EXIST = "The specified blob does not exist."
     # TODO: validate the share error description

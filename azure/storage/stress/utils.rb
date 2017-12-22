@@ -15,6 +15,10 @@ module Azure::Storage::Stress
       Time.at(self.timeSpanToSecond(timeInt - XSS::Constants::UNIX_EPOCH_IN_TICKS)).utc.strftime("%Y-%m-%dT%H:%M:%S.%6N0Z")
     end
 
+    def self.datetimeToEdmString(datetime)
+      timeIntegerToEdmString(datetime.to_i)
+    end
+
     def self.timeStampToTime(time)
       timeStamp = (time / XSS::Constants::TICKS_PER_MILLISECOND - XSS::Constants::UNIX_EPOCH_IN_MILLISECONDS) / XSS::Constants::MILLISECONDS_PER_SECOND
       return Time.at(timeStamp)
@@ -48,6 +52,13 @@ module Azure::Storage::Stress
       constantsArray = moduleName.constants
       constantsArray.each { |constant| return moduleName.const_get(constant) if constant.to_s.casecmp(string) == 0 }
       default
+    end
+
+    def self.getConstNameFromModule(moduleName, const_value)
+      constantsArray = moduleName.constants
+      constantsArray.each { |constant| return constant.to_s if moduleName.const_get(constant) == const_value }
+      # Return the first value if could not get.
+      constantsArray[0].to_s
     end
 
     def self.generateMT19937Payload(length, seed)

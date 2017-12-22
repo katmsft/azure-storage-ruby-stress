@@ -41,19 +41,19 @@ module Azure::Storage::Stress
         @requestInfo.requestResults      = [] unless @requestInfo.requestResults
         @requestInfo.requestResults.push(requestResults)
         raise e unless e.nil?
-        printDebugLogRequestInfo
-        # Print body if short enough.
-        LoggingAspect::logger.debug("Response body is #{r.body}") if r.body.size < 2048
+        printDebugLogRequestInfo req.body, r.body
         r
       end
 
-      def printDebugLogRequestInfo()
+      def printDebugLogRequestInfo(request_body, response_body)
         LoggingAspect::logger.debug("Request successful")
         LoggingAspect::logger.debug("Request URI is #{@requestInfo.uri.to_s}")
         LoggingAspect::logger.debug("Request httpVerb is #{@requestInfo.httpVerb.to_s}")
         LoggingAspect::logger.debug("Request headers is #{@requestInfo.requestHeaders.to_s}")
         LoggingAspect::logger.debug("Request ID is #{@requestInfo.clientRequestId.to_s}")
         LoggingAspect::logger.debug("Request content-length is #{@requestInfo.contentLength.to_s}")
+        LoggingAspect::logger.debug("Request body is #{request_body.to_s}") if request_body && request_body.size < 1024
+        LoggingAspect::logger.debug("Response body is #{response_body.to_s}") if response_body && response_body.size < 1024
         LoggingAspect::logger.debug("Response status code is #{@requestInfo.statusCode.to_s}")
         LoggingAspect::logger.debug("Response status description is #{@requestInfo.statusDescription.to_s}")
         LoggingAspect::logger.debug("Response headers is #{@requestInfo.responseHeaders.to_s}")
