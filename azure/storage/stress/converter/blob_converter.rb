@@ -302,7 +302,7 @@ module Azure::Storage::Stress
         options[:content_md5] = properties.contentMd5 if properties.contentMd5
         options[:cache_control] = properties.cacheControl if properties.cacheControl
         options[:content_disposition] = properties.contentDisposition if properties.contentDisposition
-        options[:content_length] = properties.length if properties.length
+        # options[:content_length] = properties.length if properties.length
         # options[:sequence_number_action] =
         # TODO: sequence number action?
         options[:sequence_number] = properties.PageBlobSequenceNumber if properties.PageBlobSequenceNumber

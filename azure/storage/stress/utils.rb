@@ -1,4 +1,5 @@
 require_relative "./auto_generated/core_types"
+require_relative "constants"
 require "time"
 
 module Azure::Storage::Stress
@@ -8,7 +9,7 @@ module Azure::Storage::Stress
     end
 
     def self.timeStringToInteger(timeString)
-      (Time.parse(timeString).to_f * XSS::Constants::TICKS_PER_SECOND).to_i + XSS::Constants::UNIX_EPOCH_IN_TICKS
+      ((Time.parse(timeString).to_f - Time.parse(timeString).to_i) * XSS::Constants::TICKS_PER_SECOND).round + Time.parse(timeString).to_i * XSS::Constants::TICKS_PER_SECOND
     end
 
     def self.timeIntegerToEdmString(timeInt)
