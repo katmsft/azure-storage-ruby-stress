@@ -9,11 +9,17 @@ module Azure::Storage::Stress
     end
 
     def self.timeStringToInteger(timeString)
-      ((Time.parse(timeString).to_f - Time.parse(timeString).to_i) * XSS::Constants::TICKS_PER_SECOND).round + Time.parse(timeString).to_i * XSS::Constants::TICKS_PER_SECOND
+      time = Time.parse(timeString).utc
+      seconds = time.to_i
+      nano_seconds = time.nsec
+      (seconds * XSS::Constants::TICKS_PER_SECOND) + (nano_seconds / XSS::Constants::NANO_SECONDS_PER_TICK) + XSS::Constants::UNIX_EPOCH_IN_TICKS
     end
 
     def self.timeIntegerToEdmString(timeInt)
-      Time.at(self.timeSpanToSecond(timeInt - XSS::Constants::UNIX_EPOCH_IN_TICKS)).utc.strftime("%Y-%m-%dT%H:%M:%S.%6N0Z")
+      ticks = timeInt - XSS::Constants::UNIX_EPOCH_IN_TICKS
+      sec = self.timeSpanToSecond(ticks)
+      frac = (ticks - (sec * XSS::Constants::TICKS_PER_SECOND)).to_s.rjust(7, "0") + "Z"
+      Time.at(sec).utc.strftime("%Y-%m-%dT%H:%M:%S.") + frac
     end
 
     def self.datetimeToEdmString(datetime)
