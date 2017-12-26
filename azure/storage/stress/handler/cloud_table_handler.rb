@@ -189,7 +189,7 @@ module Azure::Storage::Stress
             if response.nil?
               nil
             elsif response.is_a?(Azure::Storage::Table::Entity)
-              opResult.entity = response
+              opResult.entity = XSS::Converter::TableConverter.getThriftEntityFromStorageEntity(response)
               response.etag
             else
               response
