@@ -49,6 +49,7 @@ module Azure::Storage::Stress
         options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
         options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        options[:snapshot] = requestInfo.snapshotTime if requestInfo.snapshotTime
         # ==== Operation ==== #
         begin
           LoggingAspect::info("Fetching blob attributes #{containerName}\\#{blobName}")
@@ -122,6 +123,7 @@ module Azure::Storage::Stress
         options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
         options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        options[:snapshot] = requestInfo.snapshotTime if requestInfo.snapshotTime
         # ==== Operation ==== #
         LoggingAspect::info("Getting properties for blob #{containerName}\\#{blobName}")
         LoggingAspect::debug("'options' is #{options.to_s}")
@@ -141,6 +143,7 @@ module Azure::Storage::Stress
         options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
         options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        options[:snapshot] = requestInfo.snapshotTime if requestInfo.snapshotTime
         # ==== Operation ==== #
         LoggingAspect::info("Getting blob #{containerName}\\#{blobName}")
         LoggingAspect::debug("'options' is #{options.to_s}")
@@ -167,6 +170,7 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         options[:start_range] = offset
         options[:end_range] = length + offset
+        options[:snapshot] = requestInfo.snapshotTime if requestInfo.snapshotTime
         # ==== Operation ==== #
         LoggingAspect::info("Getting blob #{containerName}\\#{blobName}")
         LoggingAspect::debug("'options' is #{options.to_s}")
@@ -191,6 +195,7 @@ module Azure::Storage::Stress
         options = XSS::Converter::CoreConverter::getRequestOptions(requestInfo.thriftRequestOptions)
         options.merge! XSS::Converter::CoreConverter::getAccessConditionOptions(requestInfo.thriftAccessCondition)
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
+        options[:snapshot] = requestInfo.snapshotTime if requestInfo.snapshotTime
         # ==== Operation ==== #
         LoggingAspect::info("Getting blob #{containerName}\\#{blobName}")
         LoggingAspect::debug("'options' is #{options.to_s}")
@@ -217,6 +222,7 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         options[:start_range] = offset
         options[:end_range] = length + offset
+        options[:snapshot] = requestInfo.snapshotTime if requestInfo.snapshotTime
         # ==== Operation ==== #
         LoggingAspect::info("Getting blob #{containerName}\\#{blobName}")
         LoggingAspect::debug("'options' is #{options.to_s}")

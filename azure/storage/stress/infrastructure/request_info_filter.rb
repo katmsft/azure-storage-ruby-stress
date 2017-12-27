@@ -22,41 +22,50 @@ module Azure::Storage::Stress
 
         begin
           r = _next.call
-        rescue Azure::Core::Http::HTTPError => e
-          r = e.http_response
+        rescue Exception => e
+          r = e.http_response if e.respond_to?(:http_response)
         end
 
-        responseHeaders                  = Hash[r.headers.map { |k, v| [k.to_s.downcase, v] }]
-        @requestInfo.statusCode          = r.status_code.to_i
-        @requestInfo.statusDescription   = r.status_code.to_s
-        @requestInfo.responseHeaders     = responseHeaders
-        @requestInfo.clientRequestId     = responseHeaders["x-ms-request-id"]
         requestResults.endTime           = XSS::Utilities::getCurrentTimeInTicks
         requestResults.etag              = ""
-        requestResults.etag              = responseHeaders["etag"] if responseHeaders["etag"]
-        requestResults.httpStatusCode    = r.status_code.to_i
-        requestResults.serviceRequestId  = responseHeaders["x-ms-request-id"]
-        @requestInfo.endTime             = XSS::Utilities::getCurrentTimeInTicks
-        @requestInfo.contentLength       = responseHeaders["content-length"].to_i if responseHeaders["content-length"]
-        @requestInfo.requestResults      = [] unless @requestInfo.requestResults
+
+        if r
+          responseHeaders                  = Hash[r.headers.map { |k, v| [k.to_s.downcase, v] }]
+          @requestInfo.statusCode          = r.status_code.to_i
+          @requestInfo.statusDescription   = r.status_code.to_s
+          @requestInfo.responseHeaders     = responseHeaders
+          @requestInfo.clientRequestId     = responseHeaders["x-ms-request-id"]
+          requestResults.etag              = responseHeaders["etag"] if responseHeaders["etag"]
+          requestResults.httpStatusCode    = r.status_code.to_i
+          requestResults.serviceRequestId  = responseHeaders["x-ms-request-id"]
+          @requestInfo.endTime             = XSS::Utilities::getCurrentTimeInTicks
+          @requestInfo.contentLength       = responseHeaders["content-length"].to_i if responseHeaders["content-length"]
+        else
+          @requestInfo.statusCode          = 0
+          @requestInfo.statusDescription   = e.message
+          requestResults.httpStatusCode    = 0
+          requestResults.serviceRequestId  = ""
+        end
+        @requestInfo.requestResults = [] unless @requestInfo.requestResults
         @requestInfo.requestResults.push(requestResults)
+        responseBody = r ? r.body : ""
+        printDebugLogRequestInfo req.body, responseBody
         raise e unless e.nil?
-        printDebugLogRequestInfo req.body, r.body
+        LoggingAspect::logger.debug("Request successful")
         r
       end
 
       def printDebugLogRequestInfo(request_body, response_body)
-        LoggingAspect::logger.debug("Request successful")
         LoggingAspect::logger.debug("Request URI is #{@requestInfo.uri.to_s}")
         LoggingAspect::logger.debug("Request httpVerb is #{@requestInfo.httpVerb.to_s}")
         LoggingAspect::logger.debug("Request headers is #{@requestInfo.requestHeaders.to_s}")
-        LoggingAspect::logger.debug("Request ID is #{@requestInfo.clientRequestId.to_s}")
-        LoggingAspect::logger.debug("Request content-length is #{@requestInfo.contentLength.to_s}")
+        LoggingAspect::logger.debug("Request ID is #{@requestInfo.clientRequestId.to_s}") if @requestInfo.clientRequestId
+        LoggingAspect::logger.debug("Request content-length is #{@requestInfo.contentLength.to_s}") if @requestInfo.contentLength
         LoggingAspect::logger.debug("Request body is #{request_body.to_s}") if request_body && request_body.size < 1024
         LoggingAspect::logger.debug("Response body is #{response_body.to_s}") if response_body && response_body.size < 1024
         LoggingAspect::logger.debug("Response status code is #{@requestInfo.statusCode.to_s}")
         LoggingAspect::logger.debug("Response status description is #{@requestInfo.statusDescription.to_s}")
-        LoggingAspect::logger.debug("Response headers is #{@requestInfo.responseHeaders.to_s}")
+        LoggingAspect::logger.debug("Response headers is #{@requestInfo.responseHeaders.to_s}") if @requestInfo.responseHeaders
       end
     end
   end

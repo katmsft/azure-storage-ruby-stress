@@ -1,6 +1,6 @@
 @echo off
 title "SCTE erver for Ruby Client Library"
-echo 12/26/2017 22:00
+echo 12/27/2017 16:00
 SET full_dir=%~dp0
 %~dp0ruby_runtime\bin\ruby.exe -v
 echo Running SCTE server

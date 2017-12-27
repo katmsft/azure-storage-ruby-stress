@@ -67,6 +67,7 @@ module Azure::Storage::Stress
         options.merge! XSS::Converter::CoreConverter::getOperationContextOptions(requestInfo.thriftOperationContext)
         blockListType = XSS::Converter::BlobConverter::getBlockListTypeFromBlockListingFilters(blockListingFilters)
         options[:blocklist_type] = blockListType if blockListType
+        options[:snapshot] = requestInfo.snapshotTime if requestInfo.snapshotTime
         # ==== Operation ==== #
         LoggingAspect::info("Listing block list of block blob #{containerName}\\#{blobName}")
         LoggingAspect::debug("'options' is #{options.to_s}")
