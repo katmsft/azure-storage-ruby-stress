@@ -1,4 +1,4 @@
-require "azure/storage"
+require "azure/storage/table"
 require "base64"
 require_relative "core_converter"
 require_relative "../infrastructure/logging_aspect"
@@ -8,8 +8,8 @@ module Azure::Storage::Stress
   module Converter
     class TableConverter
       def self.getTableService(handler, accountInfo, filters = [])
-        storageService = XSS::Converter::CoreConverter.getStorageService(handler, accountInfo)
-        table_client = storageService.table_client
+        client = XSS::Converter::CoreConverter.getStorageService(handler, accountInfo)
+        table_client = Azure::Storage::Table::TableService.new(client: client)
         filters.each { |filter| table_client.with_filter(filter) }
         table_client
       end

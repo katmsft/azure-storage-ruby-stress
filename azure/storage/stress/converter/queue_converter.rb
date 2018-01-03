@@ -1,4 +1,4 @@
-require "azure/storage"
+require "azure/storage/queue"
 require_relative "core_converter"
 require_relative "../infrastructure/logging_aspect"
 require_relative "../utils.rb"
@@ -8,8 +8,8 @@ module Azure::Storage::Stress
   module Converter
     class QueueConverter
       def self.getQueueService(handler, accountInfo, filters = [])
-        storageService = XSS::Converter::CoreConverter.getStorageService(handler, accountInfo)
-        queue_client = storageService.queue_client
+        client = XSS::Converter::CoreConverter.getStorageService(handler, accountInfo)
+        queue_client = Azure::Storage::Queue::QueueService.new(client: client)
         filters.each { |filter| queue_client.with_filter(filter) }
         queue_client
       end

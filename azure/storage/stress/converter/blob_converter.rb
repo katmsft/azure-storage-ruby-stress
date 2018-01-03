@@ -1,4 +1,4 @@
-require "azure/storage"
+require "azure/storage/blob"
 require "uri"
 require "base64"
 require_relative "core_converter"
@@ -11,8 +11,8 @@ module Azure::Storage::Stress
   module Converter
     class BlobConverter
       def self.getBlobService(handler, accountInfo, filters = [])
-        storageService = XSS::Converter::CoreConverter.getStorageService(handler, accountInfo)
-        blob_client = storageService.blob_client
+        client = XSS::Converter::CoreConverter.getStorageService(handler, accountInfo)
+        blob_client = Azure::Storage::Blob::BlobService.new(client: client)
         filters.each { |filter| blob_client.with_filter(filter) }
         blob_client
       end
@@ -270,7 +270,7 @@ module Azure::Storage::Stress
 
       def self.buildBlobListFromThriftArray(blockList)
         result = []
-        blockList.each { |block| result.push([Base64::strict_decode64(block), :uncommitted]) } # TODO: What about uncommitted?
+        blockList.each { |block| result.push([Base64::strict_decode64(block), :latest]) } # TODO: What about uncommitted?
         result
       end
 

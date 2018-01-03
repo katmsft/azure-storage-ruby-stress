@@ -1,4 +1,4 @@
-require "azure/storage"
+require "azure/storage/file"
 require_relative "core_converter"
 require_relative "../utils"
 require_relative "../infrastructure/logging_aspect"
@@ -8,8 +8,8 @@ module Azure::Storage::Stress
   module Converter
     class FileConverter
       def FileConverter.getFileService(handler, accountInfo, filters = [])
-        storageService = XSS::Converter::CoreConverter.getStorageService(handler, accountInfo)
-        file_client = storageService.file_client
+        client = XSS::Converter::CoreConverter.getStorageService(handler, accountInfo)
+        file_client = Azure::Storage::File::FileService.new(client: client)
         filters.each { |filter| file_client.with_filter(filter) }
         file_client
       end
