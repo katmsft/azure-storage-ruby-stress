@@ -1,6 +1,6 @@
 @echo off
 title "SCTE erver for Ruby Client Library"
-echo 1/3/2018 2:00
+echo 1/4/2018 12:00
 echo Split Version
 SET full_dir=%~dp0
 %~dp0ruby_runtime\bin\ruby.exe -v

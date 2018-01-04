@@ -130,7 +130,10 @@ module Azure::Storage::Stress
         result = blobClient.get_blob_properties(containerName, blobName, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::info("Getting properties for blob #{containerName}\\#{blobName} successful")
-        XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
+        r = XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
+        r.snapshotTime = XSS::Utilities::timeStringToInteger(requestInfo.snapshotTime) if requestInfo.snapshotTime
+        r.isSnapshot = true if requestInfo.snapshotTime
+        r
       end
 
       def downloadToStream(requestInfo, accountInfo)
