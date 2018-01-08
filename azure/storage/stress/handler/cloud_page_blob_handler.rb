@@ -153,7 +153,7 @@ module Azure::Storage::Stress
         LoggingAspect::info("Uploading from stream for page blob #{containerName}\\#{blobName} with length #{length}")
         LoggingAspect::debug("'source' is #{source}") if length < 100
         LoggingAspect::debug("'options' is #{options.to_s}")
-        result = blobClient.create_page_blob_with_content(containerName, blobName, count, buffer[index, count], options)
+        result = blobClient.create_page_blob_from_content(containerName, blobName, count, buffer[index, count], options)
         # ==== Construct Return Value ==== #
         LoggingAspect::info("Uploading from stream for page blob #{containerName}\\#{blobName} successful")
         XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
@@ -173,7 +173,7 @@ module Azure::Storage::Stress
         LoggingAspect::info("Uploading from stream for page blob #{containerName}\\#{blobName} with length #{length}")
         LoggingAspect::debug("'source' is #{source}") if length < 100
         LoggingAspect::debug("'options' is #{options.to_s}")
-        result = blobClient.create_page_blob_with_content(containerName, blobName, length, source, options)
+        result = blobClient.create_page_blob_from_content(containerName, blobName, length, source, options)
         # ==== Construct Return Value ==== #
         LoggingAspect::info("Uploading from stream for page blob #{containerName}\\#{blobName} successful")
         XSS::Converter::BlobConverter::buildCloudBlobResponseFromInternalRequestInfo(@request_info)
